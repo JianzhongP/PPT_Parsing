@@ -135,7 +135,9 @@ class ImageUtils:
             # 假设 image_path 是 .../ppt_slides_temp/slide_001.png
             # 输出将会是 .../processing_artifacts/crops/slide_001/element_x_y.png
             
-            output_dir = path_obj.parent.parent / "processing_artifacts" / "crops" / path_obj.stem
+            cfg = get_config()
+            processing_root = str(getattr(cfg, "processing_artifacts_dir", "processing_artifacts") or "processing_artifacts")
+            output_dir = path_obj.parent.parent / processing_root / "crops" / path_obj.stem
             output_dir.mkdir(parents=True, exist_ok=True)
             
             with Image.open(image_path) as img:
@@ -215,6 +217,7 @@ class Step1_GlobalAnalysisEngine:
                     - 仍需尽力提取页面上可见的主标题到 section_title（不要留空；若确实没有标题，填 "封面/章节页"）。若标题为英文，请按上述规则追加中文翻译。
                     - 设定 is_pure_text=True，complexity_score=low，elements=[]。
                     - core_summary 用中文简洁说明这是封面/章节页，并包含标题（例如："本页为封面/章节页：2023年业绩概览"），不要输出占位符英文句子。
+                    - 若为目录页，不仅需要列出所有章节标题，还需提取加粗或者高亮的章节标题并解释其是后续内容页的标题。
         - 该步执行完后，无需执行后续内容页的分析任务。
 
         2. **内容页处理**：

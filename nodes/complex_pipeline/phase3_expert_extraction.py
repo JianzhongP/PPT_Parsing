@@ -33,6 +33,49 @@ from .pipeline_state import (
 )
 
 
+# ==========================================================================
+# JSON parsing helpers (VLM 输出经常包含代码块/注释/尾逗号，或被截断)
+# ==========================================================================
+
+_JSON_CODEBLOCK_RE = re.compile(r"```(?:json)?\s*(\{.*?\})\s*```", re.IGNORECASE | re.DOTALL)
+
+
+def _extract_probable_json_object(text: str) -> str:
+    s = str(text or "").strip()
+    if not s:
+        return ""
+    m = _JSON_CODEBLOCK_RE.search(s)
+    if m:
+        return m.group(1).strip()
+    start = s.find("{")
+    end = s.rfind("}")
+    if start != -1 and end != -1 and end > start:
+        return s[start : end + 1].strip()
+    return s
+
+
+def _strip_json_like_noise(s: str) -> str:
+    # 去除 BOM / 控制字符
+    s = (s or "").replace("\ufeff", "")
+    s = re.sub(r"[\x00-\x08\x0B\x0C\x0E-\x1F]", "", s)
+    # 去除 JS 风格注释（模型经常从 prompt 的示例中拷贝出来）
+    s = re.sub(r"/\*.*?\*/", "", s, flags=re.DOTALL)
+    s = re.sub(r"//.*?$", "", s, flags=re.MULTILINE)
+    # 去除尾逗号
+    s = re.sub(r",\s*([}\]])", r"\1", s)
+    return s.strip()
+
+
+def _safe_json_loads(text: Any) -> Dict[str, Any]:
+    if isinstance(text, dict):
+        return text
+    s = _extract_probable_json_object(str(text or ""))
+    s = _strip_json_like_noise(s)
+    if not s:
+        raise ValueError("empty json content")
+    return json.loads(s)
+
+
 # ============================================================================
 # 合合 TextIn API 客户端
 # ============================================================================
@@ -1494,7 +1537,7 @@ class ChartExpertAgent:
             with open(roi_path, "rb") as f:
                 base64_img = base64.b64encode(f.read()).decode('utf-8')
             
-            prompt = f"""你是一名数据分析师。
+            prompt = f"""你是一名数据分析师和视觉信息提取专家。
             语言要求（必须严格遵守）：
             - 所有输出必须为中文，不得夹杂英文句子。
             - 若引用的标题/术语为英文或主要是英文，请保留英文原文，并在其后追加中文翻译（括号内）。
@@ -1503,22 +1546,30 @@ class ChartExpertAgent:
 【背景上下文】
 此图表的标题/描述是：'{context_text}'（非常重要，请基于此确定图表主题）。
 
-【任务】
-1. 结构化提取：识别图表类型、坐标轴含义、关键数值
-2. 洞察分析：结合背景上下文，用一句话总结图表展示的核心趋势或异常点
+【任务要求】
+1. **结构化提取**：识别图表类型。如果图表是流程图、机制图、架构图或包含大量文本区块的图，必须归类为 `flowchart` 或 `process_diagram`。
+2. **全量信息提取（针对文字密集型图表）**：如果图中包含大量文字、逻辑分支或描述块（如流程图），你必须将**所有**文字条理化地提取出来，绝不能只做概括！请利用 `key_values` 字段，将“节点名称/步骤名”作为键，“该节点内的完整详细文字”作为值，进行穷尽式提取。
+3. **洞察分析**：结合背景上下文，总结核心观点，并在洞察中补充图表整体的结构描述。
+4. **表格兜底**：如果图中意外包含了数据表格，请按行将其数据明细提取到 `key_values` 中，不要遗漏。
+
+【输出约束】
+- 只输出一个 JSON 对象，不要输出 Markdown 代码块、解释文字或额外前后缀。
+- 为避免 JSON 过长导致截断：
+    - `key_values` 优先保留关键数值/关键节点信息，建议不超过 50 项；
+    - `annotation_texts`/`axis_labels`/`footnotes` 若非常多，可仅保留最关键的前 30 条。
 
 【输出JSON格式】
 {{
-    "chart_type": "bar_chart/line_chart/pie_chart/km_curve/forest_plot/flowchart/timeline/process_diagram/gantt_like/other",
-    "x_axis": "X轴含义（中文，必要时附英文原文翻译）",
-    "y_axis": "Y轴含义（中文，必要时附英文原文翻译）",
-    "key_values": {{"系列名": "关键数值", ...}},
-    "insight": "一句话洞察分析（中文）",
+    "chart_type": "bar_chart/line_chart/pie_chart/km_curve/forest_plot/flowchart/process_diagram/other",
+    "x_axis": "X轴含义（中文，若无明确X轴则填无）",
+    "y_axis": "Y轴含义（中文，若无明确Y轴则填无）",
+        "key_values": {{"系列名或步骤名/节点名": "对应的关键数值或完整详细说明文字", "...": "..."}},
+    "insight": "一句话核心洞察分析 + 必要的详尽结构逻辑描述（中文）",
     "chart_title": "图标题原文",
     "panel_titles": ["子图标题原文"],
     "legend_items": ["图例项原文"],
     "axis_labels": ["坐标轴标签/刻度原文"],
-    "annotation_texts": ["图中解释性文字原文"],
+    "annotation_texts": ["图中所有的解释性、补充性文字原文，请尽可能详尽，不要遗漏"],
     "footnotes": ["图下注释/脚注原文"]
 }}"""
             
@@ -1531,12 +1582,18 @@ class ChartExpertAgent:
                         {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{base64_img}"}}
                     ]}
                 ],
-                max_tokens=1000,
+                max_tokens=2500,
                 temperature=0.0,
                 response_format={"type": "json_object"}
             )
-            
-            result = json.loads(response.choices[0].message.content)
+
+            raw_content = getattr(response.choices[0].message, "content", None)
+            try:
+                result = _safe_json_loads(raw_content)
+            except Exception:
+                # 常见原因：被截断/夹杂注释/代码块。使用二次“修复JSON”请求兜底。
+                repaired = self._repair_json_with_vlm(raw_content)
+                result = repaired
             panel_titles = result.get("panel_titles", [])
             legend_items = result.get("legend_items", [])
             axis_labels = result.get("axis_labels", [])
@@ -1607,6 +1664,34 @@ class ChartExpertAgent:
                 insight=f"分析失败: {str(e)}",
                 chart_title=context_text.strip() if context_text else "",
             )
+
+    def _repair_json_with_vlm(self, bad_text: Any) -> Dict[str, Any]:
+        bad = str(bad_text or "").strip()
+        if not bad:
+            raise ValueError("empty bad_text")
+
+        prompt = f"""下面内容应该是一个 JSON 对象，但可能包含注释、尾逗号、Markdown 代码块或被截断。
+请将其“修复/重写”为严格可解析的 JSON 对象，并且仅输出 JSON（不要任何解释、不要代码块）。
+
+必须保留/输出的字段（缺失则补空值）：
+- chart_type, x_axis, y_axis, key_values, insight, chart_title, panel_titles, legend_items, axis_labels, annotation_texts, footnotes
+
+待修复内容：
+{bad}
+"""
+
+        response = self.vlm_client.chat.completions.create(
+            model=self.model,
+            messages=[
+                {"role": "system", "content": "你是严格的JSON修复器，只输出JSON对象。"},
+                {"role": "user", "content": prompt},
+            ],
+            max_tokens=2000,
+            temperature=0.0,
+            response_format={"type": "json_object"},
+        )
+        raw_content = getattr(response.choices[0].message, "content", None)
+        return _safe_json_loads(raw_content)
 
 
 class MixedExpertAgent:
@@ -1966,18 +2051,18 @@ class MixedExpertAgent:
     "texts": ["ROI中可见的原文描述/图注/脚注，按原文输出"],
   "charts": [
     {{
-            "panel_name": "子图标识（如左图/右图/上图）",
-      "chart_type": "line_chart/bar_chart/pie_chart/km_curve/forest_plot/other",
+      "panel_name": "子图标识（如左图/右图/上图）",
+      "chart_type": "line_chart/bar_chart/pie_chart/km_curve/forest_plot/flowchart/process_diagram/other",
       "x_axis": "X轴含义，若多子图可用{{\"左图\":\"...\",\"右图\":\"...\"}}",
       "y_axis": "Y轴含义，若多子图可用{{\"左图\":\"...\",\"右图\":\"...\"}}",
-      "key_values": {{"关键项": "值"}},
-                        "insight": "该子图一句话洞察",
-                        "chart_title": "图标题原文",
-                        "panel_titles": ["子图标题原文"],
-                        "legend_items": ["图例项原文"],
-                        "axis_labels": ["坐标轴标签原文"],
-                        "annotation_texts": ["图中解释性文字原文"],
-                        "footnotes": ["图下注释/脚注原文"]
+            "key_values": {{"节点/步骤/系列名": "关键数值或完整详细文字", "...": "..."}},
+      "insight": "该子图核心洞察 + 全量内容的逻辑梳理",
+      "chart_title": "图标题原文",
+      "panel_titles": ["子图标题原文"],
+      "legend_items": ["图例项原文"],
+      "axis_labels": ["坐标轴标签原文"],
+      "annotation_texts": ["图中所有解释性、说明性文本原文，务必详尽提取不遗漏"],
+      "footnotes": ["图下注释/脚注原文"]
     }}
   ],
   "tables": [
@@ -2004,12 +2089,17 @@ class MixedExpertAgent:
                         {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{base64_img}"}}
                     ]}
                 ],
-                max_tokens=2000,
+                max_tokens=3000,
                 temperature=0.0,
                 response_format={"type": "json_object"}
             )
 
-            result = json.loads(response.choices[0].message.content)
+            raw_content = getattr(response.choices[0].message, "content", None)
+            try:
+                result = _safe_json_loads(raw_content)
+            except Exception:
+                repaired = self._repair_json_with_vlm(raw_content)
+                result = repaired
             chart_items_raw = result.get("charts", [])
             table_items_raw = result.get("tables", [])
             text_items_raw = result.get("texts", [])
@@ -2112,6 +2202,34 @@ class MixedExpertAgent:
                 contains_multiple_elements=bool(table_items),
                 validation_notes="fallback",
             )
+
+    def _repair_json_with_vlm(self, bad_text: Any) -> Dict[str, Any]:
+        bad = str(bad_text or "").strip()
+        if not bad:
+            raise ValueError("empty bad_text")
+
+        prompt = f"""下面内容应该是一个 JSON 对象（用于 mixed 提取），但可能包含注释、尾逗号、Markdown 代码块或被截断。
+请将其“修复/重写”为严格可解析的 JSON 对象，并且仅输出 JSON（不要任何解释、不要代码块）。
+
+必须保留/输出的字段（缺失则补空值）：
+- is_mixed, summary, texts, charts, tables, validation_notes
+
+待修复内容：
+{bad}
+"""
+
+        response = self.vlm_client.chat.completions.create(
+            model=self.model,
+            messages=[
+                {"role": "system", "content": "你是严格的JSON修复器，只输出JSON对象。"},
+                {"role": "user", "content": prompt},
+            ],
+            max_tokens=2500,
+            temperature=0.0,
+            response_format={"type": "json_object"},
+        )
+        raw_content = getattr(response.choices[0].message, "content", None)
+        return _safe_json_loads(raw_content)
 
 
 # ============================================================================
@@ -2292,6 +2410,57 @@ class Phase3_ParallelExtractor:
             return True
 
         return False
+
+    @staticmethod
+    def _contains_failure_marker(text: str) -> bool:
+        s = str(text or "").strip().lower()
+        if not s:
+            return False
+        markers = (
+            "分析失败",
+            "提取失败",
+            "unterminated string",
+            "jsondecodeerror",
+            "expecting value",
+            "traceback",
+            "error:",
+            "line 1 column",
+            "char ",
+        )
+        return any(m in s for m in markers)
+
+    def _is_chart_extraction_valid(self, chart_data: Optional[ChartExtraction]) -> bool:
+        if not chart_data:
+            return False
+
+        chart_type = str(getattr(chart_data, "chart_type", "") or "").strip().lower()
+        insight = str(getattr(chart_data, "insight", "") or "").strip()
+        key_values = getattr(chart_data, "key_values", {}) or {}
+        panel_titles = getattr(chart_data, "panel_titles", []) or []
+        legend_items = getattr(chart_data, "legend_items", []) or []
+        axis_labels = getattr(chart_data, "axis_labels", []) or []
+        annotation_texts = getattr(chart_data, "annotation_texts", []) or []
+        x_axis = str(getattr(chart_data, "x_axis", "") or "").strip()
+        y_axis = str(getattr(chart_data, "y_axis", "") or "").strip()
+
+        if self._contains_failure_marker(insight):
+            return False
+
+        has_signal = bool(
+            (insight and len(insight) >= 4)
+            or (isinstance(key_values, dict) and len(key_values) > 0)
+            or panel_titles
+            or legend_items
+            or axis_labels
+            or annotation_texts
+            or x_axis
+            or y_axis
+        )
+
+        if chart_type in {"", "unknown", "other", "未知"} and not has_signal:
+            return False
+
+        return True
     
     def run(self,
            validated_semantic: ValidatedSemanticJSON,
@@ -2492,6 +2661,8 @@ class Phase3_ParallelExtractor:
                         use_mixed_worker = True
                     elif elem_type == IMAGE and (group_mixed_hint or self._is_mixed_candidate(elem, group, context_text)):
                         use_mixed_worker = True
+                    elif elem_type == CHART and self._is_mixed_candidate(elem, group, context_text):
+                        use_mixed_worker = True
                     elif "mixed" in (raw_elem_type or "").lower():
                         use_mixed_worker = True
 
@@ -2584,6 +2755,14 @@ class Phase3_ParallelExtractor:
             )
 
         chart_data = self.chart_expert.extract(roi_path, context_text)
+        if not self._is_chart_extraction_valid(chart_data):
+            return ExtractedContent(
+                element_id=element_id,
+                element_type="chart",
+                chart_data=chart_data,
+                processing_status="failed",
+                error_message="Chart extraction returned invalid/failed payload"
+            )
         return ExtractedContent(
             element_id=element_id,
             element_type="chart",
@@ -2633,9 +2812,11 @@ class Phase3_ParallelExtractor:
     def _extract_image(self, roi_path: str, context_text: str, element_id: str) -> ExtractedContent:
         """提取图片（作为图表处理）"""
         chart_data = self.chart_expert.extract(roi_path, context_text)
-        return ExtractedContent(
-            element_id=element_id,
-            element_type="image",
-            chart_data=chart_data,
-            processing_status="success"
-        )
+        if not self._is_chart_extraction_valid(chart_data):
+            return ExtractedContent(
+                element_id=element_id,
+                element_type="image",
+                chart_data=chart_data,
+                processing_status="failed",
+                error_message="Image-as-chart extraction returned invalid/failed payload"
+            )

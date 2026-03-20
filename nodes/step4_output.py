@@ -3,6 +3,7 @@
 from state import (
     PPTPageState, PageAnalysisResult, FinalPageOutput
 )
+from config import get_config
 from typing import Dict, Any
 import re
 
@@ -17,6 +18,14 @@ _VISUAL_ELEMENT_TYPES = {
     "flowchart",
     "image",
 }
+
+
+_DECORATIVE_PAGE_PATTERNS = [
+    r"(^|\n)\s*(目录|目\s*录|contents?)\s*$",
+    r"(title\s*or\s*decorative\s*page|decorative\s*page)",
+    r"本页为(目录|封面|章节|过渡)页",
+    r"(目录页|封面页|章节页|过渡页)",
+]
 
 
 def _strip_hypothesis_sections(text: str) -> str:
@@ -133,7 +142,9 @@ class Step4_OutputGenerator:
             )
         
         # 如果该页由复杂 Pipeline 产出 markdown，优先复用它（更贴近 MinerU 的图表/图片展示）
-        artifacts_dir = f"processing_artifacts/page_{page_index:03d}"
+        cfg = get_config()
+        processing_root = str(getattr(cfg, "processing_artifacts_dir", "processing_artifacts") or "processing_artifacts")
+        artifacts_dir = f"{processing_root}/page_{page_index:03d}"
         pipeline_md_path = os.path.join(artifacts_dir, f"page_{page_index:03d}_output.md")
         repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         pipeline_md_path_abs = os.path.join(repo_root, pipeline_md_path)
@@ -206,11 +217,22 @@ class Step4_OutputGenerator:
         elements = getattr(global_analysis, "elements", []) or []
         insights = element_insights or []
 
+        # 只要已经有可视证据（Step1元素或Step2/3洞察），就不应降级为“封面/目录页”。
+        has_visual_evidence = any(
+            str(getattr(e, "type", "") or "").lower() in _VISUAL_ELEMENT_TYPES
+            for e in elements
+        ) or any(
+            str(getattr(ins, "element_type", "") or "").lower() in _VISUAL_ELEMENT_TYPES
+            for ins in insights
+        )
+        if has_visual_evidence:
+            return False
+
         core = (getattr(global_analysis, "core_summary", "") or "").lower()
         title = (getattr(global_analysis, "section_title", "") or "").lower()
-        decorative_hint = (
-            "decorative" in core or "title" in core or "目录" in core or "封面" in core or "章节" in core or
-            "decorative" in title or "title" in title
+        decorative_hint = any(
+            re.search(p, core, flags=re.IGNORECASE) or re.search(p, title, flags=re.IGNORECASE)
+            for p in _DECORATIVE_PAGE_PATTERNS
         )
 
         # 纯文本页且没有提取文本，且无元素/洞察 -> 基本属于章节/装饰/空页

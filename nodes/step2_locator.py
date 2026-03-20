@@ -560,6 +560,48 @@ def _cache_file_path(page_index: int, mineru_mode: str, cfg) -> str:
     return str(cache_dir / f"page_{page_index:03d}_{mineru_mode}.json")
 
 
+def _contains_failure_marker(text: str) -> bool:
+    s = str(text or "").strip().lower()
+    if not s:
+        return False
+    markers = (
+        "分析失败",
+        "提取失败",
+        "unterminated string",
+        "jsondecodeerror",
+        "expecting value",
+        "traceback",
+        "error:",
+        "line 1 column",
+        "char ",
+    )
+    return any(m in s for m in markers)
+
+
+def _is_visual_element_type(element_type: str) -> bool:
+    et = (element_type or "").strip().lower()
+    return et in {"chart", "image", "mixed", "diagram", "flowchart", "figure", "graph"}
+
+
+def _is_cache_payload_healthy(result: dict) -> bool:
+    insights = result.get("element_insights", []) or []
+    for ins in insights:
+        element_type = getattr(ins, "element_type", "")
+        if not _is_visual_element_type(element_type):
+            continue
+
+        status = (getattr(ins, "status", "") or "").strip().lower()
+        key_insight = getattr(ins, "key_insight", "")
+        data_evidence = getattr(ins, "data_evidence", "")
+
+        if status in {"fail", "retry"}:
+            return False
+        if _contains_failure_marker(key_insight) or _contains_failure_marker(data_evidence):
+            return False
+
+    return True
+
+
 def _serialize_result(result: dict) -> dict:
     out = {
         "pending_elements": [],
@@ -889,12 +931,18 @@ def node_layout_pipeline(state: PPTPageState, vlm_client: VLMClient, debug_logge
     cfg = get_config()
     cache_enabled = bool(getattr(cfg, "enable_layout_cache", True))
     cache_file = _cache_file_path(page_index, mineru_mode, cfg)
+    bypass_cache_read = bool(getattr(state, "is_retry_mode", False) or getattr(state, "retry_count", 0) > 0)
 
-    if cache_enabled and os.path.exists(cache_file):
+    if cache_enabled and not bypass_cache_read and os.path.exists(cache_file):
         try:
             with open(cache_file, "r", encoding="utf-8") as f:
                 cached = json.load(f)
             loaded = _deserialize_result(cached)
+            if not _is_cache_payload_healthy(loaded):
+                print(f"[LayoutPipeline] 缓存命中但质量不达标，忽略并重跑: {cache_file}")
+                loaded = None
+            if loaded is None:
+                raise ValueError("cached payload unhealthy")
             print(f"[LayoutPipeline] 命中缓存: {cache_file}")
             if debug_logger:
                 try:
@@ -954,8 +1002,11 @@ def node_layout_pipeline(state: PPTPageState, vlm_client: VLMClient, debug_logge
         # 写缓存（用于重试和重复运行复用）
         if cache_enabled:
             try:
-                with open(cache_file, "w", encoding="utf-8") as f:
-                    json.dump(_serialize_result(result), f, ensure_ascii=False, indent=2)
+                if _is_cache_payload_healthy(result):
+                    with open(cache_file, "w", encoding="utf-8") as f:
+                        json.dump(_serialize_result(result), f, ensure_ascii=False, indent=2)
+                else:
+                    print(f"[LayoutPipeline] 跳过缓存写入（检测到失败视觉提取）: {cache_file}")
             except Exception as e:
                 print(f"[LayoutPipeline] 缓存写入失败: {e}")
         
@@ -989,8 +1040,11 @@ def node_layout_pipeline(state: PPTPageState, vlm_client: VLMClient, debug_logge
 
         if cache_enabled:
             try:
-                with open(cache_file, "w", encoding="utf-8") as f:
-                    json.dump(_serialize_result(result), f, ensure_ascii=False, indent=2)
+                if _is_cache_payload_healthy(result):
+                    with open(cache_file, "w", encoding="utf-8") as f:
+                        json.dump(_serialize_result(result), f, ensure_ascii=False, indent=2)
+                else:
+                    print(f"[LayoutPipeline] 跳过缓存写入（检测到失败视觉提取）: {cache_file}")
             except Exception as e:
                 print(f"[LayoutPipeline] 缓存写入失败: {e}")
         

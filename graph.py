@@ -21,7 +21,16 @@ START -> Step1(全局语义) -> Step2(Router决策)
 from langgraph.graph import StateGraph, START, END
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.constants import Send
-from typing import List, Dict
+from typing import List, Dict, Any, Optional
+import os
+import re
+import json
+from pathlib import Path
+
+try:
+    from PIL import Image
+except Exception:
+    Image = None
 
 from state import PPTWorkflowState, PPTPageState
 from nodes.step1_global_analysis import (
@@ -127,6 +136,7 @@ def create_page_workflow(llm_client, vlm_client, debug_logger=None):
                 "global_summary": state.global_analysis.core_summary,
                 "hypothesis": state.global_analysis.research_hypothesis,
                 "image_path": state.image_path,
+                "native_page_evidence": state.native_page_evidence,
                 "feedback": feedback
             }
             sends.append(Send("worker_element", payload))
@@ -177,14 +187,202 @@ def create_page_workflow(llm_client, vlm_client, debug_logger=None):
 # ============================================================================
 # 这部分逻辑主要负责读取文件和批处理，保持原有的简洁性即可
 
+def _extract_page_index_from_path(path_or_name: str) -> Optional[int]:
+    """从文件名/路径中提取页号（优先匹配 slide_XXX / page_XXX）。"""
+    text = str(path_or_name or "")
+    m = re.search(r"(?:slide|page)[_\-]?(\d{1,4})", text, flags=re.IGNORECASE)
+    if m:
+        try:
+            return int(m.group(1))
+        except Exception:
+            return None
+    return None
+
+
+def _infer_page_index_from_json(raw: Any, json_path: str) -> Optional[int]:
+    """从 JSON 内容或文件路径推断页号。"""
+    if isinstance(raw, dict):
+        for key in ("page_index", "page_idx", "page_no", "page_id"):
+            value = raw.get(key)
+            if isinstance(value, int) and value >= 0:
+                return value
+
+        page_info = raw.get("page_info")
+        if isinstance(page_info, dict):
+            for key in ("page_index", "page_idx", "page_no", "page_id"):
+                value = page_info.get(key)
+                if isinstance(value, int) and value >= 0:
+                    return value
+        elif isinstance(page_info, list) and page_info and isinstance(page_info[0], dict):
+            for key in ("page_index", "page_idx", "page_no", "page_id"):
+                value = page_info[0].get(key)
+                if isinstance(value, int) and value >= 0:
+                    return value
+
+    return _extract_page_index_from_path(json_path)
+
+
+def _build_merged_pdf_from_slides(slide_paths: List[str], target_pdf_path: str) -> Optional[str]:
+    """将 slide 图片序列合并为单个 PDF，用于一次性 MinerU 预计算。"""
+    if not slide_paths or Image is None:
+        return None
+
+    images: List[Any] = []
+    for p in slide_paths:
+        if not p or (not os.path.exists(p)):
+            continue
+        img = Image.open(p)
+        if img.mode != "RGB":
+            img = img.convert("RGB")
+        images.append(img)
+
+    if not images:
+        return None
+
+    os.makedirs(os.path.dirname(target_pdf_path), exist_ok=True)
+    first, rest = images[0], images[1:]
+    first.save(target_pdf_path, "PDF", resolution=72.0, save_all=True, append_images=rest)
+
+    for img in images:
+        try:
+            img.close()
+        except Exception:
+            pass
+
+    return target_pdf_path if os.path.exists(target_pdf_path) else None
+
+
+def _collect_precomputed_layouts(output_dir: str, total_pages: int) -> Dict[int, Dict[str, Any]]:
+    """从一次性 MinerU 输出目录中拆分各页布局结果。"""
+    if not output_dir or not os.path.isdir(output_dir):
+        return {}
+
+    from nodes.complex_pipeline.phase1_layout_detection import MinerUClient
+
+    parser = MinerUClient(mode="standard", vlm_client=None)
+    candidates = parser._find_result_json_candidates(output_dir)
+    layouts: Dict[int, Dict[str, Any]] = {}
+
+    for json_path in candidates:
+        try:
+            with open(json_path, "r", encoding="utf-8") as f:
+                raw = json.load(f)
+        except Exception:
+            continue
+
+        # 情况1：文件本身就是某一页
+        page_idx = _infer_page_index_from_json(raw, json_path)
+        if page_idx is not None and page_idx not in layouts:
+            try:
+                parsed = parser._parse_mineru_json_output(raw)
+                if isinstance(parsed, dict) and "elements" in parsed:
+                    layouts[page_idx] = parsed
+            except Exception:
+                pass
+            if len(layouts) >= total_pages:
+                break
+            continue
+
+        # 情况2：文件是多页集合，尝试拆分
+        if isinstance(raw, list):
+            grouped: Dict[int, List[Any]] = {}
+            for item in raw:
+                idx = _infer_page_index_from_json(item, json_path)
+                if idx is None:
+                    continue
+                grouped.setdefault(idx, []).append(item)
+
+            for idx, group_items in grouped.items():
+                if idx in layouts:
+                    continue
+                try:
+                    parsed = parser._parse_mineru_json_output(group_items)
+                    if isinstance(parsed, dict) and "elements" in parsed:
+                        layouts[idx] = parsed
+                except Exception:
+                    continue
+            if len(layouts) >= total_pages:
+                break
+
+    return layouts
+
+
+def node_global_mineru_precompute(state: PPTWorkflowState) -> dict:
+    """统一预测：对整份文档执行一次 MinerU，并按页拆分缓存。"""
+    try:
+        from config import get_config
+        cfg = get_config()
+    except Exception:
+        cfg = None
+
+    enabled = True if cfg is None else bool(getattr(cfg, "enable_global_mineru_precompute", True))
+    if not enabled:
+        print("[GlobalMinerU] 已禁用全局预计算，跳过")
+        return {}
+
+    total_pages = int(getattr(state, "total_pages", 0) or 0)
+    if total_pages <= 0:
+        return {}
+
+    ppt_abs = os.path.abspath(state.ppt_path)
+    ppt_dir = os.path.dirname(ppt_abs)
+    suffix = os.path.splitext(ppt_abs)[1].lower()
+
+    processing_root = "processing_artifacts" if cfg is None else str(getattr(cfg, "processing_artifacts_dir", "processing_artifacts") or "processing_artifacts")
+    precompute_dir = os.path.join(ppt_dir, processing_root, "global_mineru_precompute")
+    os.makedirs(precompute_dir, exist_ok=True)
+
+    if suffix == ".pdf" and os.path.exists(ppt_abs):
+        input_pdf = ppt_abs
+    else:
+        slide_map = dict(getattr(state, "page_image_map", {}) or {})
+        ordered_slides = [slide_map[i] for i in sorted(slide_map.keys()) if slide_map.get(i)]
+        merged_pdf_path = os.path.join(precompute_dir, "merged_slides.pdf")
+        input_pdf = _build_merged_pdf_from_slides(ordered_slides, merged_pdf_path)
+        if not input_pdf:
+            print("[GlobalMinerU] 无法构建合并 PDF，跳过全局预计算")
+            return {}
+
+    print(f"\n[GlobalMinerU] 开始统一预测: {os.path.basename(input_pdf)}")
+
+    from nodes.complex_pipeline.phase1_layout_detection import MinerUClient
+
+    mineru = MinerUClient(mode="standard", vlm_client=None)
+    debug_dir = os.path.join(precompute_dir, "mineru_debug")
+
+    try:
+        mineru.analyze(input_pdf, debug_dir=debug_dir)
+    except Exception as e:
+        print(f"[GlobalMinerU] 统一预测执行失败，回退到逐页模式: {e}")
+        return {}
+
+    output_dir = getattr(mineru, "last_run_output_dir", None)
+    layouts = _collect_precomputed_layouts(output_dir or "", total_pages=total_pages)
+    if not layouts:
+        print("[GlobalMinerU] 未拆分出有效页面布局，回退到逐页模式")
+        return {
+            "global_mineru_pdf_path": input_pdf,
+            "global_mineru_output_dir": output_dir,
+            "precomputed_mineru_layouts": {},
+        }
+
+    print(f"[GlobalMinerU] 统一预测完成：命中 {len(layouts)}/{total_pages} 页")
+    return {
+        "global_mineru_pdf_path": input_pdf,
+        "global_mineru_output_dir": output_dir,
+        "precomputed_mineru_layouts": layouts,
+    }
+
 def node_ingestion(state: PPTWorkflowState) -> dict:
     """读取PPT节点"""
     from nodes.step1_global_analysis import PPTIngestionEngine
     image_paths = PPTIngestionEngine.extract_all_slides(state.ppt_path)
     total_pages = len(image_paths)
+    page_image_map = {idx: path for idx, path in enumerate(image_paths)}
     return {
         "page_queue": list(range(total_pages)),
         "total_pages": total_pages,
+        "page_image_map": page_image_map,
         # 假设这里有一个 mapping 存储页面图片路径
         # 实际项目中建议在 state 中维护一个 page_idx -> image_path 的字典
     }
@@ -227,18 +425,17 @@ def map_pages_to_workflow(state: PPTWorkflowState) -> List[Send]:
     
     为每个页面创建独立的 PPTPageState，发送到 page_workflow 节点进行处理
     """
-    from pathlib import Path
-    
     batch = state.current_batch
     sends = []
-    
-    # 根据 PPT 路径计算 ppt_slides_temp 目录
+    page_image_map: Dict[int, str] = dict(getattr(state, "page_image_map", {}) or {})
+    precomputed_layouts: Dict[int, Dict[str, Any]] = dict(getattr(state, "precomputed_mineru_layouts", {}) or {})
+    precomputed_source = getattr(state, "global_mineru_output_dir", None)
     ppt_dir = Path(state.ppt_path).parent.resolve()
     slides_dir = ppt_dir / "ppt_slides_temp"
     
     for page_idx in batch:
         # 使用绝对路径或相对于 PPT 目录的路径
-        image_path = str(slides_dir / f"slide_{page_idx:03d}.png")
+        image_path = page_image_map.get(page_idx) or str(slides_dir / f"slide_{page_idx:03d}.png")
         
         # 创建页面状态
         page_state = PPTPageState(
@@ -246,7 +443,9 @@ def map_pages_to_workflow(state: PPTWorkflowState) -> List[Send]:
             ppt_path=state.ppt_path,  # 传递 PPT 路径供文本解析使用
             image_path=image_path,
             max_retries=2,
-            previous_context=state.global_knowledge_base
+            previous_context=state.global_knowledge_base,
+            precomputed_mineru_layout=precomputed_layouts.get(page_idx),
+            precomputed_mineru_source=precomputed_source,
         )
 
         sends.append(Send("page_workflow", page_state))
@@ -331,6 +530,7 @@ def build_ppt_workflow(llm_client, vlm_client, debug_logger=None):
     
     # 注册节点
     workflow.add_node("ingestion", node_ingestion)
+    workflow.add_node("global_mineru_precompute", node_global_mineru_precompute)
     workflow.add_node("prepare_batch", node_prepare_batch)
     workflow.add_node("dispatch_pages", node_dispatch_placeholder)
     workflow.add_node("collect_results", node_collect_results)
@@ -341,7 +541,8 @@ def build_ppt_workflow(llm_client, vlm_client, debug_logger=None):
     
     # 定义边
     workflow.set_entry_point("ingestion")
-    workflow.add_edge("ingestion", "prepare_batch")
+    workflow.add_edge("ingestion", "global_mineru_precompute")
+    workflow.add_edge("global_mineru_precompute", "prepare_batch")
     
     def check_has_pages(state):
         """检查是否还有页面待处理"""

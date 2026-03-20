@@ -4,6 +4,7 @@ from state import GlobalPageAnalysis, PageElement, PPTPageState
 from langgraph.constants import Send
 from typing import List
 from config import get_config
+from nodes.native_evidence import extract_native_page_evidence
 
 
 class Step2_RouterEngine:
@@ -149,6 +150,10 @@ def node_step2_router(state: PPTPageState, debug_logger=None) -> dict:
         )
     
     analysis = state.global_analysis
+    native_evidence = state.native_page_evidence or {}
+    if not native_evidence:
+        native_evidence = extract_native_page_evidence(state.ppt_path, state.page_index)
+
     plan = Step2_RouterEngine.plan_processing(analysis)
     
     print(f"[Step2-Router] 决策: {plan['route']} ({plan['strategy_reason']})")
@@ -161,13 +166,16 @@ def node_step2_router(state: PPTPageState, debug_logger=None) -> dict:
             output_data={
                 "route": plan.get("route"),
                 "strategy_reason": plan.get("strategy_reason"),
-                "elements_to_process_count": len(plan.get("elements_to_process", []))
+                "elements_to_process_count": len(plan.get("elements_to_process", [])),
+                "native_tables_count": len(native_evidence.get("native_tables", [])),
+                "native_text_blocks_count": len(native_evidence.get("native_text_blocks", [])),
             },
             status="success"
         )
     
     return {
         "step2_plan": plan,
+        "native_page_evidence": native_evidence,
         # 注意：此时 pending_elements 里的元素还没有 BBox
         # 它们需要经过后续的 "Locator" 节点处理后，才能分发给 Workers
         "pending_elements": plan.get("elements_to_process", [])

@@ -8,6 +8,7 @@ Phase 2-2: 监督节点合理性验证 (Supervisor Logic Check)
 2. Phase2_SupervisorValidator: 监督验证引擎
 """
 
+import os
 import json
 from typing import List, Dict, Any, Optional, Tuple, Literal
 
@@ -15,6 +16,13 @@ from .pipeline_state import (
     DraftSemanticJSON, ValidatedSemanticJSON, SemanticGroup,
     ValidationIssue, GroupingValidationResult, DetectedElement
 )
+
+
+def _fallback_vlm_model_from_env() -> str:
+    provider = (os.getenv("MULTIMODAL_PROVIDER", "gpt4o") or "").strip().lower()
+    if provider in {"qwen", "qwen3-vl-plus", "dashscope"}:
+        return (os.getenv("VLM_MODEL_NAME", "qwen3-vl-plus") or "qwen3-vl-plus").strip()
+    return (os.getenv("G4O_MODEL_NAME", "gpt-4o") or "gpt-4o").strip()
 
 
 class Phase2_SupervisorValidator:
@@ -47,8 +55,8 @@ class Phase2_SupervisorValidator:
         try:
             from config import get_config
             self.model = get_config().vlm_runtime_model_name
-        except:
-            self.model = "gpt-4o"
+        except Exception:
+            self.model = _fallback_vlm_model_from_env()
     
     def validate(self,
                 draft_semantic: DraftSemanticJSON,

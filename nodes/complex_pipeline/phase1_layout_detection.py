@@ -44,6 +44,13 @@ from .pipeline_state import (
 )
 
 
+def _fallback_vlm_model_from_env() -> str:
+    provider = (os.getenv("MULTIMODAL_PROVIDER", "gpt4o") or "").strip().lower()
+    if provider in {"qwen", "qwen3-vl-plus", "dashscope"}:
+        return (os.getenv("VLM_MODEL_NAME", "qwen3-vl-plus") or "qwen3-vl-plus").strip()
+    return (os.getenv("G4O_MODEL_NAME", "gpt-4o") or "gpt-4o").strip()
+
+
 def _read_gpu_mem_mb(gpu_index: int = 0) -> Tuple[Optional[int], Optional[int]]:
     """读取指定 GPU 的已用/总显存 (MB)，失败时返回 (None, None)。"""
     try:
@@ -856,7 +863,7 @@ class MinerUClient:
 2. 请检测所有可见元素，包括标题、正文、图表、表格、图片等
 3. 不要遗漏任何重要元素"""
             
-            # 获取模型名称（VLM 客户端实际上使用的是 GPT-4o via Azure）
+            # 获取模型名称（按 MULTIMODAL_PROVIDER 统一路由）
             model_name = None
             try:
                 from ...config import get_config
@@ -873,7 +880,7 @@ class MinerUClient:
                     from config import get_config
                     model_name = get_config().vlm_runtime_model_name
                 except Exception:
-                    model_name = os.getenv("VLM_MODEL_NAME", "qwen3-vl-plus")
+                    model_name = _fallback_vlm_model_from_env()
             
             response = vlm_client.chat.completions.create(
                 model=model_name,
@@ -1163,8 +1170,8 @@ class TypeRefinementEngine:
         try:
             from config import get_config
             self.model = get_config().vlm_runtime_model_name
-        except:
-            self.model = "gpt-4o"
+        except Exception:
+            self.model = _fallback_vlm_model_from_env()
     
     def refine_types(self, 
                     roi_images: List[ROIImage],
@@ -1299,7 +1306,8 @@ class Phase1_LayoutDetector:
     def run(self, 
             image_path: str, 
             page_id: int,
-            global_analysis: Optional[Dict[str, Any]] = None) -> CleanedLayoutJSON:
+            global_analysis: Optional[Dict[str, Any]] = None,
+            precomputed_layout: Optional[Dict[str, Any]] = None) -> CleanedLayoutJSON:
         """
         执行 Phase 1 完整流程
         
@@ -1331,12 +1339,16 @@ class Phase1_LayoutDetector:
             print(f"[Phase 1] 复制图片到 MinerU 工作目录失败，将直接使用原图: {e}")
             mineru_image_path = image_path
         
-        # Step 1: MinerU 基础检测
+        # Step 1: MinerU 基础检测（支持全局预计算结果复用）
         print("\n[Phase 1.1] MinerU 版面分析...")
         mineru_debug_dir = os.path.join(self.output_dir, "mineru_debug")
 
-        # [Fix]: 获取包含元数据的完整结果
-        mineru_result = self.mineru_client.analyze(mineru_image_path, debug_dir=mineru_debug_dir)
+        if isinstance(precomputed_layout, dict) and "elements" in precomputed_layout:
+            print(f"[Phase 1.1] 命中全局预计算布局，跳过本页 MinerU 调用 (Page {page_id})")
+            mineru_result = precomputed_layout
+        else:
+            # [Fix]: 获取包含元数据的完整结果
+            mineru_result = self.mineru_client.analyze(mineru_image_path, debug_dir=mineru_debug_dir)
         
         # 兼容旧代码：如果 analyze 返回的是 list，说明是 VLM fallback 或 Mock
         if isinstance(mineru_result, list):

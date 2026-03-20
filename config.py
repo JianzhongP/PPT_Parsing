@@ -21,23 +21,23 @@ class PPTWorkflowConfig:
     """PPT工作流配置"""
     
     # ============ LLM API 配置 (Azure OpenAI) ============
-    llm_api_key: str = field(default_factory=lambda: os.getenv("LLM_API_KEY", ""))
-    llm_azure_endpoint: str = field(default_factory=lambda: os.getenv("LLM_BASE_URL", ""))
-    llm_model_name: str = field(default_factory=lambda: os.getenv("LLM_MODEL_NAME", "gpt-4-turbo"))
+    llm_api_key: str = field(default_factory=lambda: os.getenv("LLM_API_KEY", "").strip())
+    llm_azure_endpoint: str = field(default_factory=lambda: os.getenv("LLM_BASE_URL", "").strip())
+    llm_model_name: str = field(default_factory=lambda: os.getenv("LLM_MODEL_NAME", "gpt-4-turbo").strip())
     api_version: str = "2024-08-01-preview"
     
     # ============ VLM API 配置 (Dashscope Qwen) ============
-    vlm_api_key: str = field(default_factory=lambda: os.getenv("VLM_API_KEY", ""))
-    vlm_base_url: str = field(default_factory=lambda: os.getenv("VLM_BASE_URL", ""))
-    vlm_model_name: str = field(default_factory=lambda: os.getenv("VLM_MODEL_NAME", "qwen3-vl-plus"))
+    vlm_api_key: str = field(default_factory=lambda: os.getenv("VLM_API_KEY", "").strip())
+    vlm_base_url: str = field(default_factory=lambda: os.getenv("VLM_BASE_URL", "").strip())
+    vlm_model_name: str = field(default_factory=lambda: os.getenv("VLM_MODEL_NAME", "qwen3-vl-plus").strip())
     
-    g4o_api_key: str = field(default_factory=lambda: os.getenv("G4O_API_KEY", ""))
-    g4o_azure_endpoint: str = field(default_factory=lambda: os.getenv("G4O_AZURE_ENDPOINT", ""))
-    g4o_api_version: str = field(default_factory=lambda: os.getenv("G4O_API_VERSION", "2024-02-15-preview"))
-    g4o_model_name: str = field(default_factory=lambda: os.getenv("G4O_MODEL_NAME", "gpt-4o"))
+    g4o_api_key: str = field(default_factory=lambda: os.getenv("G4O_API_KEY", "").strip())
+    g4o_azure_endpoint: str = field(default_factory=lambda: os.getenv("G4O_AZURE_ENDPOINT", "").strip())
+    g4o_api_version: str = field(default_factory=lambda: os.getenv("G4O_API_VERSION", "2024-02-15-preview").strip())
+    g4o_model_name: str = field(default_factory=lambda: os.getenv("G4O_MODEL_NAME", "gpt-4o").strip())
 
     # ============ 多模态模型路由配置 ============
-    multimodal_provider: str = field(default_factory=lambda: os.getenv("MULTIMODAL_PROVIDER", "gpt4o"))
+    multimodal_provider: str = field(default_factory=lambda: os.getenv("MULTIMODAL_PROVIDER", "gpt4o").strip())
     """多模态模型提供方：gpt4o 或 qwen3-vl-plus（支持别名 qwen）"""
     # ============ 第三方工具 API ============
     ppt_converter_api_url: str = field(default_factory=lambda: os.getenv("PPT_CONVERTER_API_URL", ""))
@@ -50,8 +50,11 @@ class PPTWorkflowConfig:
     max_retries_per_page: int = 2
     """每个页面最多重试次数（Supervisor校验失败时）"""
     
-    output_dir: str = "ppt_parsing_output"
+    output_dir: str = field(default_factory=lambda: os.getenv("PPT_OUTPUT_DIR", "ppt_parsing_output").strip())
     """输出目录"""
+
+    processing_artifacts_dir: str = field(default_factory=lambda: os.getenv("PPT_PROCESSING_ARTIFACTS_DIR", "processing_artifacts").strip())
+    """中间产物根目录"""
     
     save_intermediate: bool = True
     """是否保存中间过程结果"""
@@ -130,7 +133,12 @@ class PPTWorkflowConfig:
     enable_layout_cache: bool = True
     """是否启用 Step2.5 布局结果缓存（重试时复用）"""
 
-    layout_cache_dir: str = "processing_artifacts/layout_cache"
+    layout_cache_dir: str = field(
+        default_factory=lambda: os.getenv(
+            "PPT_LAYOUT_CACHE_DIR",
+            f"{os.getenv('PPT_PROCESSING_ARTIFACTS_DIR', 'processing_artifacts').strip()}/layout_cache",
+        ).strip()
+    )
     """Step2.5 布局缓存目录"""
     
     # ============ 日志参数 ============
@@ -216,6 +224,7 @@ def init_api_clients():
                 base_url=config.vlm_base_url,
                 model_name=config.vlm_runtime_model_name,
             )
+            print(f"  - VLM 调用模式: {getattr(vlm_client, 'client_type', 'unknown')}")
         else:
             print(f"  - GPT-4o API Key: {'[OK]' if config.g4o_api_key else '[MISSING]'}")
             print(f"  - GPT-4o 端点: {config.g4o_azure_endpoint if config.g4o_azure_endpoint else '[MISSING]'}")
@@ -230,6 +239,7 @@ def init_api_clients():
                 azure_endpoint=config.g4o_azure_endpoint,
                 api_version=config.g4o_api_version,
             )
+            print("  - VLM 调用模式: azure-openai")
 
         print(f"  [OK] VLM 客户端初始化成功")
     except Exception as e:

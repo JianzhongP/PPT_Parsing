@@ -8,6 +8,8 @@ import os
 import time
 from typing import Dict, Any, Optional
 
+from config import get_config
+
 from .pipeline_state import (
     ComplexPipelineState,
     CleanedLayoutJSON, DraftSemanticJSON, ValidatedSemanticJSON,
@@ -94,7 +96,8 @@ class ComplexPipelineOrchestrator:
            image_path: str,
            page_id: int,
            global_analysis: Optional[Dict[str, Any]] = None,
-           page_title: str = "") -> ComplexPipelineState:
+            page_title: str = "",
+            precomputed_mineru_layout: Optional[Dict[str, Any]] = None) -> ComplexPipelineState:
         """
         执行完整的复杂页面处理流程
         
@@ -150,7 +153,8 @@ class ComplexPipelineOrchestrator:
             state.phase1_output = self.phase1_detector.run(
                 image_path=image_path,
                 page_id=page_id,
-                global_analysis=global_analysis
+                global_analysis=global_analysis,
+                precomputed_layout=precomputed_mineru_layout,
             )
             
             state.phase_timings["phase1"] = int((time.time() - phase1_start) * 1000)
@@ -468,10 +472,13 @@ def node_complex_pipeline(state, vlm_client, llm_client=None, debug_logger=None,
         }
     
     # 初始化并运行Pipeline
+    cfg = get_config()
+    processing_root = str(getattr(cfg, "processing_artifacts_dir", "processing_artifacts") or "processing_artifacts")
+
     orchestrator = ComplexPipelineOrchestrator(
         vlm_client=vlm_client,
         llm_client=llm_client,
-        output_dir=f"processing_artifacts/page_{page_index:03d}",
+        output_dir=f"{processing_root}/page_{page_index:03d}",
         use_mineru_vlm=bool(use_mineru_vlm),
     )
     
@@ -479,7 +486,8 @@ def node_complex_pipeline(state, vlm_client, llm_client=None, debug_logger=None,
         image_path=image_path,
         page_id=page_index,
         global_analysis=global_analysis_dict,
-        page_title=state.global_analysis.section_title if state.global_analysis else ""
+        page_title=state.global_analysis.section_title if state.global_analysis else "",
+        precomputed_mineru_layout=getattr(state, "precomputed_mineru_layout", None),
     )
     
     # 保存结果

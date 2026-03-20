@@ -23,6 +23,47 @@ md_parser = MarkItDown()
 _TEXTIN_CLIENT = None
 
 
+def _bbox_iou(a: list[int], b: list[int]) -> float:
+    ay1, ax1, ay2, ax2 = a
+    by1, bx1, by2, bx2 = b
+    inter_x1 = max(ax1, bx1)
+    inter_y1 = max(ay1, by1)
+    inter_x2 = min(ax2, bx2)
+    inter_y2 = min(ay2, by2)
+    iw = max(0, inter_x2 - inter_x1)
+    ih = max(0, inter_y2 - inter_y1)
+    inter = iw * ih
+    if inter <= 0:
+        return 0.0
+    area_a = max(0, ax2 - ax1) * max(0, ay2 - ay1)
+    area_b = max(0, bx2 - bx1) * max(0, by2 - by1)
+    union = area_a + area_b - inter
+    return float(inter / union) if union > 0 else 0.0
+
+
+def _pick_native_table_for_element(element: PageElement, native_tables: list[dict]) -> Optional[dict]:
+    if not native_tables:
+        return None
+
+    el_box = getattr(getattr(element, "bbox", None), "box_2d", None)
+    if not el_box or len(el_box) != 4:
+        return native_tables[0]
+
+    best_table = None
+    best_iou = 0.0
+    for table in native_tables:
+        tb = table.get("bbox")
+        if isinstance(tb, list) and len(tb) == 4:
+            iou = _bbox_iou([int(v) for v in el_box], [int(v) for v in tb])
+            if iou > best_iou:
+                best_iou = iou
+                best_table = table
+
+    if best_table is not None and best_iou >= 0.1:
+        return best_table
+    return native_tables[0]
+
+
 def _get_textin_client() -> Optional[Any]:
     """Lazy init 合合(TextIn)客户端。
 
@@ -212,11 +253,11 @@ class ElementAnalysisAgent:
 输出：分子结构特征描述。""",
 
             "flowchart": """你是一个临床试验设计或生物学专家。
-任务：解析流程图或机制通路图。
+任务：解析流程图或机制通路图，必须**穷尽式地提取**图中所有文字信息。
 重点提取：
-1. **阶段/步骤**：如果是临床试验，包括筛选、入组、给药、随访等阶段。
-2. **关键节点**：如果是机制图，提取关键的信号通路蛋白和相互作用关系（激活/抑制）。
-输出：清晰的流程步骤或通路机制描述。""",
+1. **全局总结**：该流程图/机制图的核心目的。
+2. **全量节点与逻辑**：按照从上到下、从左到右或逻辑先后顺序（根据箭头指向判断），提取每个阶段/节点（包含筛选、入组、各分支条件、处理方式、具体数据等）中的**所有详细文字内容**。绝不能省略、概括或遗漏任何细节文本。
+输出：核心结论 + 清晰、详尽的流程步骤描述（使用Markdown结构化输出）。""",
 
             "data_chart": """你是一个商业数据分析师。
 任务：分析数据图表（柱状、折线、饼图）。
@@ -243,13 +284,13 @@ class ElementAnalysisAgent:
 输出：简洁、结构化的公式解读。""",
             
             "image": """你是一个视觉内容理解专家。
-任务：理解图片中的**核心内容**。
+任务：理解图片中的**核心内容**，并**穷尽式地提取**图片中的所有有效文本。
 重点：
-- 这张图想表达什么主要信息？
-- 有什么关键的视觉元素或数据？
-输出：简洁的核心描述。""",
+1. **核心总结**：这张图的主题和核心信息。
+2. **全量文本结构化**：有条理地识别并输出图片中的所有文字、标注、说明、步骤和数据，按照空间位置或逻辑关系进行组织。不要省略和自己捏造！
+输出：核心描述 + 详尽的图内全量文本结构化呈现。""",
             
-            "unknown": """请分析这个元素中的核心内容，只提取与汇报主题相关的关键信息。"""
+            "unknown": """请仔细分析这个元素，**全面且有条理地提取图片中出现的所有文字、数据和模块信息**。在总结核心结论的同时，提供结构化的全量文本描述，不要遗漏关键信息。"""
         }
         # 模糊匹配策略：防止 VLM 输出 "km_curve_v2" 导致匹配失败
         for key in prompts:
@@ -262,7 +303,8 @@ class ElementAnalysisAgent:
                        element: PageElement, 
                        global_summary: str, 
                        original_image_path: str,
-                       hypothesis: str = "") -> ElementInsight:
+                       hypothesis: str = "",
+                       native_page_evidence: Optional[dict] = None) -> ElementInsight:
         """分析单个元素"""
         print(f"[元素Agent] 分析 {self.element_type} 元素: {element.element_id}")
         
@@ -336,22 +378,103 @@ class TableAnalysisAgent(ElementAnalysisAgent):
         super().__init__(vlm_client, "table")
         self.textin_client = _get_textin_client()
 
+    def _analyze_markdown_table_text_only(self,
+                                          markdown_table: str,
+                                          global_summary: str,
+                                          hypothesis: str = "",
+                                          caption: str = "",
+                                          footnotes: Optional[list] = None) -> str:
+        footnotes = footnotes or []
+        note_text = "\n".join([f"- {x}" for x in footnotes if str(x).strip()])
+        context = f"""全局上下文：
+- 页面核心内容：{global_summary}
+- 科研假设：{hypothesis}
+- 表格标题/说明：{caption}
+
+表格Markdown：
+{markdown_table}
+
+补充脚注：
+{note_text if note_text else '(无)'}
+"""
+
+        system_prompt = """你是临床与商业数据分析专家。你将基于“结构化表格文本（非图片）”做洞察。
+
+要求：
+1. 严禁编造数据；结论必须来自给定表格。
+2. 洞察必须明确引用字段名或行列位置（例如“第2行‘OS(月)’列”）。
+3. 优先输出关键指标、组间差异、统计显著性（若有 p 值/HR/CI）。
+4. 结果使用中文，结构化输出：
+   - 关键指标
+   - 主要差异
+   - 与科研假设关系（支持/反驳/无关）
+"""
+
+        response = self.vlm_client.chat.completions.create(
+            model=self.model,
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": context}
+            ],
+            max_tokens=700
+        )
+        return response.choices[0].message.content
+
     def analyze_element(self,
                        element: PageElement,
                        global_summary: str,
                        original_image_path: str,
-                       hypothesis: str = "") -> ElementInsight:
-        """表格元素优先用合合(TextIn)做结构化识别；若不可用则回退 VLM。"""
-        print(f"[元素Agent] 分析 table 元素(合合优先): {element.element_id}")
+                       hypothesis: str = "",
+                       native_page_evidence: Optional[dict] = None) -> ElementInsight:
+        """表格元素优先使用 PPTX 原生表格，其次 TextIn，再回退 VLM。"""
+        print(f"[元素Agent] 分析 table 元素(原生优先): {element.element_id}")
 
         # 裁剪 ROI
         target_image_path = original_image_path
         if element.bbox and element.bbox.box_2d:
             target_image_path = ImageUtils.crop_image(original_image_path, element.bbox.box_2d)
 
+        native_tables = (native_page_evidence or {}).get("native_tables", []) if native_page_evidence else []
+        native_match = _pick_native_table_for_element(element, native_tables)
+        if native_match:
+            md_table = (native_match.get("markdown_table") or "").strip()
+            caption = (native_match.get("caption") or native_match.get("shape_name") or "").strip()
+            footnotes = native_match.get("footnotes", [])
+            if md_table:
+                try:
+                    key_insight = self._analyze_markdown_table_text_only(
+                        markdown_table=md_table,
+                        global_summary=global_summary,
+                        hypothesis=hypothesis,
+                        caption=caption,
+                        footnotes=footnotes,
+                    )
+                    cross_check_note = ""
+                    if self.textin_client:
+                        try:
+                            ocr_result = self.textin_client.recognize_table(target_image_path)
+                            ocr_md = (ocr_result.get("markdown_table") or "").strip()
+                            if ocr_md:
+                                cross_check_note = f" | cross-check: TextIn可用({len(ocr_md)} chars)"
+                        except Exception:
+                            pass
+
+                    return ElementInsight(
+                        element_id=element.element_id,
+                        element_type=element.type,
+                        key_insight=key_insight,
+                        hypothesis_verification=f"native_table_first{cross_check_note}",
+                        data_evidence=md_table,
+                        confidence=0.96,
+                        status="pass",
+                        crop_path=target_image_path,
+                    )
+                except Exception as e:
+                    print(f"[元素Agent] [WARN] 原生表格洞察失败，回退OCR/VLM: {e}")
+
         if not self.textin_client:
             # 没有 TextIn 客户端时，降级回原逻辑（VLM 看图）
-            return super().analyze_element(element, global_summary, original_image_path, hypothesis)
+            return super().analyze_element(element, global_summary, original_image_path, hypothesis, native_page_evidence)
 
         try:
             result = self.textin_client.recognize_table(target_image_path)
@@ -369,7 +492,7 @@ class TableAnalysisAgent(ElementAnalysisAgent):
 
             if not md_table:
                 # TextIn 没拿到表格，回退 VLM
-                return super().analyze_element(element, global_summary, original_image_path, hypothesis)
+                return super().analyze_element(element, global_summary, original_image_path, hypothesis, native_page_evidence)
 
             # 简洁输出：给后续 Supervisor/导出足够证据
             key_insight = "\n".join([
@@ -390,7 +513,7 @@ class TableAnalysisAgent(ElementAnalysisAgent):
             )
         except Exception as e:
             print(f"[元素Agent] [ERROR] TextIn 表格识别失败: {e}")
-            return super().analyze_element(element, global_summary, original_image_path, hypothesis)
+            return super().analyze_element(element, global_summary, original_image_path, hypothesis, native_page_evidence)
 
 
 class DiagramAnalysisAgent(ElementAnalysisAgent):
@@ -450,6 +573,7 @@ def node_element_worker(state: dict, vlm_client: VLMClient, debug_logger=None) -
     image_path = state["image_path"]
     page_index = state.get("page_index", 0)
     hypothesis = state.get("hypothesis", "")
+    native_page_evidence = state.get("native_page_evidence", {})
     
     # 记录步骤开始
     if debug_logger:
@@ -470,7 +594,13 @@ def node_element_worker(state: dict, vlm_client: VLMClient, debug_logger=None) -
     agent = get_agent(element.type, vlm_client)
     
     # 分析元素
-    insight = agent.analyze_element(element, global_summary, image_path, hypothesis)
+    insight = agent.analyze_element(
+        element,
+        global_summary,
+        image_path,
+        hypothesis,
+        native_page_evidence=native_page_evidence,
+    )
     
     # 记录步骤结束
     if debug_logger:

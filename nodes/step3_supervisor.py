@@ -26,6 +26,24 @@ class Step3_SupervisorEngine:
         config = get_config()
         self.model = config.llm_model_name
         print(f"[Step3-Supervisor] 使用模型: {self.model}")
+
+    @staticmethod
+    def _contains_failure_marker(text: str) -> bool:
+        s = str(text or "").strip().lower()
+        if not s:
+            return False
+        markers = (
+            "分析失败",
+            "提取失败",
+            "unterminated string",
+            "jsondecodeerror",
+            "expecting value",
+            "traceback",
+            "error:",
+            "line 1 column",
+            "char ",
+        )
+        return any(m in s for m in markers)
     
     def validate_and_fuse(self,
                          global_analysis: GlobalPageAnalysis,
@@ -50,13 +68,34 @@ class Step3_SupervisorEngine:
                 if abs(xml_len - vlm_len) > 200 and vlm_len > 0:
                     cross_check_warning = f"⚠️ [风险] 文本源不一致: XML提取({xml_len}字) vs VLM提取({vlm_len}字)，需人工复核。"
 
-        # 1. 构建校验prompt
-        elements_summary = "\n".join([
-            f"- [{e.element_id}] {e.element_type}:\n  Insight: {e.key_insight}\n  Hypothesis Check: {e.hypothesis_verification}"
-            for e in element_insights
-        ])
-        
-        validation_prompt = f"""请作为质量审核官，校验以下分析结果的合理性：
+        hard_fail_issues = []
+        for insight in element_insights:
+            et = (getattr(insight, "element_type", "") or "").lower()
+            if et not in {"chart", "image", "mixed", "diagram", "flowchart", "figure", "graph"}:
+                continue
+
+            status = (getattr(insight, "status", "") or "").lower()
+            key_insight = getattr(insight, "key_insight", "")
+            data_evidence = getattr(insight, "data_evidence", "")
+
+            if status in {"fail", "retry"} or self._contains_failure_marker(key_insight) or self._contains_failure_marker(data_evidence):
+                hard_fail_issues.append(
+                    f"[{insight.element_id}] 视觉元素提取失败或结果异常，需重跑提取，不可直接放行。"
+                )
+
+        if hard_fail_issues:
+            validation_passed = False
+            formatted_issues = self._format_complex_field(hard_fail_issues)
+            validation_notes = f"Score: 0\nFeedback: 检测到视觉元素提取失败，触发硬性拦截。\nIssues: {formatted_issues}"
+            print(f"[Step3-Supervisor] 校验结果: [ERROR] FAIL")
+        else:
+            # 1. 构建校验prompt
+            elements_summary = "\n".join([
+                f"- [{e.element_id}] {e.element_type}:\n  Insight: {e.key_insight}\n  Hypothesis Check: {e.hypothesis_verification}"
+                for e in element_insights
+            ])
+
+            validation_prompt = f"""请作为质量审核官，校验以下分析结果的合理性：
 
 全局结论：{global_analysis.core_summary}
 
@@ -82,39 +121,34 @@ class Step3_SupervisorEngine:
 - consistency_score: 0-100 的一致性评分（如果不冲突，即便无关也应打 80 分以上）
 - warning: 交叉验证警告：{cross_check_warning}"""
                 
-        try:
-            response = self.llm_client.chat.completions.create(
-                model=self.model,
-                messages=[
-                    {"role": "system", "content": "你是一个严格的质量审核官。"},
-                    {"role": "user", "content": validation_prompt}
-                ],
-                response_format={"type": "json_object"},
-                max_tokens=1000
-            )
-            content = response.choices[0].message.content
-            output_data = json.loads(content)
-            
-            # 使用 Pydantic 验证
-            sup_output = SupervisorOutput(**output_data)
-            
-            validation_passed = sup_output.status == "pass"
-            # 格式化输出
-            formatted_issues = self._format_complex_field(sup_output.issues)
-            formatted_feedback = self._format_complex_field(sup_output.feedback)
-            validation_notes = f"Score: {sup_output.consistency_score}\nFeedback: {formatted_feedback}\nIssues: {formatted_issues}"
-            
-            # validation_content = response.choices[0].message.content
-            
-            # # 简单判断是否通过（实际应该解析JSON）
-            # validation_passed = "fail" not in validation_content.lower()
-            
-            print(f"[Step3-Supervisor] 校验结果: {'[OK] PASS' if validation_passed else '[ERROR] FAIL'}")
-            
-        except Exception as e:
-            print(f"[Supervisor] JSON解析失败，降级通过: {e}")
-            validation_passed = True  
-            validation_notes = str(e)
+            try:
+                response = self.llm_client.chat.completions.create(
+                    model=self.model,
+                    messages=[
+                        {"role": "system", "content": "你是一个严格的质量审核官。"},
+                        {"role": "user", "content": validation_prompt}
+                    ],
+                    response_format={"type": "json_object"},
+                    max_tokens=1000
+                )
+                content = response.choices[0].message.content
+                output_data = json.loads(content)
+                
+                # 使用 Pydantic 验证
+                sup_output = SupervisorOutput(**output_data)
+                
+                validation_passed = sup_output.status == "pass"
+                # 格式化输出
+                formatted_issues = self._format_complex_field(sup_output.issues)
+                formatted_feedback = self._format_complex_field(sup_output.feedback)
+                validation_notes = f"Score: {sup_output.consistency_score}\nFeedback: {formatted_feedback}\nIssues: {formatted_issues}"
+                
+                print(f"[Step3-Supervisor] 校验结果: {'[OK] PASS' if validation_passed else '[ERROR] FAIL'}")
+                
+            except Exception as e:
+                print(f"[Supervisor] JSON解析失败，降级通过: {e}")
+                validation_passed = True
+                validation_notes = str(e)
         
         # 2. 如果通过，融合成最终markdown
         if validation_passed:

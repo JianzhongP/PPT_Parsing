@@ -35,6 +35,13 @@ from .pipeline_state import (
 )
 
 
+def _fallback_vlm_model_from_env() -> str:
+    provider = (os.getenv("MULTIMODAL_PROVIDER", "gpt4o") or "").strip().lower()
+    if provider in {"qwen", "qwen3-vl-plus", "dashscope"}:
+        return (os.getenv("VLM_MODEL_NAME", "qwen3-vl-plus") or "qwen3-vl-plus").strip()
+    return (os.getenv("G4O_MODEL_NAME", "gpt-4o") or "gpt-4o").strip()
+
+
 # ============================================================================
 # 坐标归一化工具
 # ============================================================================
@@ -351,8 +358,8 @@ class SemanticGroupingEngine:
         try:
             from config import get_config
             self.model = get_config().vlm_runtime_model_name
-        except:
-            self.model = "gpt-4o"
+        except Exception:
+            self.model = _fallback_vlm_model_from_env()
     
     def group_elements(self,
                       som_image_path: str,

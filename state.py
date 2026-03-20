@@ -185,6 +185,14 @@ class FinalPageOutput(BaseModel):
     reviewed_markdown_content: Optional[str] = None
     reviewed_summary: Optional[str] = None
     reviewed_elements: Optional[Dict[str, Any]] = None
+    reconcile_applied: bool = False
+    reconcile_notes: List[str] = Field(default_factory=list)
+    reconcile_missing_texts: List[str] = Field(default_factory=list)
+    reconcile_table_conflict: bool = False
+    reconcile_mineru_page_markdown: Optional[str] = None
+    reconcile_table_output: Optional[str] = None
+    reconcile_table_mineru: Optional[str] = None
+    reconcile_table_merged: Optional[str] = None
 
 
 class PageAnalysisResult(BaseModel):
@@ -229,6 +237,9 @@ class PPTPageState(BaseModel):
     # --- Step 2 数据 ---
     step2_plan: Dict[str, Any] = Field(default_factory=dict)
     pending_elements: List[PageElement] = Field(default_factory=list)
+    native_page_evidence: Dict[str, Any] = Field(default_factory=dict)
+    precomputed_mineru_layout: Optional[Dict[str, Any]] = None
+    precomputed_mineru_source: Optional[str] = None
 
     # 从 YOLO 得到的原始元素（硬切割）
     raw_detected_elements: List[PageElement] = field(default_factory=list)
@@ -258,9 +269,15 @@ class PPTWorkflowState(BaseModel):
     # 页面队列
     page_queue: List[int] = Field(default_factory=list)
     total_pages: int = 0
+    page_image_map: Dict[int, str] = Field(default_factory=dict)
     
     # 当前批次
     current_batch: List[int] = Field(default_factory=list)
+
+    # 全局 MinerU 预计算结果（统一预测，拆分使用）
+    global_mineru_pdf_path: Optional[str] = None
+    global_mineru_output_dir: Optional[str] = None
+    precomputed_mineru_layouts: Dict[int, Dict[str, Any]] = Field(default_factory=dict)
     
     # 章节信息
     chapter_info: Dict[str, Any] = Field(default_factory=dict)

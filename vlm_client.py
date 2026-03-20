@@ -62,6 +62,7 @@ class VLMClient:
         self.base_url = base_url
         self.model_name = model_name
         self.chat = _ChatAdapter(self)
+        self.provider = "qwen" if "dashscope" in (base_url or "").lower() else "openai-compatible"
         
         # 检测提供商并选择实现
         if "dashscope" in base_url.lower():
@@ -84,6 +85,11 @@ class VLMClient:
                 api_key=api_key,
                 base_url=base_url
             )
+
+        print(
+            f"[VLMClient] 路由信息: provider={self.provider}, client_type={self.client_type}, "
+            f"model={self.model_name}, base_url={self.base_url}"
+        )
     
     def chat_completions_create(self, 
                                messages: List[Dict[str, Any]],
@@ -91,7 +97,17 @@ class VLMClient:
         """
         创建聊天完成请求，统一接口
         """
-        model_name = kwargs.pop("model", None) or self.model_name
+        requested_model = kwargs.pop("model", None)
+        if self.provider == "qwen":
+            model_name = self.model_name
+            if requested_model and requested_model != self.model_name:
+                print(
+                    f"[VLMClient] [WARNING] qwen 路由下忽略外部 model={requested_model}，"
+                    f"强制使用 model={self.model_name}"
+                )
+        else:
+            model_name = requested_model or self.model_name
+
         if self.client_type == "dashscope":
             return self._create_dashscope(messages, model_name=model_name, **kwargs)
         else:
