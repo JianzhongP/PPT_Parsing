@@ -1570,34 +1570,33 @@ class Phase1_LayoutDetector:
         """转换MinerU输出为标准格式"""
         detected = []
         
-        # 1. 确定归一化的分母 (Base Dimension)
         base_w, base_h = pdf_w, pdf_h
         
-        # 策略 A: 优先使用模型 JSON 自带的尺寸 (最准确)
+        # 1. 优先使用传入的模型元数据尺寸
         if model_w and model_h:
-            print(f"  [Coords] 使用模型元数据尺寸: {model_w}x{model_h}")
             base_w, base_h = model_w, model_h
         else:
-            # 策略 B: 启发式推断
-            # 扫描所有元素的坐标，看最大值分布
-            max_x = 0
-            max_y = 0
+            # 2. 检查传入的 raw_elements 是否已经是在 step2_locator 中处理好的 0-1000 归一化坐标！
+            # 如果上游传过来的是预计算布局，它们往往已经是 0-1000 的格式了
+            is_already_normalized = True
             for raw in raw_elements:
                 bbox = raw.get("bbox", [0,0,0,0])
-                if len(bbox) == 4:
-                    max_x = max(max_x, bbox[2])
-                    max_y = max(max_y, bbox[3])
+                # 如果发现坐标有小数，或者坐标严格分布在 0-1000 之间（通常最大值在 1000 以内，但远大于 1）
+                if any(isinstance(v, float) for v in bbox) and max(bbox) <= 1000.0:
+                    pass
+                elif max(bbox) > 1000.0:
+                    is_already_normalized = False
+                    break
             
-            # 如果最大坐标在 900-1000 之间，且 PDF 宽度远大于 1000，说明是归一化坐标
-            if 800 < max_x <= 1000 and pdf_w > 1200:
-                print(f"  [Coords] 检测到 0-1000 归一化坐标 (MaxX={max_x}, PDFW={pdf_w})")
-                base_w, base_h = 1000.0, 1000.0 # 假设高度也是归一化，或者按比例
-                # 注意：MinerU 有时高度是真实的，只有宽度归一化，这里简化处理，通常 width 对了 height 也会对
+            if is_already_normalized:
+                print(f"  [Coords] 检测到输入框已经是 0-1000 归一化坐标，直接继承。")
+                base_w, base_h = 1000.0, 1000.0
             else:
-                print(f"  [Coords] 使用 PDF MediaBox 尺寸: {pdf_w}x{pdf_h}")
-        
-        print(f"  [Debug] 归一化计算: Coord / ({base_w}x{base_h}) * 1000")
-        
+                # 3. 如果都不是，退回到 PDF 尺寸，绝对不能强制设为 1000
+                print(f"  [Coords] 未知来源坐标，使用 PDF 物理尺寸作为基准: {pdf_w}x{pdf_h}")
+                base_w, base_h = pdf_w, pdf_h
+
+        # 下方归一化计算保持不变...
         for i, raw in enumerate(raw_elements):
             bbox_px = raw.get("bbox", [0, 0, 0, 0])
             if len(bbox_px) == 4:

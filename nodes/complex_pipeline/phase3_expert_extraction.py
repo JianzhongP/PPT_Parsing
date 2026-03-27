@@ -2820,3 +2820,10 @@ class Phase3_ParallelExtractor:
                 processing_status="failed",
                 error_message="Image-as-chart extraction returned invalid/failed payload"
             )
+        
+        return ExtractedContent(
+            element_id=element_id,
+            element_type="image",
+            chart_data=chart_data,
+            processing_status="success"
+        )

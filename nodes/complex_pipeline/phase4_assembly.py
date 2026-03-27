@@ -729,7 +729,7 @@ class Phase4_Assembler:
         """构建块内元素内容"""
         elements = {}
         
-        # 1. 基础 OCR 文本收集 (作为兜底数据)
+        # 1. 基础 OCR 文本收集 (仅作备用，不再盲目全拼接到 text_content)
         raw_ocr_texts = []
         for mid in group.member_ids:
             txt = id_to_text_map.get(mid, "").strip()
@@ -848,7 +848,6 @@ class Phase4_Assembler:
                     "notes": content.table_data.notes,
                     "internal_headers": content.table_data.internal_headers,
                 }
-                # 表格同样需要 ROI 图片引用，供最终 Markdown 展示
                 if mid in elem_map:
                     table_info["image_path"] = f"roi_crops/{mid}_roi.png"
                 collected_tables.append(table_info)
@@ -862,7 +861,6 @@ class Phase4_Assembler:
         # 填充集合数据
         if collected_charts:
             elements["charts"] = collected_charts
-            # 为了兼容性，保留单数形式的数据（优先取主元素，否则取第一个）
             primary_chart = next((c for c in collected_charts if c["element_id"] == group.primary_element_id), collected_charts[0])
             elements["chart_data"] = primary_chart["data"]
             if "image_path" in primary_chart:
@@ -870,7 +868,6 @@ class Phase4_Assembler:
         
         if collected_tables:
             elements["tables"] = collected_tables
-            # 兼容性
             primary_table = next((t for t in collected_tables if t["element_id"] == group.primary_element_id), collected_tables[0])
             elements["table_data"] = {
                 "markdown": primary_table["markdown"],
@@ -883,20 +880,44 @@ class Phase4_Assembler:
                 "internal_headers": primary_table.get("internal_headers", []),
             }
 
-        # 3. 兜底逻辑：如果高级提取失败，或者结果不佳，强制使用 OCR 文本
+        # 3. 兜底文本逻辑与标题智能推断
         if not extraction_success:
-            # 如果是图表但分析失败，至少保留标题和OCR文本
-            elements["text_content"] = fallback_text
+            # 这是一个纯文本组（或者提取失败的视觉组）
+            if "text_content" not in elements:
+                # 启发式寻找真正的“小标题”：通常是组内最短的那句话
+                texts_with_ids = [(mid, id_to_text_map.get(mid, "").strip()) for mid in group.member_ids if id_to_text_map.get(mid, "").strip()]
+                
+                if not texts_with_ids:
+                    pass
+                elif len(texts_with_ids) == 1:
+                    # 只有一个文本块，直接作为正文
+                    elements["text_content"] = texts_with_ids[0][1]
+                else:
+                    # 有多个文本块，尝试分离标题和正文
+                    # 按照文本长度排序，找到最短的
+                    shortest_text_tuple = min(texts_with_ids, key=lambda x: len(x[1]))
+                    
+                    # 如果最短的文本不超过 30 个字，我们认为它是标题
+                    if len(shortest_text_tuple[1]) < 30:
+                        elements["title"] = shortest_text_tuple[1]
+                        # 剩下的全部拼接成正文，不会再包含刚刚提取的标题
+                        body_texts = [txt for mid, txt in texts_with_ids if mid != shortest_text_tuple[0]]
+                        elements["text_content"] = "\n".join(body_texts)
+                    else:
+                        # 全都很长，没有明显的标题特征，直接全部拼接作为正文
+                        elements["text_content"] = "\n".join([txt for mid, txt in texts_with_ids])
+            
             elements["is_fallback"] = True
+        else:
+            # 如果是视觉元素组（图/表）且高级提取成功，尝试获取辅助标题
+            if "title" not in elements:
+                for sec_id in group.secondary_element_ids:
+                    text = id_to_text_map.get(sec_id, "").strip()
+                    if text and len(text) < 50: # 避免把长正文当做标题
+                        elements["title"] = text
+                        break
         
-        # 4. 标题处理 (从从元素获取，如果没包含在 OCR 兜底中)
-        for sec_id in group.secondary_element_ids:
-            text = id_to_text_map.get(sec_id, "").strip()
-            if text:
-                if "title" not in elements:
-                    elements["title"] = text
-        
-        # 5. 添加图片引用 (兜底：如果还未设置image_path且它是视觉元素)
+        # 4. 添加图片引用 (兜底：如果还未设置image_path且它是视觉元素)
         if "image_path" not in elements:
             primary_id = group.primary_element_id
             if primary_id and primary_id in elem_map:
