@@ -1015,6 +1015,7 @@ class Phase4_Assembler:
         rendered_images = set()
         
         elements = block.elements
+        fine_type = self._derive_fine_type(block)
 
         has_tables = bool(elements.get("tables"))
 
@@ -1022,7 +1023,10 @@ class Phase4_Assembler:
             if not image_path or image_path in rendered_images:
                 return
             img_filename = os.path.basename(image_path)
-            md_lines.append(f"![{block.block_type}](roi_crops/{img_filename})")
+            alt_text = block.block_type
+            if fine_type and fine_type != block.block_type:
+                alt_text = f"{block.block_type}|{fine_type}"
+            md_lines.append(f"![{alt_text}](roi_crops/{img_filename})")
             md_lines.append("")
             image_refs.append(image_path)
             rendered_images.add(image_path)
@@ -1030,6 +1034,10 @@ class Phase4_Assembler:
         # 标题
         if elements.get("title"):
             md_lines.append(f"## {elements['title']}")
+            md_lines.append("")
+
+        if fine_type and fine_type != block.block_type:
+            md_lines.append(f"*细粒度类型: {fine_type}*")
             md_lines.append("")
 
         # mixed 组整体洞察（优先于子图明细展示）
@@ -1320,6 +1328,37 @@ class Phase4_Assembler:
         md_lines.append("")
         
         return md_lines, image_refs, table_count, chart_count
+
+    def _derive_fine_type(self, block: SemanticBlock) -> str:
+        elements = block.elements or {}
+
+        charts = elements.get("charts", []) if isinstance(elements.get("charts", []), list) else []
+        if charts:
+            counts: Dict[str, int] = {}
+            for chart_info in charts:
+                if not isinstance(chart_info, dict):
+                    continue
+                data = chart_info.get("data", {}) if isinstance(chart_info.get("data", {}), dict) else {}
+                ctype = str(data.get("type", "") or "").strip().lower()
+                if not ctype:
+                    continue
+                counts[ctype] = counts.get(ctype, 0) + 1
+            if counts:
+                return max(counts.items(), key=lambda x: x[1])[0]
+
+        chart_data = elements.get("chart_data", {}) if isinstance(elements.get("chart_data", {}), dict) else {}
+        single_chart_type = str(chart_data.get("type", "") or "").strip().lower()
+        if single_chart_type:
+            return single_chart_type
+
+        tables = elements.get("tables", []) if isinstance(elements.get("tables", []), list) else []
+        if tables:
+            return "table"
+
+        if elements.get("table_data"):
+            return "table"
+
+        return block.block_type
 
     def _block_render_signature(self, block: SemanticBlock) -> str:
         """生成块级渲染签名，用于跨块去重。"""

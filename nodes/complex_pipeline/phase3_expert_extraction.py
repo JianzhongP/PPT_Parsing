@@ -20,7 +20,7 @@ import requests
 import re
 import html
 import xml.etree.ElementTree as ET
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any, Optional, Tuple
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from tempfile import NamedTemporaryFile
 from PIL import Image
@@ -38,6 +38,51 @@ from .pipeline_state import (
 # ==========================================================================
 
 _JSON_CODEBLOCK_RE = re.compile(r"```(?:json)?\s*(\{.*?\})\s*```", re.IGNORECASE | re.DOTALL)
+
+
+PROMPT_CONTRACT_V1 = {
+    "language_policy": "所有解释字段中文输出；英文术语保留原文并可附中文释义。",
+    "schema_policy": "仅输出严格 JSON 对象，禁止 Markdown 代码块与额外前后缀。",
+    "evidence_policy": "原文摘录字段保留图中原文，不做翻译改写。",
+    "reliability_policy": "优先保证关键字段非空；内容超长时保留高价值信息并确保 JSON 可解析。",
+}
+
+
+def _prompt_contract_block() -> str:
+    return (
+        "【统一提示词契约 v1】\n"
+        f"- 语言策略: {PROMPT_CONTRACT_V1['language_policy']}\n"
+        f"- Schema 策略: {PROMPT_CONTRACT_V1['schema_policy']}\n"
+        f"- 证据策略: {PROMPT_CONTRACT_V1['evidence_policy']}\n"
+        f"- 可靠性策略: {PROMPT_CONTRACT_V1['reliability_policy']}"
+    )
+
+
+def _semantic_context_to_prompt(semantic_context: Optional[Dict[str, Any]]) -> str:
+    if not isinstance(semantic_context, dict) or not semantic_context:
+        return ""
+
+    group_id = str(semantic_context.get("group_id", "") or "")
+    group_type = str(semantic_context.get("group_type", "") or "")
+    semantic_desc = str(semantic_context.get("semantic_desc", "") or "")
+    reading_order = semantic_context.get("reading_order", "")
+    primary_element_id = str(semantic_context.get("primary_element_id", "") or "")
+    secondary_element_ids = semantic_context.get("secondary_element_ids", []) or []
+    member_types = semantic_context.get("member_types", []) or []
+    group_title_candidate = str(semantic_context.get("group_title_candidate", "") or "")
+
+    return (
+        "【Phase2 语义上下文包】\n"
+        f"- group_id: {group_id}\n"
+        f"- group_type: {group_type}\n"
+        f"- semantic_desc: {semantic_desc}\n"
+        f"- reading_order: {reading_order}\n"
+        f"- primary_element_id: {primary_element_id}\n"
+        f"- secondary_element_ids: {secondary_element_ids}\n"
+        f"- member_types: {member_types}\n"
+        f"- group_title_candidate: {group_title_candidate}\n"
+        "- ownership 规则: primary 元素负责主结构抽取，secondary 元素主要补充标题/图例/注释，避免重复抽取。"
+    )
 
 
 def _extract_probable_json_object(text: str) -> str:
@@ -667,7 +712,8 @@ class TableExpertAgent:
     
     def extract(self, 
                roi_path: str,
-               context_text: str = "") -> TableExtraction:
+               context_text: str = "",
+               semantic_context: Optional[Dict[str, Any]] = None) -> TableExtraction:
         """
         提取表格内容
         
@@ -736,7 +782,7 @@ class TableExpertAgent:
         internal_headers: List[str] = self._extract_table_headers(markdown_table)
         
         if self.vlm_client and markdown_table:
-            analysis = self._analyze_table_semantics(roi_path, markdown_table, context_text)
+            analysis = self._analyze_table_semantics(roi_path, markdown_table, context_text, semantic_context=semantic_context)
             insight = analysis.get("insight", "")
             key_values = analysis.get("key_values", {})
             table_title = str(analysis.get("table_title", "") or "").strip()
@@ -783,6 +829,33 @@ class TableExpertAgent:
             notes=notes,
             internal_headers=internal_headers,
         )
+
+    @staticmethod
+    def _coerce_key_values_to_str_dict(key_values: Any) -> Dict[str, str]:
+        """将任意 key_values 归一为 Dict[str, str]，避免 Pydantic 校验失败。"""
+        if not isinstance(key_values, dict):
+            return {}
+
+        coerced: Dict[str, str] = {}
+        for k, v in key_values.items():
+            key = str(k).strip()
+            if not key:
+                continue
+
+            if isinstance(v, str):
+                val = v.strip()
+            elif isinstance(v, (int, float, bool)) or v is None:
+                val = str(v)
+            else:
+                try:
+                    val = json.dumps(v, ensure_ascii=False)
+                except Exception:
+                    val = str(v)
+
+            if val.strip():
+                coerced[key] = val
+
+        return coerced
 
     @staticmethod
     def _normalize_text(text: str) -> str:
@@ -1200,9 +1273,7 @@ class TableExpertAgent:
     @staticmethod
     def _normalize_semantic_analysis(result: Dict[str, Any]) -> Dict[str, Any]:
         insight = str(result.get("insight", "") or "").strip()
-        key_values = result.get("key_values", {})
-        if not isinstance(key_values, dict):
-            key_values = {}
+        key_values = TableExpertAgent._coerce_key_values_to_str_dict(result.get("key_values", {}))
 
         table_title = str(result.get("table_title", "") or "").strip()
         external_texts = result.get("external_texts", [])
@@ -1280,7 +1351,8 @@ class TableExpertAgent:
     def _analyze_table_semantics(self, 
                                 roi_path: str,
                                 markdown_table: str,
-                                context_text: str) -> Dict[str, Any]:
+                                context_text: str,
+                                semantic_context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         """使用VLM分析表格语义"""
         default_empty = {
             "insight": "",
@@ -1328,8 +1400,11 @@ class TableExpertAgent:
 - 若引用的标题/术语为英文或主要是英文，请保留英文原文，并在其后追加中文翻译（括号内）。
 - 原文摘录字段必须保留图中原文，不可翻译。
 
+{_prompt_contract_block()}
+
 【上下文】
 {context_text if context_text else "无"}
+{_semantic_context_to_prompt(semantic_context)}
 
 【表格内容（Markdown）】
 {variant['table_md']}
@@ -1426,6 +1501,43 @@ class ChartExpertAgent:
         except:
             self.model = "gpt-4o"
 
+        self.intent_prompt_packs: Dict[str, Dict[str, Any]] = {
+            "pharma_pipeline": {
+                "keywords": [
+                    "pipeline", "timeline", "管线", "研发管线", "临床阶段", "phase 1", "phase 2", "phase 3",
+                    "phase i", "phase ii", "phase iii", "ph1", "ph2", "ph3", "IND", "FPI", "LPI", "CDE", "CSR", "NDA", "BLA", "上市", "适应症"
+                ],
+                "prompt": (
+                    """意图识别为 pharma_pipeline（医药研发管线图）。
+请将图中资产（药物/项目）与研发阶段做视觉对齐，并输出“资产 -> 阶段/状态”的结构化结果。
+注意：此类图可表现为矩阵、泳道、时间线或类甘特布局，不要强行假设单一版式。
+重点抽取：资产名、适应症、当前最高阶段、关键时间点/里程碑、下一节点、合作方/地区信息。
+若同一资产包含多个适应症或地区，必须拆分为多条记录，避免合并丢失。"""
+                ),
+            },
+            "km_curve": {
+                "keywords": ["kaplan", "meier", "km", "os", "pfs", "hazard ratio", "hr", "生存"],
+                "prompt": (
+                    "意图识别为 km_curve。请重点抽取：组别、样本量、HR/CI、P 值、中位 OS/PFS、"
+                    "曲线分离趋势与临床结论。若关键统计量缺失，请在 insight 明确标注缺失项。"
+                ),
+            },
+            "forest_plot": {
+                "keywords": ["forest", "亚组", "subgroup", "odds ratio", "or", "ci", "heterogeneity"],
+                "prompt": (
+                    "意图识别为 forest_plot。请重点抽取：各亚组效应值与 CI、是否跨 1、"
+                    "显著性与方向、一致性结论；避免把注释文本误当数值。"
+                ),
+            },
+            "moa_pathway": {
+                "keywords": ["pathway", "mechanism", "moa", "通路", "机制", "靶点", "inhibit", "activate"],
+                "prompt": (
+                    "意图识别为 moa_pathway（机制/通路图）。请按节点关系提取：上游-中游-下游链路、"
+                    "作用方向（激活/抑制）、关键分子/受体、干预位点与最终生物学效应。"
+                ),
+            },
+        }
+
     @staticmethod
     def _normalize_text(text: str) -> str:
         normalized = re.sub(r"\s+", " ", str(text or "").strip().lower())
@@ -1442,7 +1554,7 @@ class ChartExpertAgent:
         annotation_texts: List[str],
     ) -> str:
         ct = str(chart_type or "").strip().lower()
-        if ct in {"flowchart", "timeline", "process_diagram", "gantt_like", "line_chart", "bar_chart", "pie_chart", "km_curve", "forest_plot", "scatter", "heatmap"}:
+        if ct in {"flowchart", "timeline", "process_diagram", "gantt_like", "line_chart", "bar_chart", "pie_chart", "km_curve", "forest_plot", "scatter", "heatmap", "pharma_pipeline", "moa_pathway"}:
             return ct
 
         clues = " ".join([
@@ -1464,6 +1576,47 @@ class ChartExpertAgent:
         if ct in {"", "unknown", "other", "未知", "其他"}:
             return "other"
         return ct
+
+    def _detect_intent(self, context_text: str, semantic_context: Optional[Dict[str, Any]]) -> Tuple[str, float]:
+        clues = [str(context_text or "")]
+        if isinstance(semantic_context, dict):
+            clues.append(str(semantic_context.get("semantic_desc", "") or ""))
+            clues.append(str(semantic_context.get("group_type", "") or ""))
+            clues.append(str(semantic_context.get("group_title_candidate", "") or ""))
+        all_text = " ".join(clues).lower()
+
+        best_intent = "generic_chart"
+        best_score = 0.0
+        for intent, cfg in self.intent_prompt_packs.items():
+            keywords = cfg.get("keywords", []) if isinstance(cfg, dict) else []
+            if not keywords:
+                continue
+            hit = sum(1 for kw in keywords if kw in all_text)
+            score = min(1.0, hit / 3.0)
+            if score > best_score:
+                best_score = score
+                best_intent = intent
+
+        if best_score < 0.30:
+            return "generic_chart", 0.0
+        return best_intent, best_score
+
+    @staticmethod
+    def _intent_override_chart_type(chart_type: str, intent: str, confidence: float) -> str:
+        ct = str(chart_type or "").strip().lower()
+        if intent == "pharma_pipeline":
+            if confidence >= 0.50 and ct in {"", "unknown", "other", "flowchart", "process_diagram", "timeline", "gantt_like"}:
+                return "pharma_pipeline"
+            return ct or "other"
+
+        if confidence < 0.7:
+            return ct or "other"
+
+        if intent in {"km_curve", "forest_plot"} and ct in {"", "unknown", "other", "flowchart", "process_diagram"}:
+            return intent
+        if intent in {"pharma_pipeline", "moa_pathway"} and ct in {"", "unknown", "other", "flowchart", "process_diagram", "timeline"}:
+            return intent
+        return ct or "other"
 
     @staticmethod
     def _classify_chart_texts(raw_texts: List[str]) -> Dict[str, List[str]]:
@@ -1520,7 +1673,8 @@ class ChartExpertAgent:
     
     def extract(self,
                roi_path: str,
-               context_text: str = "") -> ChartExtraction:
+               context_text: str = "",
+               semantic_context: Optional[Dict[str, Any]] = None) -> ChartExtraction:
         """
         提取图表内容
         
@@ -1537,17 +1691,30 @@ class ChartExpertAgent:
             with open(roi_path, "rb") as f:
                 base64_img = base64.b64encode(f.read()).decode('utf-8')
             
+            intent, intent_conf = self._detect_intent(context_text, semantic_context)
+            intent_hint = ""
+            if intent != "generic_chart":
+                intent_hint = str(self.intent_prompt_packs.get(intent, {}).get("prompt", ""))
+
             prompt = f"""你是一名数据分析师和视觉信息提取专家。
             语言要求（必须严格遵守）：
             - 所有输出必须为中文，不得夹杂英文句子。
             - 若引用的标题/术语为英文或主要是英文，请保留英文原文，并在其后追加中文翻译（括号内）。
             - 原文摘录字段必须保留图中原文，不可翻译。
 
+{_prompt_contract_block()}
+
 【背景上下文】
 此图表的标题/描述是：'{context_text}'（非常重要，请基于此确定图表主题）。
+{_semantic_context_to_prompt(semantic_context)}
+
+【意图识别】
+- intent: {intent}
+- confidence: {intent_conf:.2f}
+{intent_hint}
 
 【任务要求】
-1. **结构化提取**：识别图表类型。如果图表是流程图、机制图、架构图或包含大量文本区块的图，必须归类为 `flowchart` 或 `process_diagram`。
+1. **结构化提取**：识别图表类型。如果图表体现“资产/药物 × 临床阶段 × 适应症/地区”的研发管线结构，优先归类为 `pharma_pipeline`；机制/通路关系图优先归类为 `moa_pathway`；流程图、架构图或文本流程块图归类为 `flowchart` 或 `process_diagram`。
 2. **全量信息提取（针对文字密集型图表）**：如果图中包含大量文字、逻辑分支或描述块（如流程图），你必须将**所有**文字条理化地提取出来，绝不能只做概括！请利用 `key_values` 字段，将“节点名称/步骤名”作为键，“该节点内的完整详细文字”作为值，进行穷尽式提取。
 3. **洞察分析**：结合背景上下文，总结核心观点，并在洞察中补充图表整体的结构描述。
 4. **表格兜底**：如果图中意外包含了数据表格，请按行将其数据明细提取到 `key_values` 中，不要遗漏。
@@ -1560,7 +1727,7 @@ class ChartExpertAgent:
 
 【输出JSON格式】
 {{
-    "chart_type": "bar_chart/line_chart/pie_chart/km_curve/forest_plot/flowchart/process_diagram/other",
+    "chart_type": "bar_chart/line_chart/pie_chart/km_curve/forest_plot/pharma_pipeline/moa_pathway/flowchart/process_diagram/timeline/scatter/heatmap/other",
     "x_axis": "X轴含义（中文，若无明确X轴则填无）",
     "y_axis": "Y轴含义（中文，若无明确Y轴则填无）",
         "key_values": {{"系列名或步骤名/节点名": "对应的关键数值或完整详细说明文字", "...": "..."}},
@@ -1640,6 +1807,7 @@ class ChartExpertAgent:
                 axis_labels=axis_labels,
                 annotation_texts=annotation_texts,
             )
+            chart_type = self._intent_override_chart_type(chart_type, intent, intent_conf)
             
             return ChartExtraction(
                 chart_type=chart_type,
@@ -2023,7 +2191,7 @@ class MixedExpertAgent:
             deduped.append(item)
         return deduped
 
-    def extract(self, roi_path: str, context_text: str = "") -> MixedExtraction:
+    def extract(self, roi_path: str, context_text: str = "", semantic_context: Optional[Dict[str, Any]] = None) -> MixedExtraction:
         print(f"[MixedExpert] 处理混合元素: {roi_path}")
 
         try:
@@ -2035,8 +2203,11 @@ class MixedExpertAgent:
 - 所有输出必须为中文（术语可保留英文并附中文解释）。
 - 若识别到图片中的原文文字，请在指定字段中按原样保留，不要翻译或改写。
 
+{_prompt_contract_block()}
+
 【背景上下文】
 {context_text if context_text else "无"}
+{_semantic_context_to_prompt(semantic_context)}
 
 【任务】
 1) 判断该ROI是否为混合内容（例如一张图里含多个子图、图+表、双图对比）。
@@ -2052,7 +2223,7 @@ class MixedExpertAgent:
   "charts": [
     {{
       "panel_name": "子图标识（如左图/右图/上图）",
-      "chart_type": "line_chart/bar_chart/pie_chart/km_curve/forest_plot/flowchart/process_diagram/other",
+            "chart_type": "line_chart/bar_chart/pie_chart/km_curve/forest_plot/pharma_pipeline/moa_pathway/flowchart/process_diagram/timeline/scatter/heatmap/other",
       "x_axis": "X轴含义，若多子图可用{{\"左图\":\"...\",\"右图\":\"...\"}}",
       "y_axis": "Y轴含义，若多子图可用{{\"左图\":\"...\",\"右图\":\"...\"}}",
             "key_values": {{"节点/步骤/系列名": "关键数值或完整详细文字", "...": "..."}},
@@ -2500,7 +2671,8 @@ class Phase3_ParallelExtractor:
             validated_semantic,
             roi_map,
             elem_map,
-            group_context_map
+            group_context_map,
+            page_title=page_title,
         )
         
         print(f"[Phase 3] 准备了 {len(tasks)} 个提取任务")
@@ -2578,12 +2750,56 @@ class Phase3_ParallelExtractor:
             group_context[group.group_id] = context
         
         return group_context
+
+    def _build_semantic_context_packet(self,
+                                      group: SemanticGroup,
+                                      id_to_text_map: Dict[str, str],
+                                      elem_map: Dict[str, DetectedElement],
+                                      page_title: str = "") -> Dict[str, Any]:
+        member_types: List[str] = []
+        for mid in group.member_ids:
+            elem = elem_map.get(mid)
+            if not elem:
+                continue
+            member_types.append(normalize_element_type(elem.refined_type or elem.original_type))
+
+        secondary_texts: List[str] = []
+        for sec_id in group.secondary_element_ids:
+            text = str(id_to_text_map.get(sec_id, "") or "").strip()
+            if text:
+                secondary_texts.append(text)
+
+        primary_text = ""
+        if group.primary_element_id:
+            primary_text = str(id_to_text_map.get(group.primary_element_id, "") or "").strip()
+
+        group_title_candidate = secondary_texts[0] if secondary_texts else ""
+        if not group_title_candidate and primary_text and len(primary_text) <= 80:
+            group_title_candidate = primary_text
+        if not group_title_candidate and page_title:
+            group_title_candidate = str(page_title).strip()
+
+        return {
+            "group_id": group.group_id,
+            "group_type": group.group_type,
+            "semantic_desc": group.semantic_desc,
+            "reading_order": group.reading_order,
+            "primary_element_id": group.primary_element_id,
+            "secondary_element_ids": list(group.secondary_element_ids or []),
+            "member_ids": list(group.member_ids or []),
+            "member_types": member_types,
+            "primary_text": primary_text,
+            "secondary_texts": secondary_texts,
+            "group_title_candidate": group_title_candidate,
+            "page_title": str(page_title or "").strip(),
+        }
     
     def _prepare_tasks(self,
                       validated_semantic: ValidatedSemanticJSON,
                       roi_map: Dict[str, str],
                       elem_map: Dict[str, DetectedElement],
-                      group_context_map: Dict[str, str]) -> List[Dict]:
+                      group_context_map: Dict[str, str],
+                      page_title: str = "") -> List[Dict]:
         """
         准备提取任务
         
@@ -2636,6 +2852,12 @@ class Phase3_ParallelExtractor:
             # 2. 对于混合组/图表组，遍历成员逐个提取视觉/结构化内容
             context_text = group_context_map.get(group.group_id, "")
             group_type_l = (group.group_type or "").lower()
+            semantic_context = self._build_semantic_context_packet(
+                group=group,
+                id_to_text_map=validated_semantic.id_to_text_map,
+                elem_map=elem_map,
+                page_title=page_title,
+            )
 
             group_mixed_hint = ("mixed" in group_type_l)
             
@@ -2674,6 +2896,7 @@ class Phase3_ParallelExtractor:
                             "roi_path": roi_map[member_id],
                             "context_text": context_text,
                             "element_id": member_id,
+                            "semantic_context": semantic_context,
                         }
                     }, priority=60)
                     continue
@@ -2687,7 +2910,8 @@ class Phase3_ParallelExtractor:
                             "kwargs": {
                                 "roi_path": roi_map[member_id],
                                 "context_text": context_text,
-                                "element_id": member_id
+                                "element_id": member_id,
+                                "semantic_context": semantic_context,
                             }
                         }, priority=50)
                 
@@ -2705,7 +2929,8 @@ class Phase3_ParallelExtractor:
                             "kwargs": {
                                 "roi_path": roi_map[member_id],
                                 "context_text": chart_context,
-                                "element_id": member_id
+                                "element_id": member_id,
+                                "semantic_context": semantic_context,
                             }
                         }, priority=45)
                 
@@ -2730,19 +2955,64 @@ class Phase3_ParallelExtractor:
                             "kwargs": {
                                 "roi_path": roi_map[member_id],
                                 "context_text": context_text,
-                                "element_id": member_id
+                                "element_id": member_id,
+                                "semantic_context": semantic_context,
                             }
                         }, priority=30)
         
         return list(tasks_by_element.values())
     
-    def _extract_table(self, roi_path: str, context_text: str, element_id: str) -> ExtractedContent:
+    def _extract_table(self, roi_path: str, context_text: str, element_id: str, semantic_context: Optional[Dict[str, Any]] = None) -> ExtractedContent:
         if not os.path.exists(roi_path):
             return ExtractedContent(element_id=element_id, element_type="table", processing_status="failed", error_message="ROI file not found")
-        table_data = self.table_expert.extract(roi_path, context_text)
-        return ExtractedContent(element_id=element_id, element_type="table", table_data=table_data, processing_status="success")
+        try:
+            table_data = self.table_expert.extract(roi_path, context_text, semantic_context=semantic_context)
+            return ExtractedContent(element_id=element_id, element_type="table", table_data=table_data, processing_status="success")
+        except Exception as e:
+            # 降级策略：保留最小可用表格结果，避免整块失败导致 Phase4 仅渲染图片。
+            err = str(e)
+            print(f"[Phase 3] 表格提取异常，进入降级: {element_id} | {err}")
+
+            markdown_table = ""
+            json_structure: Dict[str, Any] = {}
+            try:
+                raw = self.textin_client.recognize_table(roi_path)
+                markdown_table = str(raw.get("markdown_table", "") or "").strip()
+                js = raw.get("json_structure", {})
+                json_structure = js if isinstance(js, dict) else {"raw": js}
+            except Exception as textin_err:
+                json_structure = {
+                    "fallback_error": str(textin_err),
+                }
+
+            fallback_insight = (
+                "表格提取发生异常，已启用降级输出；"
+                f"异常摘要: {err[:180]}"
+            )
+            fallback_kv = {
+                "提取状态": "degraded_fallback",
+                "异常摘要": err[:120],
+            }
+
+            fallback_table = TableExtraction(
+                markdown_table=markdown_table,
+                json_structure=json_structure,
+                insight=fallback_insight,
+                key_values=fallback_kv,
+                table_title="",
+                external_texts=[],
+                footnotes=[],
+                notes=[],
+                internal_headers=[],
+            )
+            return ExtractedContent(
+                element_id=element_id,
+                element_type="table",
+                table_data=fallback_table,
+                processing_status="success",
+            )
     
-    def _extract_chart(self, roi_path: str, context_text: str, element_id: str) -> ExtractedContent:
+    def _extract_chart(self, roi_path: str, context_text: str, element_id: str, semantic_context: Optional[Dict[str, Any]] = None) -> ExtractedContent:
         """提取图表 (带文件检查)"""
         # 检查文件是否存在
         if not os.path.exists(roi_path):
@@ -2754,7 +3024,7 @@ class Phase3_ParallelExtractor:
                 error_message="ROI file not found"
             )
 
-        chart_data = self.chart_expert.extract(roi_path, context_text)
+        chart_data = self.chart_expert.extract(roi_path, context_text, semantic_context=semantic_context)
         if not self._is_chart_extraction_valid(chart_data):
             return ExtractedContent(
                 element_id=element_id,
@@ -2770,7 +3040,7 @@ class Phase3_ParallelExtractor:
             processing_status="success"
         )
 
-    def _extract_mixed(self, roi_path: str, context_text: str, element_id: str) -> ExtractedContent:
+    def _extract_mixed(self, roi_path: str, context_text: str, element_id: str, semantic_context: Optional[Dict[str, Any]] = None) -> ExtractedContent:
         """提取混合元素（图+表/多子图）"""
         if not os.path.exists(roi_path):
             return ExtractedContent(
@@ -2780,7 +3050,7 @@ class Phase3_ParallelExtractor:
                 error_message="ROI file not found"
             )
 
-        mixed_data = self.mixed_expert.extract(roi_path, context_text)
+        mixed_data = self.mixed_expert.extract(roi_path, context_text, semantic_context=semantic_context)
         return ExtractedContent(
             element_id=element_id,
             element_type="mixed",
@@ -2809,9 +3079,9 @@ class Phase3_ParallelExtractor:
             processing_status="success"
         )
     
-    def _extract_image(self, roi_path: str, context_text: str, element_id: str) -> ExtractedContent:
+    def _extract_image(self, roi_path: str, context_text: str, element_id: str, semantic_context: Optional[Dict[str, Any]] = None) -> ExtractedContent:
         """提取图片（作为图表处理）"""
-        chart_data = self.chart_expert.extract(roi_path, context_text)
+        chart_data = self.chart_expert.extract(roi_path, context_text, semantic_context=semantic_context)
         if not self._is_chart_extraction_valid(chart_data):
             return ExtractedContent(
                 element_id=element_id,
