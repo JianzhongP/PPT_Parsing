@@ -27,13 +27,21 @@ def _sanitize_name_for_path(name: str) -> str:
     return s[:80] or "default"
 
 
-def _build_run_directories(ppt_path: str) -> Tuple[str, str, str]:
-    """根据 ppt_path 生成独立目录名（processing_artifacts/output/layout_cache）。"""
+def _build_run_directories(ppt_path: str) -> Tuple[str, str, str, str]:
+    """根据 ppt_path 生成独立目录名，并统一落到运行产物根目录。"""
     stem = _sanitize_name_for_path(Path(ppt_path).stem)
-    processing_dir = f"processing_artifacts_{stem}"
-    output_dir = f"ppt_parsing_output_{stem}"
-    layout_cache_dir = f"{processing_dir}/layout_cache"
-    return processing_dir, output_dir, layout_cache_dir
+    project_root = Path(__file__).resolve().parent
+    runs_root_raw = os.getenv("PPT_RUNS_ROOT", ".runs").strip() or ".runs"
+    runs_root = Path(runs_root_raw)
+    if not runs_root.is_absolute():
+        runs_root = project_root / runs_root
+
+    run_root = runs_root / stem
+    processing_dir = run_root / "processing_artifacts"
+    output_dir = run_root / "ppt_parsing_output"
+    layout_cache_dir = processing_dir / "layout_cache"
+    debug_log_dir = run_root / "debug_logs"
+    return str(processing_dir), str(output_dir), str(layout_cache_dir), str(debug_log_dir)
 
 
 def _rewrite_markdown_image_paths(markdown: str, *, artifacts_dir: str | None, output_md_path: Path, project_root: Path) -> str:
@@ -583,7 +591,7 @@ class PPTParsingPipeline:
         self.max_concurrent_pages = max_concurrent_pages
         self.enable_debug = enable_debug
 
-        processing_dir, output_dir, layout_cache_dir = _build_run_directories(ppt_path)
+        processing_dir, output_dir, layout_cache_dir, debug_log_dir = _build_run_directories(ppt_path)
         os.environ["PPT_PROCESSING_ARTIFACTS_DIR"] = processing_dir
         os.environ["PPT_OUTPUT_DIR"] = output_dir
         os.environ["PPT_LAYOUT_CACHE_DIR"] = layout_cache_dir
@@ -591,7 +599,7 @@ class PPTParsingPipeline:
         # 初始化调试logger
         if enable_debug:
             reset_debug_logger()
-            self.debug_logger = get_debug_logger(output_dir="debug_logs")
+            self.debug_logger = get_debug_logger(output_dir=debug_log_dir)
         else:
             self.debug_logger = None
         
@@ -1503,7 +1511,7 @@ page_no: {page_no}
 def main():
     """主函数示例"""
     # 配置PPT文件路径
-    ppt_path = "FH1701 KRAS突变NSCLC开发_GPT上升会问题跟进_20260312_vPre-read.pptx"  # 修改为实际的PPT文件路径
+    ppt_path = "予路乾行-IL23R-2026.02.11.pdf"  # 修改为实际的PPT文件路径
     
     if not Path(ppt_path).exists():
         print(f"错误: PPT文件不存在 - {ppt_path}")

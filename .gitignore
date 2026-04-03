@@ -1,0 +1,19 @@
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Local environment
+.env
+
+# Runtime artifacts (all parser outputs and intermediates)
+.runs/
+debug_logs/
+mineru_output/
+ppt_slides_temp/
+processing_artifacts/
+processing_artifacts_*/
+ppt_parsing_output/
+ppt_parsing_output_*/
+
+# Logs
+*.log
