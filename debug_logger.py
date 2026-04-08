@@ -14,7 +14,7 @@ import logging
 class DebugLogger:
     """调试日志记录器 - 记录工作流每一步的详细信息"""
     
-    def __init__(self, output_dir: str = "debug_logs"):
+    def __init__(self, output_dir: str = "debug_logs", run_id: str = "default"):
         """
         初始化调试日志记录器
         
@@ -23,15 +23,17 @@ class DebugLogger:
         """
         self.output_dir = Path(output_dir)
         self.output_dir.mkdir(parents=True, exist_ok=True)
+        self.run_id = str(run_id or "default")
         
         # 创建主日志文件
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
         self.log_file = self.output_dir / f"workflow_debug_{timestamp}.md"
         self.json_log_file = self.output_dir / f"workflow_debug_{timestamp}.json"
         
         # 日志数据结构
         self.log_data = {
             "timestamp": timestamp,
+            "run_id": self.run_id,
             "pages": {},  # page_index -> page_logs
             "summary": {}
         }
@@ -46,6 +48,7 @@ class DebugLogger:
         """初始化markdown文档"""
         with open(self.log_file, 'w', encoding='utf-8') as f:
             f.write("# PPT解析工作流 - 调试日志\n\n")
+            f.write(f"**Run ID**: {self.run_id}\n\n")
             f.write(f"**生成时间**: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
             f.write("---\n\n")
     
@@ -53,8 +56,18 @@ class DebugLogger:
         """设置Python标准logging"""
         log_file_path = self.output_dir / f"workflow_{timestamp}.log"
         
-        logger = logging.getLogger("ppt_workflow")
+        logger = logging.getLogger(f"ppt_workflow.{self.run_id}")
         logger.setLevel(logging.DEBUG)
+        logger.propagate = False
+
+        # 避免重复挂载 handler 导致重复日志
+        if logger.handlers:
+            for h in list(logger.handlers):
+                logger.removeHandler(h)
+                try:
+                    h.close()
+                except Exception:
+                    pass
         
         # 文件处理器
         fh = logging.FileHandler(str(log_file_path), encoding='utf-8')
@@ -62,12 +75,12 @@ class DebugLogger:
         
         # 格式器
         formatter = logging.Formatter(
-            '%(asctime)s - %(name)s - %(levelname)s - [%(filename)s:%(lineno)d] - %(message)s'
+            '%(asctime)s - %(name)s - %(levelname)s - [%(filename)s:%(lineno)d] - [run_id=%(run_id)s] - %(message)s'
         )
         fh.setFormatter(formatter)
         logger.addHandler(fh)
         
-        return logger
+        return logging.LoggerAdapter(logger, {"run_id": self.run_id})
     
     def log_step_start(self, page_index: int, step_name: str, input_data: Dict[str, Any] = None, previous_step: str = None):
         """记录步骤开始
@@ -249,24 +262,18 @@ class DebugLogger:
             json.dump(self.log_data, f, ensure_ascii=False, indent=2)
         
         self.logger.info(f"日志已保存到: {self.log_file} 和 {self.json_log_file}")
-        print(f"\n✅ 调试日志已保存:")
+        print(f"\n✅ [{self.run_id}] 调试日志已保存:")
         print(f"   Markdown: {self.log_file}")
         print(f"   JSON: {self.json_log_file}")
         
         return str(self.log_file), str(self.json_log_file)
 
 
-# 全局debug logger实例
-_debug_logger_instance: Optional[DebugLogger] = None
+def get_debug_logger(output_dir: str = "debug_logs", run_id: str = "default") -> DebugLogger:
+    """兼容入口：返回新的 run 级 logger 实例（不复用全局单例）。"""
+    return DebugLogger(output_dir=output_dir, run_id=run_id)
 
-def get_debug_logger(output_dir: str = "debug_logs") -> DebugLogger:
-    """获取全局debug logger实例"""
-    global _debug_logger_instance
-    if _debug_logger_instance is None:
-        _debug_logger_instance = DebugLogger(output_dir)
-    return _debug_logger_instance
 
 def reset_debug_logger():
-    """重置debug logger"""
-    global _debug_logger_instance
-    _debug_logger_instance = None
+    """兼容占位：已无全局 logger 可重置。"""
+    return None

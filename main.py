@@ -5,15 +5,24 @@ import html
 import os
 import re
 import sys
+import time
+import uuid
+import argparse
 import xml.etree.ElementTree as ET
 import difflib
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Dict, Any, List, Tuple, Optional
 
-from config import get_config, init_api_clients
+from config import (
+    get_config,
+    init_api_clients,
+    set_runtime_config_overrides,
+    clear_runtime_config_overrides,
+)
 from graph import build_ppt_workflow
 from state import PPTWorkflowState
-from debug_logger import get_debug_logger, reset_debug_logger
+from debug_logger import DebugLogger
 
 
 def _sanitize_name_for_path(name: str) -> str:
@@ -27,8 +36,8 @@ def _sanitize_name_for_path(name: str) -> str:
     return s[:80] or "default"
 
 
-def _build_run_directories(ppt_path: str) -> Tuple[str, str, str, str]:
-    """根据 ppt_path 生成独立目录名，并统一落到运行产物根目录。"""
+def _build_run_directories(ppt_path: str, run_id: str) -> Tuple[str, str, str, str, str]:
+    """根据 ppt_path + run_id 生成独立目录，并统一落到运行产物根目录。"""
     stem = _sanitize_name_for_path(Path(ppt_path).stem)
     project_root = Path(__file__).resolve().parent
     runs_root_raw = os.getenv("PPT_RUNS_ROOT", ".runs").strip() or ".runs"
@@ -36,12 +45,25 @@ def _build_run_directories(ppt_path: str) -> Tuple[str, str, str, str]:
     if not runs_root.is_absolute():
         runs_root = project_root / runs_root
 
-    run_root = runs_root / stem
+    run_root = runs_root / stem / run_id
     processing_dir = run_root / "processing_artifacts"
     output_dir = run_root / "ppt_parsing_output"
     layout_cache_dir = processing_dir / "layout_cache"
     debug_log_dir = run_root / "debug_logs"
-    return str(processing_dir), str(output_dir), str(layout_cache_dir), str(debug_log_dir)
+    return str(processing_dir), str(output_dir), str(layout_cache_dir), str(debug_log_dir), str(run_root)
+
+
+def _build_run_id(ppt_path: str) -> str:
+    """构建用于并发隔离与日志追踪的 run_id。"""
+    stem = _sanitize_name_for_path(Path(ppt_path).stem)
+    ts = time.strftime("%Y%m%d_%H%M%S")
+    suffix = uuid.uuid4().hex[:6]
+    return f"{stem}_{ts}_{suffix}"
+
+
+def _rprint(run_id: str, message: str):
+    """统一 run_id 前缀打印，避免并发日志难以区分。"""
+    print(f"[{run_id}] {message}")
 
 
 def _rewrite_markdown_image_paths(markdown: str, *, artifacts_dir: str | None, output_md_path: Path, project_root: Path) -> str:
@@ -578,7 +600,7 @@ class PPTParsingPipeline:
     ```
     """
     
-    def __init__(self, ppt_path: str, max_concurrent_pages: int = 3, enable_debug: bool = True):
+    def __init__(self, ppt_path: str, max_concurrent_pages: int = 3, enable_debug: bool = True, run_id: Optional[str] = None):
         """
         初始化PPT解析管道
         
@@ -590,16 +612,26 @@ class PPTParsingPipeline:
         self.ppt_path = ppt_path
         self.max_concurrent_pages = max_concurrent_pages
         self.enable_debug = enable_debug
+        self.run_id = run_id or _build_run_id(ppt_path)
 
-        processing_dir, output_dir, layout_cache_dir, debug_log_dir = _build_run_directories(ppt_path)
-        os.environ["PPT_PROCESSING_ARTIFACTS_DIR"] = processing_dir
-        os.environ["PPT_OUTPUT_DIR"] = output_dir
-        os.environ["PPT_LAYOUT_CACHE_DIR"] = layout_cache_dir
+        processing_dir, output_dir, layout_cache_dir, debug_log_dir, run_root = _build_run_directories(ppt_path, self.run_id)
+        self.processing_dir = processing_dir
+        self.output_dir = output_dir
+        self.layout_cache_dir = layout_cache_dir
+        self.debug_log_dir = debug_log_dir
+        self.run_root = run_root
+
+        # 线程级配置覆盖，避免多任务并发时互相污染目录配置
+        set_runtime_config_overrides(
+            run_id=self.run_id,
+            output_dir=output_dir,
+            processing_artifacts_dir=processing_dir,
+            layout_cache_dir=layout_cache_dir,
+        )
         
         # 初始化调试logger
         if enable_debug:
-            reset_debug_logger()
-            self.debug_logger = get_debug_logger(output_dir=debug_log_dir)
+            self.debug_logger = DebugLogger(output_dir=debug_log_dir, run_id=self.run_id)
         else:
             self.debug_logger = None
         
@@ -623,7 +655,7 @@ class PPTParsingPipeline:
             {page_index: final_output} 的字典
         """
         print("\n" + "="*70)
-        print(f"开始PPT解析工作流: {self.ppt_path}")
+        _rprint(self.run_id, f"开始PPT解析工作流: {self.ppt_path}")
         print("="*70)
         
         if self.debug_logger:
@@ -633,19 +665,22 @@ class PPTParsingPipeline:
         initial_state = PPTWorkflowState(
             ppt_path=self.ppt_path,
             max_concurrent_pages=self.max_concurrent_pages,
+            run_id=self.run_id,
+            output_dir=self.output_dir,
+            processing_artifacts_dir=self.processing_dir,
+            layout_cache_dir=self.layout_cache_dir,
             page_queue=[],  # 将在 ingestion 节点填充
             total_pages=0,
             chapter_info={}
         )
         
         try:
-            import uuid
             # 运行工作流
             final_state = self.workflow.invoke(
                 initial_state,
                 config={"recursion_limit": 100,
                         "configurable": {
-                        "thread_id": str(uuid.uuid4())
+                        "thread_id": self.run_id
                         }}
             )
             
@@ -653,7 +688,7 @@ class PPTParsingPipeline:
             self.results = final_state.get("completed_outputs", {})
             
             print("\n" + "="*70)
-            print(f"[OK] 工作流完成！处理 {final_state.get('completed_pages', 0)} 页")
+            _rprint(self.run_id, f"[OK] 工作流完成！处理 {final_state.get('completed_pages', 0)} 页")
             print("="*70)
             
             # 记录工作流总结
@@ -670,11 +705,13 @@ class PPTParsingPipeline:
             return self.results
         
         except Exception as e:
-            print(f"\n[ERROR] 工作流执行失败: {e}")
+            _rprint(self.run_id, f"[ERROR] 工作流执行失败: {e}")
             if self.debug_logger:
                 self.debug_logger.log_error(0, "workflow", e, {"ppt_path": self.ppt_path})
                 self.debug_logger.save()
             raise
+        finally:
+            clear_runtime_config_overrides()
     
     def save_results(self, output_path: str = None, output_dir: str = None):
         """
@@ -705,7 +742,7 @@ class PPTParsingPipeline:
             with open(output_file, 'w', encoding='utf-8') as f:
                 json.dump(output_dict, f, ensure_ascii=False, indent=2)
             
-            print(f"[OK] 保存: {output_file}")
+            _rprint(self.run_id, f"[OK] 保存: {output_file}")
         
         # 生成总结报告
         self._generate_summary_report(output_dir)
@@ -728,7 +765,7 @@ class PPTParsingPipeline:
         with open(summary_file, 'w', encoding='utf-8') as f:
             json.dump(summary, f, ensure_ascii=False, indent=2)
         
-        print(f"[OK] 总结报告: {summary_file}")
+        _rprint(self.run_id, f"[OK] 总结报告: {summary_file}")
     
     def get_page_result(self, page_index: int) -> Any:
         """获取单页的解析结果"""
@@ -1505,68 +1542,249 @@ page_no: {page_no}
         with open(output_path, 'w', encoding='utf-8') as f:
             f.write("\n".join(lines))
         
-        print(f"[OK] Markdown导出: {output_path}")
+        _rprint(self.run_id, f"[OK] Markdown导出: {output_path}")
+
+
+def run_single_ppt(
+    ppt_path: str,
+    *,
+    max_concurrent_pages: int = 3,
+    enable_debug: bool = True,
+) -> Dict[str, Any]:
+    """执行单个 PPT 解析并返回结构化运行结果。"""
+    run_id = _build_run_id(ppt_path)
+    start = time.perf_counter()
+    pipeline = PPTParsingPipeline(
+        ppt_path=ppt_path,
+        max_concurrent_pages=max_concurrent_pages,
+        enable_debug=enable_debug,
+        run_id=run_id,
+    )
+    try:
+        results = pipeline.run()
+        save_error = ""
+        output_md_path = str(Path(pipeline.output_dir) / "output.md")
+
+        try:
+            pipeline.save_results(output_dir=pipeline.output_dir)
+            pipeline.export_markdown(output_path=output_md_path)
+        except Exception as persist_exc:
+            save_error = str(persist_exc)
+
+        duration = time.perf_counter() - start
+        status = "success" if not save_error else "partial_success"
+        error_msg = save_error
+        return {
+            "run_id": run_id,
+            "ppt_path": ppt_path,
+            "status": status,
+            "duration_sec": round(duration, 3),
+            "pages": len(results or {}),
+            "output_dir": pipeline.output_dir,
+            "output_md_path": output_md_path,
+            "debug_log_dir": pipeline.debug_log_dir,
+            "error": error_msg,
+        }
+    except Exception as exc:
+        duration = time.perf_counter() - start
+        return {
+            "run_id": run_id,
+            "ppt_path": ppt_path,
+            "status": "failed",
+            "duration_sec": round(duration, 3),
+            "pages": 0,
+            "output_dir": pipeline.output_dir,
+            "output_md_path": str(Path(pipeline.output_dir) / "output.md"),
+            "debug_log_dir": pipeline.debug_log_dir,
+            "error": str(exc),
+        }
+
+
+def run_batch_ppts(
+    ppt_paths: List[str],
+    *,
+    execution_mode: str,
+    workers: int,
+    max_concurrent_pages: int,
+    enable_debug: bool,
+) -> Dict[str, Any]:
+    """批量运行 PPT，支持串行与并发模式。"""
+    if not ppt_paths:
+        return {"mode": execution_mode, "total_wall_sec": 0.0, "items": []}
+
+    started = time.perf_counter()
+    items: List[Dict[str, Any]] = []
+
+    if execution_mode == "serial":
+        for path in ppt_paths:
+            item = run_single_ppt(
+                path,
+                max_concurrent_pages=max_concurrent_pages,
+                enable_debug=enable_debug,
+            )
+            items.append(item)
+            _rprint(item["run_id"], f"完成: status={item['status']} duration={item['duration_sec']}s")
+    else:
+        max_workers = max(1, min(workers, len(ppt_paths)))
+        with ThreadPoolExecutor(max_workers=max_workers) as pool:
+            futures = {
+                pool.submit(
+                    run_single_ppt,
+                    path,
+                    max_concurrent_pages=max_concurrent_pages,
+                    enable_debug=enable_debug,
+                ): path
+                for path in ppt_paths
+            }
+            for fut in as_completed(futures):
+                item = fut.result()
+                items.append(item)
+                _rprint(item["run_id"], f"完成: status={item['status']} duration={item['duration_sec']}s")
+
+    total_wall = time.perf_counter() - started
+    success_items = [x for x in items if x["status"] == "success"]
+    avg_file_sec = round(sum(x["duration_sec"] for x in items) / len(items), 3) if items else 0.0
+
+    return {
+        "mode": execution_mode,
+        "total_wall_sec": round(total_wall, 3),
+        "avg_file_sec": avg_file_sec,
+        "success_count": len(success_items),
+        "failed_count": len(items) - len(success_items),
+        "items": items,
+    }
+
+
+def _print_batch_summary(result: Dict[str, Any]):
+    mode = result.get("mode", "unknown")
+    print("\n" + "=" * 90)
+    print(f"Batch Summary ({mode})")
+    print("=" * 90)
+    print(
+        f"total_wall_sec={result.get('total_wall_sec')} | "
+        f"avg_file_sec={result.get('avg_file_sec')} | "
+        f"success={result.get('success_count')} | failed={result.get('failed_count')}"
+    )
+    print("-" * 90)
+    for item in sorted(result.get("items", []), key=lambda x: x.get("ppt_path", "")):
+        print(
+            f"{item['status']:<7} | {item['duration_sec']:>8}s | "
+            f"run_id={item['run_id']} | ppt={item['ppt_path']}"
+        )
+        print(f"           output={item['output_dir']}")
+        print(f"           markdown={item.get('output_md_path', '')}")
+        print(f"           logs={item['debug_log_dir']}")
+        if item.get("error"):
+            print(f"           error={item['error']}")
+    print("=" * 90)
+
+
+def _parse_cli_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="PPT parsing runner (single/serial/concurrent)")
+    parser.add_argument("--ppt-files", nargs="+", default=[], help="PPT/PDF file paths")
+    parser.add_argument("--mode", choices=["serial", "concurrent"], default="concurrent", help="Batch execution mode")
+    parser.add_argument("--workers", type=int, default=3, help="Max workers for concurrent mode")
+    parser.add_argument("--max-concurrent-pages", type=int, default=3, help="Per-PPT page concurrency")
+    parser.add_argument("--disable-debug", action="store_true", help="Disable debug logs")
+    parser.add_argument("--compare-modes", action="store_true", help="Run serial then concurrent and print speedup")
+    return parser.parse_args()
+
+
+def _resolve_cli_ppt_files(raw_tokens: List[str]) -> Tuple[List[str], List[str]]:
+    """将 --ppt-files 的原始 token 解析为真实文件路径。
+
+    兼容场景：文件名包含空格但用户未加引号，shell 会把一个路径拆成多个 token。
+    这里按顺序贪心拼接 token，优先匹配“存在的最长路径”。
+    """
+    tokens = [str(t).strip() for t in (raw_tokens or []) if str(t).strip()]
+    resolved: List[str] = []
+    unresolved: List[str] = []
+
+    i = 0
+    while i < len(tokens):
+        best_path: Optional[str] = None
+        best_end = -1
+        parts: List[str] = []
+
+        for j in range(i, len(tokens)):
+            parts.append(tokens[j])
+            candidate_raw = " ".join(parts)
+            candidate = Path(candidate_raw).expanduser()
+            if candidate.exists():
+                best_path = str(candidate)
+                best_end = j
+
+        if best_end >= i and best_path:
+            resolved.append(best_path)
+            i = best_end + 1
+            continue
+
+        unresolved.append(tokens[i])
+        i += 1
+
+    return resolved, unresolved
 
 
 def main():
-    """主函数示例"""
-    # 配置PPT文件路径
-    ppt_path = "予路乾行-IL23R-2026.02.11.pdf"  # 修改为实际的PPT文件路径
-    
-    if not Path(ppt_path).exists():
-        print(f"错误: PPT文件不存在 - {ppt_path}")
+    """CLI 主入口：支持单文件、多文件串行/并发，以及串并对比。"""
+    args = _parse_cli_args()
+    ppt_files, unresolved_tokens = _resolve_cli_ppt_files(args.ppt_files or [])
+
+    if not ppt_files:
+        print("错误: 请使用 --ppt-files 传入至少一个 PPT/PDF 文件路径")
         return
-    
-    # 创建解析管道（启用调试日志）
-    pipeline = PPTParsingPipeline(
-        ppt_path=ppt_path,
-        max_concurrent_pages=3,
-        enable_debug=True  # 启用详细调试日志
-    )
-    
-    # 运行解析
-    results = pipeline.run()
 
-    # 与全局 MinerU 输出对齐：补缺失文本 + 表格冲突默认采用 MinerU
-    reconcile_meta = pipeline.reconcile_with_mineru(use_model_judge=True)
-    if reconcile_meta.get("applied"):
-        print(
-            f"[Reconcile] 对齐完成: source={reconcile_meta.get('source_mode')}, "
-            f"updated={reconcile_meta.get('updated_pages', 0)}, conflicts={reconcile_meta.get('conflict_pages', 0)}"
+    if unresolved_tokens:
+        print("错误: 以下参数片段未能解析为有效文件路径:")
+        for p in unresolved_tokens:
+            print(f"  - {p}")
+        print("提示: 含空格的文件名建议用引号包裹，例如: \"20260317-DTC-O-007 Pan-RAS GT1-final-1.pdf\"")
+        return
+
+    missing = [p for p in ppt_files if not Path(p).exists()]
+    if missing:
+        print("错误: 以下文件不存在:")
+        for p in missing:
+            print(f"  - {p}")
+        return
+
+    enable_debug = not args.disable_debug
+
+    if args.compare_modes:
+        serial_result = run_batch_ppts(
+            ppt_files,
+            execution_mode="serial",
+            workers=1,
+            max_concurrent_pages=args.max_concurrent_pages,
+            enable_debug=enable_debug,
         )
-        if reconcile_meta.get("merged_labeled_path"):
-            print(f"[Reconcile] 带页标记MinerU文本: {reconcile_meta.get('merged_labeled_path')}")
-    else:
-        print(f"[Reconcile] 未执行: {reconcile_meta.get('reason')}")
-    
-    # 保存结果
-    pipeline.save_results()
+        _print_batch_summary(serial_result)
 
-    # 生成人工审核任务（复杂图表/低置信度页面）
-    hitl_meta = pipeline.prepare_human_review(review_output_dir=pipeline.config.output_dir)
-    print(f"[HITL] 待人工审核页面: {hitl_meta['review_required_pages']}")
+        concurrent_result = run_batch_ppts(
+            ppt_files,
+            execution_mode="concurrent",
+            workers=args.workers,
+            max_concurrent_pages=args.max_concurrent_pages,
+            enable_debug=enable_debug,
+        )
+        _print_batch_summary(concurrent_result)
 
-    auto_merge = pipeline.apply_human_review_if_available(review_output_dir=pipeline.config.output_dir)
-    if auto_merge.get("applied"):
-        print(f"[HITL] 已自动合并人工审核结果: {auto_merge.get('review_results_json')}")
-        print(f"[HITL] 已更新页面数: {auto_merge.get('updated_pages', 0)}")
-    else:
-        print(f"[HITL] 尚未合并人工审核结果: {auto_merge.get('reason')}")
-    
-    # 导出为Markdown
-    pipeline.export_markdown(str(Path(pipeline.config.output_dir) / "output.md"))
-    
-    # 打印样本结果
-    if results:
-        first_page_idx = list(results.keys())[0]
-        first_result = results[first_page_idx]
-        
-        print("\n" + "="*70)
-        print("[Sample Results] Page " + str(first_page_idx) + ":")
-        print("="*70)
-        # 简化输出以避免编码问题
-        print(f"[Note] Results saved to: {pipeline.config.output_dir}/")
-        print("[Note] Debug logs saved to: debug_logs/")
+        serial_sec = serial_result.get("total_wall_sec", 0.0) or 0.0
+        concurrent_sec = concurrent_result.get("total_wall_sec", 0.0) or 0.0
+        speedup = (serial_sec / concurrent_sec) if concurrent_sec > 0 else 0.0
+        print(
+            f"\nCompare: serial={serial_sec:.3f}s | concurrent={concurrent_sec:.3f}s | speedup={speedup:.3f}x"
+        )
+        return
+
+    result = run_batch_ppts(
+        ppt_files,
+        execution_mode=args.mode,
+        workers=args.workers,
+        max_concurrent_pages=args.max_concurrent_pages,
+        enable_debug=enable_debug,
+    )
+    _print_batch_summary(result)
 
 
 if __name__ == "__main__":

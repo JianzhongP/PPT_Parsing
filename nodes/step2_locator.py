@@ -6,11 +6,12 @@ Step 2.5: 负责为元素获取精确坐标 (BBox) 的组件
 import json
 import os
 import base64
+import re
 from pathlib import Path
 from openai import AzureOpenAI
 from state import PPTPageState, PageElement, BBox, LogicalGroup, ElementInsight
 from vlm_client import VLMClient
-from typing import List, Dict, Any, Tuple
+from typing import List, Dict, Any, Tuple, Optional
 from tools.visual_marker import mark_image_with_bboxes
 
 
@@ -554,10 +555,26 @@ def _build_text_aggregate_insight(text_elements: List[PageElement], state: PPTPa
     )
 
 
-def _cache_file_path(page_index: int, mineru_mode: str, cfg) -> str:
-    cache_dir = Path(getattr(cfg, "layout_cache_dir", "processing_artifacts/layout_cache"))
+def _cache_file_path(page_index: int, mineru_mode: str, cfg, state: Optional[PPTPageState] = None) -> str:
+    cache_dir_override = ""
+    run_id = ""
+    ppt_fingerprint = "ppt"
+    if state is not None:
+        cache_dir_override = str(getattr(state, "layout_cache_dir", "") or "").strip()
+        run_id = str(getattr(state, "run_id", "") or "").strip()
+        ppt_src = str(getattr(state, "ppt_path", "") or "").strip()
+        if ppt_src:
+            try:
+                stat = os.stat(ppt_src)
+                ppt_fingerprint = f"{Path(ppt_src).stem}_{int(stat.st_mtime)}_{stat.st_size}"
+            except Exception:
+                ppt_fingerprint = Path(ppt_src).stem or "ppt"
+
+    cache_dir = Path(cache_dir_override or getattr(cfg, "layout_cache_dir", "processing_artifacts/layout_cache"))
     cache_dir.mkdir(parents=True, exist_ok=True)
-    return str(cache_dir / f"page_{page_index:03d}_{mineru_mode}.json")
+    safe_fp = re.sub(r"[^\w\-\u4e00-\u9fff]", "_", ppt_fingerprint)
+    safe_run = re.sub(r"[^\w\-\u4e00-\u9fff]", "_", run_id) if run_id else "norun"
+    return str(cache_dir / f"{safe_run}_{safe_fp}_page_{page_index:03d}_{mineru_mode}.json")
 
 
 def _contains_failure_marker(text: str) -> bool:
@@ -930,7 +947,7 @@ def node_layout_pipeline(state: PPTPageState, vlm_client: VLMClient, debug_logge
     from config import get_config
     cfg = get_config()
     cache_enabled = bool(getattr(cfg, "enable_layout_cache", True))
-    cache_file = _cache_file_path(page_index, mineru_mode, cfg)
+    cache_file = _cache_file_path(page_index, mineru_mode, cfg, state)
     bypass_cache_read = bool(getattr(state, "is_retry_mode", False) or getattr(state, "retry_count", 0) > 0)
 
     if cache_enabled and not bypass_cache_read and os.path.exists(cache_file):

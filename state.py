@@ -221,6 +221,10 @@ class PPTPageState(BaseModel):
     page_index: int
     ppt_path: str  # 保留此字段用于文本解析，使用 Annotated 处理合并
     image_path: str
+    run_id: Optional[str] = None
+    output_dir: Optional[str] = None
+    processing_artifacts_dir: Optional[str] = None
+    layout_cache_dir: Optional[str] = None
     max_retries: int = 2
     retry_count: int = 0
     chapter_title: Optional[str] = None
@@ -265,6 +269,10 @@ class PPTWorkflowState(BaseModel):
     """
     ppt_path: str
     max_concurrent_pages: int = 3
+    run_id: Optional[str] = None
+    output_dir: Optional[str] = None
+    processing_artifacts_dir: Optional[str] = None
+    layout_cache_dir: Optional[str] = None
     
     # 页面队列
     page_queue: List[int] = Field(default_factory=list)

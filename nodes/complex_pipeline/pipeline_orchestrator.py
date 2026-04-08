@@ -473,12 +473,14 @@ def node_complex_pipeline(state, vlm_client, llm_client=None, debug_logger=None,
     
     # 初始化并运行Pipeline
     cfg = get_config()
-    processing_root = str(getattr(cfg, "processing_artifacts_dir", "processing_artifacts") or "processing_artifacts")
+    processing_root = str(getattr(state, "processing_artifacts_dir", "") or "").strip()
+    if not processing_root:
+        processing_root = str(getattr(cfg, "processing_artifacts_dir", "processing_artifacts") or "processing_artifacts")
 
     orchestrator = ComplexPipelineOrchestrator(
         vlm_client=vlm_client,
         llm_client=llm_client,
-        output_dir=f"{processing_root}/page_{page_index:03d}",
+        output_dir=os.path.join(processing_root, f"page_{page_index:03d}"),
         use_mineru_vlm=bool(use_mineru_vlm),
     )
     

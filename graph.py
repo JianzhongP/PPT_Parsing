@@ -48,6 +48,7 @@ from nodes.step2_locator import node_vlm_locator, node_layout_pipeline, node_typ
 from nodes.step3_supervisor import node_step3_supervisor
 from nodes.step4_output import node_step4_output_generation
 from nodes.step5_editor import node_step5_editor
+from config import set_runtime_config_overrides, clear_runtime_config_overrides
 
 
 # ============================================================================
@@ -328,7 +329,9 @@ def node_global_mineru_precompute(state: PPTWorkflowState) -> dict:
     ppt_dir = os.path.dirname(ppt_abs)
     suffix = os.path.splitext(ppt_abs)[1].lower()
 
-    processing_root = "processing_artifacts" if cfg is None else str(getattr(cfg, "processing_artifacts_dir", "processing_artifacts") or "processing_artifacts")
+    processing_root = str(getattr(state, "processing_artifacts_dir", "") or "").strip()
+    if not processing_root:
+        processing_root = "processing_artifacts" if cfg is None else str(getattr(cfg, "processing_artifacts_dir", "processing_artifacts") or "processing_artifacts")
     precompute_dir = os.path.join(ppt_dir, processing_root, "global_mineru_precompute")
     os.makedirs(precompute_dir, exist_ok=True)
 
@@ -430,8 +433,12 @@ def map_pages_to_workflow(state: PPTWorkflowState) -> List[Send]:
     page_image_map: Dict[int, str] = dict(getattr(state, "page_image_map", {}) or {})
     precomputed_layouts: Dict[int, Dict[str, Any]] = dict(getattr(state, "precomputed_mineru_layouts", {}) or {})
     precomputed_source = getattr(state, "global_mineru_output_dir", None)
-    ppt_dir = Path(state.ppt_path).parent.resolve()
-    slides_dir = ppt_dir / "ppt_slides_temp"
+    processing_root = str(getattr(state, "processing_artifacts_dir", "") or "").strip()
+    if processing_root:
+        slides_dir = Path(processing_root) / "ppt_slides_temp"
+    else:
+        ppt_dir = Path(state.ppt_path).parent.resolve()
+        slides_dir = ppt_dir / "ppt_slides_temp"
     
     for page_idx in batch:
         # 使用绝对路径或相对于 PPT 目录的路径
@@ -442,6 +449,10 @@ def map_pages_to_workflow(state: PPTWorkflowState) -> List[Send]:
             page_index=page_idx,
             ppt_path=state.ppt_path,  # 传递 PPT 路径供文本解析使用
             image_path=image_path,
+            run_id=getattr(state, "run_id", None),
+            output_dir=getattr(state, "output_dir", None),
+            processing_artifacts_dir=getattr(state, "processing_artifacts_dir", None),
+            layout_cache_dir=getattr(state, "layout_cache_dir", None),
             max_retries=2,
             previous_context=state.global_knowledge_base,
             precomputed_mineru_layout=precomputed_layouts.get(page_idx),
@@ -501,8 +512,18 @@ def build_ppt_workflow(llm_client, vlm_client, debug_logger=None):
         if debug_logger:
             debug_logger.logger.info(f"[Page {page_idx}] 开始处理页面")
         
-        # 调用子图
-        result_state = page_graph.invoke(page_state)
+        # 为当前页面执行上下文显式绑定运行目录，避免并发时回退默认相对路径。
+        set_runtime_config_overrides(
+            run_id=getattr(page_state, "run_id", None),
+            output_dir=getattr(page_state, "output_dir", None),
+            processing_artifacts_dir=getattr(page_state, "processing_artifacts_dir", None),
+            layout_cache_dir=getattr(page_state, "layout_cache_dir", None),
+        )
+        try:
+            # 调用子图
+            result_state = page_graph.invoke(page_state)
+        finally:
+            clear_runtime_config_overrides()
         
         # 提取最终输出
         final_output = result_state.get("final_output")

@@ -1,0 +1,4709 @@
+(ppt_poc) eccom@ubuntu:~/projects/PPT_Parsing_last$ python main.py --ppt-files "复宏汉霖（2696.HK）.pptx" "20260317-DTC-O-007 Pan-RAS GT1-final-1.pdf" "BeOne-JPM_2026_Presentation_CN.pdf" --mode concurrent --workers 3 --max-concurrent-pages 3
+[Config] 从 /home/eccom/projects/PPT_Parsing_last/.env 加载环境变量
+[复宏汉霖_2696_HK_20260407_095415_e99d0b]
+======================================================================
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [Config] API 配置诊断
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] ======================================================================
+[复宏汉霖_2696_HK_20260407_095415_e99d0b]
+[LLM] LLM 配置:
+[复宏汉霖_2696_HK_20260407_095415_e99d0b]   - API Key: [OK]
+[复宏汉霖_2696_HK_20260407_095415_e99d0b]   - 端点: https://oai-fosun-france-central-01.openai.azure.com/
+[复宏汉霖_2696_HK_20260407_095415_e99d0b]   - 模型: gpt-4-turbo
+[复宏汉霖_2696_HK_20260407_095415_e99d0b]   - API版本: 2024-08-01-preview
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675]
+======================================================================
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675] [Config] API 配置诊断
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675] ======================================================================
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675]
+[LLM] LLM 配置:
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675]   - API Key: [OK]
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675]   - 端点: https://oai-fosun-france-central-01.openai.azure.com/
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675]   - 模型: gpt-4-turbo
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675]   - API版本: 2024-08-01-preview
+[复宏汉霖_2696_HK_20260407_095415_e99d0b]   [OK] Azure OpenAI 客户端初始化成功
+[复宏汉霖_2696_HK_20260407_095415_e99d0b]
+[VLM] VLM 配置:
+[复宏汉霖_2696_HK_20260407_095415_e99d0b]   - 提供方: gpt4o
+[复宏汉霖_2696_HK_20260407_095415_e99d0b]   - 运行模型: gpt-4o
+[复宏汉霖_2696_HK_20260407_095415_e99d0b]   - GPT-4o API Key: [OK]
+[复宏汉霖_2696_HK_20260407_095415_e99d0b]   - GPT-4o 端点: https://oai-fosun-japan-east-01.openai.azure.com/
+[复宏汉霖_2696_HK_20260407_095415_e99d0b]   - API版本: 2024-02-15-preview
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675]   [OK] Azure OpenAI 客户端初始化成功
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675]
+[VLM] VLM 配置:
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675]   - 提供方: gpt4o
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675]   - 运行模型: gpt-4o
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675]   - GPT-4o API Key: [OK]
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675]   - GPT-4o 端点: https://oai-fosun-japan-east-01.openai.azure.com/
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675]   - API版本: 2024-02-15-preview
+[复宏汉霖_2696_HK_20260407_095415_e99d0b]   - VLM 调用模式: azure-openai
+[复宏汉霖_2696_HK_20260407_095415_e99d0b]   [OK] VLM 客户端初始化成功
+[复宏汉霖_2696_HK_20260407_095415_e99d0b]
+======================================================================
+
+
+======================================================================[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9]
+======================================================================
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [Config] API 配置诊断
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] ======================================================================
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9]
+[LLM] LLM 配置:
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9]   - API Key: [OK]
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9]   - 端点: https://oai-fosun-france-central-01.openai.azure.com/
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9]   - 模型: gpt-4-turbo
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9]   - API版本: 2024-08-01-preview
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9]   [OK] Azure OpenAI 客户端初始化成功
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9]
+[VLM] VLM 配置:
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9]   - 提供方: gpt4o
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9]   - 运行模型: gpt-4o
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9]   - GPT-4o API Key: [OK]
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9]   - GPT-4o 端点: https://oai-fosun-japan-east-01.openai.azure.com/
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9]   - API版本: 2024-02-15-preview
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9]   - VLM 调用模式: azure-openai
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675]   - VLM 调用模式: azure-openai
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675]   [OK] VLM 客户端初始化成功
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675]
+======================================================================
+
+
+======================================================================
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] 开始PPT解析工作流: 复宏汉霖（2696.HK）.pptx
+======================================================================
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9]   [OK] VLM 客户端初始化成功
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9]
+======================================================================
+
+
+======================================================================
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675] 开始PPT解析工作流: 20260317-DTC-O-007 Pan-RAS GT1-final-1.pdf
+======================================================================
+
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] 开始PPT解析工作流: BeOne-JPM_2026_Presentation_CN.pdf
+======================================================================
+[PPTIngestion] 开始转换PPT: 复宏汉霖（2696.HK）.pptx
+[PPTConverter] 尝试使用远程 API 转换: http://10.216.16.224:5000/convert
+  - 上传文件: /home/eccom/projects/PPT_Parsing_last/复宏汉霖（2696.HK）.pptx (6.39 MB)
+[PPTIngestion] 开始转换PPT: 20260317-DTC-O-007 Pan-RAS GT1-final-1.pdf
+[PPTIngestion] 检测到PDF，直接进行页面转图片
+[PPTIngestion] 开始转换PPT: BeOne-JPM_2026_Presentation_CN.pdf
+[PPTIngestion] 检测到PDF，直接进行页面转图片
+[PPTIngestion] PDF 转换完成，获得 27 张图片
+
+[GlobalMinerU] 开始统一预测: 20260317-DTC-O-007 Pan-RAS GT1-final-1.pdf
+[MinerU] 检测到 mineru.cli.client，将使用 python -m mineru.cli.client 调用
+[MinerU] 配置文件已存在: /home/eccom/magic-pdf.json
+[MinerU] 图片转PDF失败: cannot identify image file '/home/eccom/projects/PPT_Parsing_last/20260317-DTC-O-007 Pan-RAS GT1-final-1.pdf'
+/home/eccom/miniconda3/envs/ppt_poc/lib/python3.10/site-packages/torch/cuda/__init__.py:182: UserWarning: CUDA initialization: Unexpected error from cudaGetDeviceCount(). Did you run some cuda functions before calling NumCudaDevices() that might have already set an error? Error 802: system not yet initialized (Triggered internally at /pytorch/c10/cuda/CUDAFunctions.cpp:109.)
+  return torch._C._cuda_getDeviceCount() > 0
+[MinerU] 执行命令: /home/eccom/miniconda3/envs/ppt_poc/bin/python -m mineru.cli.client -p /home/eccom/projects/PPT_Parsing_last/20260317-DTC-O-007 Pan-RAS GT1-final-1.pdf -o /home/eccom/projects/PPT_Parsing_last/mineru_output -b pipeline -f False -t True --source modelscope -d cpu
+[MinerU] 输出目录: /home/eccom/projects/PPT_Parsing_last/mineru_output
+[MinerU] Mode=standard: backend=pipeline, device=cpu
+[PPTIngestion] PDF 转换完成，获得 47 张图片
+
+[GlobalMinerU] 开始统一预测: BeOne-JPM_2026_Presentation_CN.pdf
+[MinerU] 检测到 mineru.cli.client，将使用 python -m mineru.cli.client 调用
+[MinerU] 配置文件已存在: /home/eccom/magic-pdf.json
+[MinerU] 图片转PDF失败: cannot identify image file '/home/eccom/projects/PPT_Parsing_last/BeOne-JPM_2026_Presentation_CN.pdf'
+  - 接收响应: 9641575 bytes, 解压中...
+  - [OK] API 转换成功，获得 44 张图片
+
+[GlobalMinerU] 开始统一预测: merged_slides.pdf
+[MinerU] 检测到 mineru.cli.client，将使用 python -m mineru.cli.client 调用
+[MinerU] 配置文件已存在: /home/eccom/magic-pdf.json
+[MinerU] 图片转PDF失败: cannot identify image file '/home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/processing_artifacts/global_mineru_precompute/merged_slides.pdf'
+[MinerU] 执行命令: /home/eccom/miniconda3/envs/ppt_poc/bin/python -m mineru.cli.client -p /home/eccom/projects/PPT_Parsing_last/BeOne-JPM_2026_Presentation_CN.pdf -o /home/eccom/projects/PPT_Parsing_last/mineru_output -b pipeline -f False -t True --source modelscope -d cpu
+[MinerU] 输出目录: /home/eccom/projects/PPT_Parsing_last/mineru_output
+[MinerU] Mode=standard: backend=pipeline, device=cpu
+[MinerU] 执行命令: /home/eccom/miniconda3/envs/ppt_poc/bin/python -m mineru.cli.client -p /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/processing_artifacts/global_mineru_precompute/merged_slides.pdf -o /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/processing_artifacts/global_mineru_precompute/mineru_output -b pipeline -f False -t True --source modelscope -d cuda
+[MinerU] 输出目录: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/processing_artifacts/global_mineru_precompute/mineru_output
+[MinerU] Mode=standard: backend=pipeline, device=cuda
+[MinerU][GPU] merged_slides: start pid monitor on gpu=0, pid=142878
+[MinerU][GPU] merged_slides: pid=142878, proc_base=0MB, proc_peak=0MB, proc_delta≈0MB, gpu_peak=0MB, samples=110
+[MinerU] ⚠️ 在 stderr 中检测到严重错误关键字: RuntimeError
+[MinerU] ❌ 失败: 命令返回码 0，且未找到 JSON 产物
+[MinerU] STDERR (Last 1500 chars):
+ckages/torch/nn/modules/module.py", line 955, in _apply
+    param_applied = fn(param)
+                    │  └ Parameter containing:
+                    │    tensor([[[[ 7.3314e-06, -3.0167e-02,  3.3112e-02],
+                    │              [ 4.2969e-01, -5.0439e-01,  8.4961e-02],
+                    │     ...
+                    └ <function Module.to.<locals>.convert at 0x7f7df9dfbbe0>
+  File "/home/eccom/miniconda3/envs/ppt_poc/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1355, in convert
+    return t.to(
+           │ └ <method 'to' of 'torch._C.TensorBase' objects>
+           └ Parameter containing:
+             tensor([[[[ 7.3314e-06, -3.0167e-02,  3.3112e-02],
+                       [ 4.2969e-01, -5.0439e-01,  8.4961e-02],
+              ...
+  File "/home/eccom/miniconda3/envs/ppt_poc/lib/python3.10/site-packages/torch/cuda/__init__.py", line 412, in _lazy_init
+    torch._C._cuda_init()
+    │     │  └ <built-in function _cuda_init>
+    │     └ <module 'torch._C' from '/home/eccom/miniconda3/envs/ppt_poc/lib/python3.10/site-packages/torch/_C.cpython-310-x86_64-linux-g...
+    └ <module 'torch' from '/home/eccom/miniconda3/envs/ppt_poc/lib/python3.10/site-packages/torch/__init__.py'>
+
+RuntimeError: Unexpected error from cudaGetDeviceCount(). Did you run some cuda functions before calling NumCudaDevices() that might have already set an error? Error 802: system not yet initialized
+-> Cannot close object, library is destroyed. This may cause a memory leak!
+
+[MinerU] 💡 提示: MinerU 可能因内存不足而失败。
+    建议: 1) 增大系统虚拟内存/页面文件  2) 关闭其他占用内存的程序  3) 使用 -d cpu 参数
+[Debug] 目录结构 /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/processing_artifacts/global_mineru_precompute/mineru_output:
+mineru_output/
+[Debug] 目录为空或仅包含空文件夹
+[VLM Fallback] 未提供 VLM 客户端，回退到静态 Mock
+[MinerU] 使用静态模拟数据 (Mock)
+[MinerU] 检测到 mineru.cli.client，将使用 python -m mineru.cli.client 调用
+[GlobalMinerU] 未拆分出有效页面布局，回退到逐页模式
+
+[Dispatch] 准备分发批次: [0, 1, 2]
+
+[Step1] 开始分析页面 0
+
+[Step1] 开始分析页面 1
+[Step1] 全局语义分析页面 1
+
+[Step1] 开始分析页面 2
+[Step1] 页面 1 准备调用VLM API...
+[Step1] 图片大小: 398888 bytes
+[Step1] 全局语义分析页面 0
+[Step1] 全局语义分析页面 2
+[Step1] 页面 2 准备调用VLM API...
+[Step1] 图片大小: 228020 bytes
+[Step1] 页面 0 准备调用VLM API...
+[Step1] 图片大小: 983376 bytes
+[Step1] 页面 1 获得VLM响应，长度: 332
+[Step1] [OK] 页面 1 分析完成: 2023年业绩亮点及公司战略 (0 元素)
+[Step1] [OK] 页面 1 分析完成: 2023年业绩亮点及公司战略 (0 元素)
+
+[Step2-Router] 页面 1 规划处理策略
+[Step2-Router] 决策: text_only ()
+[TextWorker] 基于 XML 解析页面 1
+
+[Step3] 页面 1 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 1
+[Step1] 页面 0 获得VLM响应，长度: 361
+[Step1] [OK] 页面 0 分析完成: 复宏汉霖（2696.HK）2023年度业绩 (0 元素)
+[Step1] [OK] 页面 0 分析完成: 复宏汉霖（2696.HK）2023年度业绩 (0 元素)
+
+[Step2-Router] 页面 0 规划处理策略
+[Step2-Router] 决策: text_only ()
+[TextWorker] 基于 XML 解析页面 0
+
+[Step3] 页面 0 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 0
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 1 最终输出生成
+
+[Step4] 生成页面 1 的最终输出
+[Step4] [OK] 页面 1 完成
+
+[Step5] 正在润色页面 2 ...
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 0 最终输出生成
+
+[Step4] 生成页面 0 的最终输出
+[Step4] [OK] 页面 0 完成
+
+[Step5] 正在润色页面 1 ...
+[Step1] 页面 2 获得VLM响应，长度: 893
+[Step1] [OK] 页面 2 分析完成: 2023年业绩概览：总收入53.95亿，净利润达5.46亿 (2 元素)
+[Step1] [OK] 页面 2 分析完成: 2023年业绩概览：总收入53.95亿，净利润达5.46亿 (2 元素)
+
+[Step2-Router] 页面 2 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_002_pipeline.json
+
+[Step3] 页面 2 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 2
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 2 最终输出生成
+
+[Step4] 生成页面 2 的最终输出
+[Step4] [OK] 页面 2 完成
+
+[Step5] 正在润色页面 3 ...
+
+[Dispatch] 准备分发批次: [3, 4, 5]
+
+[Step1] 开始分析页面 3
+
+[Step1] 开始分析页面 4
+
+[Step1] 开始分析页面 5
+[Step1] 全局语义分析页面 4
+[Step1] 全局语义分析页面 3
+[Step1] 页面 4 准备调用VLM API...
+[Step1] 图片大小: 317252 bytes
+[Step1] 全局语义分析页面 5
+[Step1] 页面 5 准备调用VLM API...
+[Step1] 图片大小: 168500 bytes
+[Step1] 页面 3 准备调用VLM API...
+[Step1] 图片大小: 185248 bytes
+[Step1] 页面 3 获得VLM响应，长度: 804
+[Step1] [OK] 页面 3 分析完成: 我们的使命和愿景 (1 元素)
+[Step1] [OK] 页面 3 分析完成: 我们的使命和愿景 (1 元素)
+
+[Step2-Router] 页面 3 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_003_pipeline.json
+
+[Step3] 页面 3 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 3
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 3 最终输出生成
+
+[Step4] 生成页面 3 的最终输出
+[Step4] [OK] 页面 3 完成
+
+[Step5] 正在润色页面 4 ...
+[Step1] 页面 4 获得VLM响应，长度: 932
+[Step1] [OK] 页面 4 分析完成: 复宏汉霖已上市生物类似药销售加速放量，多个管线产品布局全球市场 (2 元素)
+[Step1] [OK] 页面 4 分析完成: 复宏汉霖已上市生物类似药销售加速放量，多个管线产品布局全球市场 (2 元素)
+
+[Step2-Router] 页面 4 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_004_pipeline.json
+[元素Agent] 分析 text 元素: elem_001
+[Step1] 页面 5 获得VLM响应，长度: 1125
+[Step1] [OK] 页面 5 分析完成: 汉斯状®立足差异化优势竞争，商业化进程迈入高速增长的新阶段 (4 元素)
+[Step1] [OK] 页面 5 分析完成: 汉斯状®立足差异化优势竞争，商业化进程迈入高速增长的新阶段 (4 元素)
+
+[Step2-Router] 页面 5 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_005_pipeline.json
+
+[Step3] 页面 5 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 5
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 5 最终输出生成
+
+[Step4] 生成页面 5 的最终输出
+[Step4] [OK] 页面 5 完成
+
+[Step5] 正在润色页面 6 ...
+
+[Step3] 页面 4 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 4
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 4 最终输出生成
+
+[Step4] 生成页面 4 的最终输出
+[Step4] [OK] 页面 4 完成
+
+[Step5] 正在润色页面 5 ...
+
+[Dispatch] 准备分发批次: [6, 7, 8]
+
+[Step1] 开始分析页面 6
+[Step1] 全局语义分析页面 6
+
+[Step1] 开始分析页面 7
+
+[Step1] 开始分析页面 8
+[Step1] 全局语义分析页面 7
+[Step1] 页面 6 准备调用VLM API...
+[Step1] 图片大小: 186796 bytes
+[Step1] 页面 7 准备调用VLM API...
+[Step1] 图片大小: 198032 bytes
+[Step1] 全局语义分析页面 8
+[Step1] 页面 8 准备调用VLM API...
+[Step1] 图片大小: 404004 bytes
+[Step1] 页面 8 获得VLM响应，长度: 303
+[Step1] [OK] 页面 8 分析完成: 商业化 (0 元素)
+[Step1] [OK] 页面 8 分析完成: 商业化 (0 元素)
+
+[Step2-Router] 页面 8 规划处理策略
+[Step2-Router] 决策: text_only ()
+[TextWorker] 基于 XML 解析页面 8
+
+[Step3] 页面 8 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 8
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 8 最终输出生成
+
+[Step4] 生成页面 8 的最终输出
+[Step4] [OK] 页面 8 完成
+
+[Step5] 正在润色页面 9 ...
+[Step1] 页面 7 获得VLM响应，长度: 893
+[Step1] [OK] 页面 7 分析完成: 全球化进入实质性发展阶段 (2 元素)
+[Step1] [OK] 页面 7 分析完成: 全球化进入实质性发展阶段 (2 元素)
+
+[Step2-Router] 页面 7 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_007_pipeline.json
+[元素Agent] 分析 chart 元素: elem_005
+[元素Agent] 分析 text 元素: elem_001
+[元素Agent] 分析 chart 元素: elem_004
+[Step1] 页面 6 获得VLM响应，长度: 1160
+[Step1] [OK] 页面 6 分析完成: 药物研发：以临床价值为导向，以肿瘤为基石，同时拓展其它治疗领域 (3 元素)
+[Step1] [OK] 页面 6 分析完成: 药物研发：以临床价值为导向，以肿瘤为基石，同时拓展其它治疗领域 (3 元素)
+
+[Step2-Router] 页面 6 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_006_pipeline.json
+[元素Agent] 分析 text 元素: elem_005
+[元素Agent] 分析 text 元素: elem_004
+
+[Step3] 页面 7 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 7
+
+[Step3] 页面 6 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 6
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 6 最终输出生成
+
+[Step4] 生成页面 6 的最终输出
+[Step4] [OK] 页面 6 完成
+
+[Step5] 正在润色页面 7 ...
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 7 最终输出生成
+
+[Step4] 生成页面 7 的最终输出
+[Step4] [OK] 页面 7 完成
+
+[Step5] 正在润色页面 8 ...
+
+[Dispatch] 准备分发批次: [9, 10, 11]
+
+[Step1] 开始分析页面 10
+
+[Step1] 开始分析页面 9
+
+[Step1] 开始分析页面 11
+[Step1] 全局语义分析页面 9
+[Step1] 全局语义分析页面 10
+[Step1] 全局语义分析页面 11
+[Step1] 页面 9 准备调用VLM API...
+[Step1] 图片大小: 356956 bytes
+[Step1] 页面 11 准备调用VLM API...
+[Step1] 图片大小: 357312 bytes
+[Step1] 页面 10 准备调用VLM API...
+[Step1] 图片大小: 197740 bytes
+[Step1] 页面 10 获得VLM响应，长度: 721
+[Step1] [OK] 页面 10 分析完成: 汉曲优®出色的业绩表现 (2 元素)
+[Step1] [OK] 页面 10 分析完成: 汉曲优®出色的业绩表现 (2 元素)
+
+[Step2-Router] 页面 10 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_010_pipeline.json
+
+[Step3] 页面 10 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 10
+[Step1] 页面 11 获得VLM响应，长度: 995
+[Step1] [OK] 页面 11 分析完成: 汉斯状®（斯鲁利单抗）：全球首个一线治疗SCLC的抗PD-1单抗 (3 元素)
+[Step1] [OK] 页面 11 分析完成: 汉斯状®（斯鲁利单抗）：全球首个一线治疗SCLC的抗PD-1单抗 (3 元素)
+
+[Step2-Router] 页面 11 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_011_pipeline.json
+[元素Agent] 分析 text 元素: elem_005
+[元素Agent] 分析 text 元素: elem_006
+[元素Agent] 分析 text 元素: elem_007
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 10 最终输出生成
+
+[Step4] 生成页面 10 的最终输出
+[Step4] [OK] 页面 10 完成
+
+[Step5] 正在润色页面 11 ...
+[Step1] 页面 9 获得VLM响应，长度: 1408
+[Step1] [OK] 页面 9 分析完成: 汉曲优®（曲妥珠单抗）：销售同比增长58% (5 元素)
+[Step1] [OK] 页面 9 分析完成: 汉曲优®（曲妥珠单抗）：销售同比增长58% (5 元素)
+
+[Step2-Router] 页面 9 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_009_pipeline.json
+[TextIn] 客户端初始化 (已配置), app_id: af2d...ec
+[元素Agent] 分析 table 元素(原生优先): elem_005
+[TextIn] v2 返回非表格区域，跳过 v1 兜底
+[元素Agent] 分析 table 元素: elem_005
+
+[Step3] 页面 11 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 11
+
+[Step3] 页面 9 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 9
+[MinerU] ⚠️ 在 stderr 中检测到严重错误关键字: Traceback (most recent call last)
+[MinerU] 找到结果文件: /home/eccom/projects/PPT_Parsing_last/mineru_output/20260317-DTC-O-007 Pan-RAS GT1-final-1/auto/20260317-DTC-O-007 Pan-RAS GT1-final-1_content_list.json
+[MinerU] 解析得到 176 个元素
+[MinerU] 检测到 mineru.cli.client，将使用 python -m mineru.cli.client 调用
+[MinerU] 解析得到 5 个元素
+[MinerU] 解析得到 15 个元素
+[MinerU] 解析得到 6 个元素
+[MinerU] 解析得到 8 个元素
+[MinerU] 解析得到 7 个元素
+[MinerU] 解析得到 3 个元素
+[MinerU] 解析得到 6 个元素
+[MinerU] 解析得到 7 个元素
+[MinerU] 解析得到 4 个元素
+[MinerU] 解析得到 5 个元素
+[MinerU] 解析得到 8 个元素
+[MinerU] 解析得到 4 个元素
+[MinerU] 解析得到 6 个元素
+[MinerU] 解析得到 5 个元素
+[MinerU] 解析得到 9 个元素
+[MinerU] 解析得到 6 个元素
+[MinerU] 解析得到 14 个元素
+[MinerU] 解析得到 13 个元素
+[MinerU] 解析得到 4 个元素
+[MinerU] 解析得到 8 个元素
+[MinerU] 解析得到 3 个元素
+[MinerU] 解析得到 12 个元素
+[MinerU] 解析得到 2 个元素
+[MinerU] 解析得到 3 个元素
+[MinerU] 解析得到 6 个元素
+[MinerU] 解析得到 4 个元素
+[MinerU] 解析得到 3 个元素
+[GlobalMinerU] 统一预测完成：命中 27/27 页
+
+[Dispatch] 准备分发批次: [0, 1, 2]
+
+[Step1] 开始分析页面 0
+[Step1] 全局语义分析页面 0
+[Step1] 页面 0 准备调用VLM API...
+[Step1] 图片大小: 934820 bytes
+
+[Step1] 开始分析页面 1
+[Step1] 全局语义分析页面 1
+
+[Step1] 开始分析页面 2
+[Step1] 页面 1 准备调用VLM API...
+[Step1] 图片大小: 568792 bytes
+[Step1] 全局语义分析页面 2
+[Step1] 页面 2 准备调用VLM API...
+[Step1] 图片大小: 151580 bytes
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 11 最终输出生成
+
+[Step4] 生成页面 11 的最终输出
+[Step4] [OK] 页面 11 完成
+
+[Step5] 正在润色页面 12 ...
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 9 最终输出生成
+
+[Step4] 生成页面 9 的最终输出
+[Step4] [OK] 页面 9 完成
+
+[Step5] 正在润色页面 10 ...
+
+[Dispatch] 准备分发批次: [12, 13, 14]
+
+[Step1] 开始分析页面 12
+
+[Step1] 开始分析页面 13
+
+[Step1] 开始分析页面 14
+[Step1] 全局语义分析页面 14
+[Step1] 全局语义分析页面 13
+[Step1] 全局语义分析页面 12
+[Step1] 页面 14 准备调用VLM API...
+[Step1] 图片大小: 268788 bytes
+[Step1] 页面 13 准备调用VLM API...
+[Step1] 图片大小: 239780 bytes
+[Step1] 页面 12 准备调用VLM API...
+[Step1] 图片大小: 205748 bytes
+[Step1] 页面 2 获得VLM响应，长度: 389
+[Step1] [OK] 页面 2 分析完成: 目录 (0 元素)
+[Step1] [OK] 页面 2 分析完成: 目录 (0 元素)
+
+[Step2-Router] 页面 2 规划处理策略
+[Step2-Router] 决策: text_only ()
+[TextWorker] 基于 XML 解析页面 2
+❌ [TextWorker] PPTX XML 解析失败: Package not found at '20260317-DTC-O-007 Pan-RAS GT1-final-1.pdf'
+
+[Step3] 页面 2 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 2
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 2 最终输出生成
+
+[Step4] 生成页面 2 的最终输出
+[Step4] [OK] 页面 2 完成
+
+[Step5] 正在润色页面 3 ...
+[Step1] 页面 0 获得VLM响应，长度: 429
+[Step1] [OK] 页面 0 分析完成: DTC-O-007 (Pan-RAS(ON)) GT1立项决策会 (0 元素)
+[Step1] [OK] 页面 0 分析完成: DTC-O-007 (Pan-RAS(ON)) GT1立项决策会 (0 元素)
+
+[Step2-Router] 页面 0 规划处理策略
+[Step2-Router] 决策: text_only ()
+[TextWorker] 基于 XML 解析页面 0
+❌ [TextWorker] PPTX XML 解析失败: Package not found at '20260317-DTC-O-007 Pan-RAS GT1-final-1.pdf'
+
+[Step3] 页面 0 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 0
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 0 最终输出生成
+
+[Step4] 生成页面 0 的最终输出
+[Step4] [OK] 页面 0 完成
+
+[Step5] 正在润色页面 1 ...
+[Step1] 页面 12 获得VLM响应，长度: 795
+[Step1] [OK] 页面 12 分析完成: 汉斯状®商业化亮点 (2 元素)
+[Step1] [OK] 页面 12 分析完成: 汉斯状®商业化亮点 (2 元素)
+
+[Step2-Router] 页面 12 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_012_pipeline.json
+[元素Agent] 分析 text 元素: elem_007
+[Step1] 页面 13 获得VLM响应，长度: 1276
+[Step1] [OK] 页面 13 分析完成: 汉贝泰®（贝伐珠单抗）：2023年开启商业化销售 (5 元素)
+[Step1] [OK] 页面 13 分析完成: 汉贝泰®（贝伐珠单抗）：2023年开启商业化销售 (5 元素)
+
+[Step2-Router] 页面 13 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_013_pipeline.json
+[元素Agent] 分析 text 元素: elem_005
+[Step1] 页面 1 获得VLM响应，长度: 1049
+[Step1] [OK] 页面 1 分析完成: Executive summary（执行摘要） (1 元素)
+[Step1] [OK] 页面 1 分析完成: Executive summary（执行摘要） (1 元素)
+
+[Step2-Router] 页面 1 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_001_pipeline.json
+
+[Step3] 页面 1 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 1
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 1 最终输出生成
+
+[Step4] 生成页面 1 的最终输出
+[Step4] [OK] 页面 1 完成
+
+[Step5] 正在润色页面 2 ...
+
+[Dispatch] 准备分发批次: [3, 4, 5]
+
+[Step1] 开始分析页面 3
+
+[Step1] 开始分析页面 4
+
+[Step1] 开始分析页面 5
+[Step1] 全局语义分析页面 3
+[Step1] 全局语义分析页面 5
+[Step1] 页面 3 准备调用VLM API...
+[Step1] 图片大小: 941424 bytes
+[Step1] 全局语义分析页面 4
+[Step1] 页面 4 准备调用VLM API...
+[Step1] 图片大小: 591504 bytes
+[Step1] 页面 5 准备调用VLM API...
+[Step1] 图片大小: 1158884 bytes
+[Step1] 页面 14 获得VLM响应，长度: 1396
+[Step1] [OK] 页面 14 分析完成: 汉利康®（利妥昔单抗）：巩固市场领导地位 (5 元素)
+[Step1] [OK] 页面 14 分析完成: 汉利康®（利妥昔单抗）：巩固市场领导地位 (5 元素)
+
+[Step2-Router] 页面 14 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_014_pipeline.json
+[元素Agent] 分析 text 元素: elem_003
+[元素Agent] 分析 text 元素: elem_007
+[元素Agent] 分析 text 元素: elem_001
+
+[Step3] 页面 12 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 12
+
+[Step3] 页面 13 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 13
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 12 最终输出生成
+
+[Step4] 生成页面 12 的最终输出
+[Step4] [OK] 页面 12 完成
+
+[Step5] 正在润色页面 13 ...
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 13 最终输出生成
+
+[Step4] 生成页面 13 的最终输出
+[Step4] [OK] 页面 13 完成
+
+[Step5] 正在润色页面 14 ...
+
+[Step3] 页面 14 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 14
+[Step1] 页面 5 获得VLM响应，长度: 995
+[Step1] [OK] 页面 5 分析完成: 多种不同形式的RAS抑制剂进入临床阶段 (2 元素)
+[Step1] [OK] 页面 5 分析完成: 多种不同形式的RAS抑制剂进入临床阶段 (2 元素)
+
+[Step2-Router] 页面 5 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_005_pipeline.json
+
+[Step3] 页面 5 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 5
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 14 最终输出生成
+
+[Step4] 生成页面 14 的最终输出
+[Step4] [OK] 页面 14 完成
+
+[Step5] 正在润色页面 15 ...
+
+[Dispatch] 准备分发批次: [15, 16, 17]
+
+[Step1] 开始分析页面 15
+
+[Step1] 开始分析页面 16
+
+[Step1] 开始分析页面 17
+[Step1] 全局语义分析页面 15
+[Step1] 页面 15 准备调用VLM API...
+[Step1] 图片大小: 234664 bytes
+[Step1] 全局语义分析页面 16
+[Step1] 全局语义分析页面 17
+[Step1] 页面 16 准备调用VLM API...
+[Step1] 图片大小: 406732 bytes
+[Step1] 页面 17 准备调用VLM API...
+[Step1] 图片大小: 177404 bytes
+[Step1] 页面 3 获得VLM响应，长度: 967
+[Step1] [OK] 页面 3 分析完成: RAS生物学背景 (2 元素)
+[Step1] [OK] 页面 3 分析完成: RAS生物学背景 (2 元素)
+
+[Step2-Router] 页面 3 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_003_pipeline.json
+
+[Step3] 页面 3 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 3
+[Step1] 页面 4 获得VLM响应，长度: 1325
+[Step1] [OK] 页面 4 分析完成: RAS突变发生在多种癌症中 (4 元素)
+[Step1] [OK] 页面 4 分析完成: RAS突变发生在多种癌症中 (4 元素)
+
+[Step2-Router] 页面 4 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_004_pipeline.json
+[元素Agent] 分析 text 元素: elem_001
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 5 最终输出生成
+
+[Step4] 生成页面 5 的最终输出
+[Step4] [OK] 页面 5 完成
+
+[Step5] 正在润色页面 6 ...
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 3 最终输出生成
+
+[Step4] 生成页面 3 的最终输出
+[Step4] [OK] 页面 3 完成
+
+[Step5] 正在润色页面 4 ...
+[Step1] 页面 16 获得VLM响应，长度: 285
+[Step1] [OK] 页面 16 分析完成: 商务拓展 (0 元素)
+[Step1] [OK] 页面 16 分析完成: 商务拓展 (0 元素)
+
+[Step2-Router] 页面 16 规划处理策略
+[Step2-Router] 决策: text_only ()
+[TextWorker] 基于 XML 解析页面 16
+
+[Step3] 页面 16 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 16
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 16 最终输出生成
+
+[Step4] 生成页面 16 的最终输出
+[Step4] [OK] 页面 16 完成
+
+[Step5] 正在润色页面 17 ...
+
+[Step3] 页面 4 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 4
+[Step1] 页面 17 获得VLM响应，长度: 887
+[Step1] [OK] 页面 17 分析完成: 23年商务拓展重点项目 (2 元素)
+[Step1] [OK] 页面 17 分析完成: 23年商务拓展重点项目 (2 元素)
+
+[Step2-Router] 页面 17 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_017_pipeline.json
+
+[Step3] 页面 17 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 17
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 17 最终输出生成
+
+[Step4] 生成页面 17 的最终输出
+[Step4] [OK] 页面 17 完成
+
+[Step5] 正在润色页面 18 ...
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 4 最终输出生成
+
+[Step4] 生成页面 4 的最终输出
+[Step4] [OK] 页面 4 完成
+
+[Step5] 正在润色页面 5 ...
+
+[Dispatch] 准备分发批次: [6, 7, 8]
+
+[Step1] 开始分析页面 6
+[Step1] 全局语义分析页面 6
+[Step1] 页面 6 准备调用VLM API...
+[Step1] 图片大小: 154908 bytes
+
+[Step1] 开始分析页面 7
+
+[Step1] 开始分析页面 8
+[Step1] 全局语义分析页面 8
+[Step1] 页面 8 准备调用VLM API...
+[Step1] 图片大小: 671852 bytes
+[Step1] 全局语义分析页面 7
+[Step1] 页面 7 准备调用VLM API...
+[Step1] 图片大小: 800804 bytes
+[Step1] 页面 6 获得VLM响应，长度: 429
+[Step1] [OK] 页面 6 分析完成: 目录 (0 元素)
+[Step1] [OK] 页面 6 分析完成: 目录 (0 元素)
+
+[Step2-Router] 页面 6 规划处理策略
+[Step2-Router] 决策: text_only ()
+[TextWorker] 基于 XML 解析页面 6
+❌ [TextWorker] PPTX XML 解析失败: Package not found at '20260317-DTC-O-007 Pan-RAS GT1-final-1.pdf'
+
+[Step3] 页面 6 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 6
+[Step1] 页面 15 获得VLM响应，长度: 1124
+[Step1] [OK] 页面 15 分析完成: 汉达远®（阿达木单抗）：布局自身免疫疾病领域 (2 元素)
+[Step1] [OK] 页面 15 分析完成: 汉达远®（阿达木单抗）：布局自身免疫疾病领域 (2 元素)
+
+[Step2-Router] 页面 15 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_015_pipeline.json
+[元素Agent] 分析 text 元素: elem_005
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 6 最终输出生成
+
+[Step4] 生成页面 6 的最终输出
+[Step4] [OK] 页面 6 完成
+
+[Step5] 正在润色页面 7 ...
+[Step1] 页面 7 获得VLM响应，长度: 1195
+[Step1] [OK] 页面 7 分析完成: Pan-(K)RAS抑制剂的MOA (3 元素)
+[Step1] [OK] 页面 7 分析完成: Pan-(K)RAS抑制剂的MOA (3 元素)
+
+[Step2-Router] 页面 7 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_007_pipeline.json
+[元素Agent] 分析 text 元素: elem_001
+[元素Agent] 分析 chart 元素: elem_004
+[元素Agent] 分析 chart 元素: elem_005
+[Step1] 页面 8 获得VLM响应，长度: 1430
+[Step1] [OK] 页面 8 分析完成: RMC-6236的临床前数据 (4 元素)
+[Step1] [OK] 页面 8 分析完成: RMC-6236的临床前数据 (4 元素)
+
+[Step2-Router] 页面 8 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_008_pipeline.json
+
+[Step3] 页面 8 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 8
+
+[Step3] 页面 15 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 15
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 8 最终输出生成
+
+[Step4] 生成页面 8 的最终输出
+[Step4] [OK] 页面 8 完成
+
+[Step5] 正在润色页面 9 ...
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 15 最终输出生成
+
+[Step4] 生成页面 15 的最终输出
+[Step4] [OK] 页面 15 完成
+
+[Step5] 正在润色页面 16 ...
+
+[Dispatch] 准备分发批次: [18, 19, 20]
+
+[Step1] 开始分析页面 18
+
+[Step1] 开始分析页面 19
+
+[Step1] 开始分析页面 20
+[Step1] 全局语义分析页面 19
+[Step1] 全局语义分析页面 20
+[Step1] 页面 19 准备调用VLM API...
+[Step1] 图片大小: 185944 bytes
+[Step1] 页面 20 准备调用VLM API...
+[Step1] 图片大小: 401388 bytes
+[Step1] 全局语义分析页面 18
+[Step1] 页面 18 准备调用VLM API...
+[Step1] 图片大小: 359908 bytes
+[Step1] 页面 20 获得VLM响应，长度: 290
+[Step1] [OK] 页面 20 分析完成: 研发 (0 元素)
+[Step1] [OK] 页面 20 分析完成: 研发 (0 元素)
+
+[Step2-Router] 页面 20 规划处理策略
+[Step2-Router] 决策: text_only ()
+[TextWorker] 基于 XML 解析页面 20
+
+[Step3] 页面 20 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 20
+[MinerU] ⚠️ 在 stderr 中检测到严重错误关键字: Traceback (most recent call last)
+[MinerU] 找到结果文件: /home/eccom/projects/PPT_Parsing_last/mineru_output/BeOne-JPM_2026_Presentation_CN/auto/BeOne-JPM_2026_Presentation_CN_content_list.json
+[MinerU] 解析得到 259 个元素
+[MinerU] 检测到 mineru.cli.client，将使用 python -m mineru.cli.client 调用
+[MinerU] 解析得到 6 个元素
+[MinerU] 解析得到 5 个元素
+[MinerU] 解析得到 1 个元素
+[MinerU] 解析得到 3 个元素
+[MinerU] 解析得到 9 个元素
+[MinerU] 解析得到 4 个元素
+[MinerU] 解析得到 6 个元素
+[MinerU] 解析得到 5 个元素
+[MinerU] 解析得到 14 个元素
+[MinerU] 解析得到 3 个元素
+[MinerU] 解析得到 7 个元素
+[MinerU] 解析得到 6 个元素
+[MinerU] 解析得到 7 个元素
+[MinerU] 解析得到 6 个元素
+[MinerU] 解析得到 6 个元素
+[MinerU] 解析得到 7 个元素
+[MinerU] 解析得到 9 个元素
+[MinerU] 解析得到 5 个元素
+[MinerU] 解析得到 5 个元素
+[MinerU] 解析得到 5 个元素
+[MinerU] 解析得到 6 个元素
+[MinerU] 解析得到 3 个元素
+[MinerU] 解析得到 9 个元素
+[MinerU] 解析得到 8 个元素
+[MinerU] 解析得到 5 个元素
+[MinerU] 解析得到 6 个元素
+[MinerU] 解析得到 9 个元素
+[MinerU] 解析得到 9 个元素
+[MinerU] 解析得到 5 个元素
+[MinerU] 解析得到 7 个元素
+[MinerU] 解析得到 5 个元素
+[MinerU] 解析得到 3 个元素
+[MinerU] 解析得到 4 个元素
+[MinerU] 解析得到 5 个元素
+[MinerU] 解析得到 5 个元素
+[MinerU] 解析得到 3 个元素
+[MinerU] 解析得到 3 个元素
+[MinerU] 解析得到 1 个元素
+[MinerU] 解析得到 7 个元素
+[MinerU] 解析得到 5 个元素
+[MinerU] 解析得到 9 个元素
+[MinerU] 解析得到 3 个元素
+[MinerU] 解析得到 6 个元素
+[MinerU] 解析得到 2 个元素
+[MinerU] 解析得到 4 个元素
+[MinerU] 解析得到 4 个元素
+[MinerU] 解析得到 4 个元素
+[GlobalMinerU] 统一预测完成：命中 47/47 页
+
+[Dispatch] 准备分发批次: [0, 1, 2]
+
+[Step1] 开始分析页面 0
+
+[Step1] 开始分析页面 1
+[Step1] 全局语义分析页面 1
+[Step1] 全局语义分析页面 0
+[Step1] 页面 1 准备调用VLM API...
+[Step1] 图片大小: 219200 bytes
+[Step1] 页面 0 准备调用VLM API...
+[Step1] 图片大小: 1341368 bytes
+
+[Step1] 开始分析页面 2
+[Step1] 全局语义分析页面 2
+[Step1] 页面 2 准备调用VLM API...
+[Step1] 图片大小: 1269276 bytes
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 20 最终输出生成
+
+[Step4] 生成页面 20 的最终输出
+[Step4] [OK] 页面 20 完成
+
+[Step5] 正在润色页面 21 ...
+[Step1] 页面 19 获得VLM响应，长度: 821
+[Step1] [OK] 页面 19 分析完成: Out-licensing聚焦：复宏汉霖国际品质的生物类似药销往全球市场 (2 元素)
+[Step1] [OK] 页面 19 分析完成: Out-licensing聚焦：复宏汉霖国际品质的生物类似药销往全球市场 (2 元素)
+
+[Step2-Router] 页面 19 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_019_pipeline.json
+
+[Step3] 页面 19 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 19
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 19 最终输出生成
+
+[Step4] 生成页面 19 的最终输出
+[Step4] [OK] 页面 19 完成
+
+[Step5] 正在润色页面 20 ...
+
+[Step3] 页面 7 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 7
+[Step1] 页面 18 获得VLM响应，长度: 1055
+[Step1] [OK] 页面 18 分析完成: In-licensing聚焦：通过BD引进拓展对乳腺癌不同亚型的布局 (3 元素)
+[Step1] [OK] 页面 18 分析完成: In-licensing聚焦：通过BD引进拓展对乳腺癌不同亚型的布局 (3 元素)
+
+[Step2-Router] 页面 18 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_018_pipeline.json
+
+[Step3] 页面 18 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 18
+[Step1] 页面 0 获得VLM响应，长度: 395
+[Step1] [OK] 页面 0 分析完成: 百济神州 2026年第44届摩根大通年度医疗健康大会 (0 元素)
+[Step1] [OK] 页面 0 分析完成: 百济神州 2026年第44届摩根大通年度医疗健康大会 (0 元素)
+
+[Step2-Router] 页面 0 规划处理策略
+[Step2-Router] 决策: text_only ()
+[TextWorker] 基于 XML 解析页面 0
+❌ [TextWorker] PPTX XML 解析失败: Package not found at 'BeOne-JPM_2026_Presentation_CN.pdf'
+
+[Step3] 页面 0 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 0
+[Step1] 页面 2 获得VLM响应，长度: 574
+[Step1] [OK] 页面 2 分析完成: 今日的创新 只是冰山一角 (1 元素)
+[Step1] [OK] 页面 2 分析完成: 今日的创新 只是冰山一角 (1 元素)
+
+[Step2-Router] 页面 2 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_002_pipeline.json
+
+[Step3] 页面 2 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 2
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 7 最终输出生成
+
+[Step4] 生成页面 7 的最终输出
+[Step4] [OK] 页面 7 完成
+
+[Step5] 正在润色页面 8 ...
+
+[Dispatch] 准备分发批次: [9, 10, 11]
+
+[Step1] 开始分析页面 9
+[Step1] 全局语义分析页面 9
+[Step1] 页面 9 准备调用VLM API...
+[Step1] 图片大小: 512492 bytes
+
+[Step1] 开始分析页面 10
+
+[Step1] 开始分析页面 11
+[Step1] 全局语义分析页面 10
+[Step1] 全局语义分析页面 11
+[Step1] 页面 10 准备调用VLM API...
+[Step1] 图片大小: 416584 bytes
+[Step1] 页面 11 准备调用VLM API...
+[Step1] 图片大小: 337992 bytes
+[Step1] 页面 1 获得VLM响应，长度: 615
+[Step1] [OK] 页面 1 分析完成: 过去25年来，癌症治疗效果已显著提升，但仍需继续努力 (1 元素)
+[Step1] [OK] 页面 1 分析完成: 过去25年来，癌症治疗效果已显著提升，但仍需继续努力 (1 元素)
+
+[Step2-Router] 页面 1 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_001_pipeline.json
+
+[Step3] 页面 1 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 1
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 18 最终输出生成
+
+[Step4] 生成页面 18 的最终输出
+[Step4] [OK] 页面 18 完成
+
+[Step5] 正在润色页面 19 ...
+
+[Dispatch] 准备分发批次: [21, 22, 23]
+
+[Step1] 开始分析页面 21
+[Step1] 全局语义分析页面 21
+[Step1] 页面 21 准备调用VLM API...
+[Step1] 图片大小: 193684 bytes
+
+[Step1] 开始分析页面 22
+
+[Step1] 开始分析页面 23
+[Step1] 全局语义分析页面 23
+[Step1] 全局语义分析页面 22
+[Step1] 页面 22 准备调用VLM API...
+[Step1] 图片大小: 104132 bytes
+[Step1] 页面 23 准备调用VLM API...
+[Step1] 图片大小: 151248 bytes
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 0 最终输出生成
+
+[Step4] 生成页面 0 的最终输出
+[Step4] [OK] 页面 0 完成
+
+[Step5] 正在润色页面 1 ...
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 2 最终输出生成
+
+[Step4] 生成页面 2 的最终输出
+[Step4] [OK] 页面 2 完成
+
+[Step5] 正在润色页面 3 ...
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 1 最终输出生成
+
+[Step4] 生成页面 1 的最终输出
+[Step4] [OK] 页面 1 完成
+
+[Step5] 正在润色页面 2 ...
+
+[Dispatch] 准备分发批次: [3, 4, 5]
+
+[Step1] 开始分析页面 3
+
+[Step1] 开始分析页面 4
+
+[Step1] 开始分析页面 5
+[Step1] 全局语义分析页面 4
+[Step1] 页面 4 准备调用VLM API...
+[Step1] 图片大小: 737984 bytes
+[Step1] 全局语义分析页面 3
+[Step1] 页面 3 准备调用VLM API...
+[Step1] 图片大小: 1205268 bytes
+[Step1] 全局语义分析页面 5
+[Step1] 页面 5 准备调用VLM API...
+[Step1] 图片大小: 199220 bytes
+[Step1] 页面 21 获得VLM响应，长度: 767
+[Step1] [OK] 页面 21 分析完成: 产品管线 (2 元素)
+[Step1] [OK] 页面 21 分析完成: 产品管线 (2 元素)
+
+[Step2-Router] 页面 21 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_021_pipeline.json
+
+[Step3] 页面 21 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 21
+[Step1] 页面 23 获得VLM响应，长度: 771
+[Step1] [OK] 页面 23 分析完成: 临床管线关键进程：2024年预期 (2 元素)
+[Step1] [OK] 页面 23 分析完成: 临床管线关键进程：2024年预期 (2 元素)
+
+[Step2-Router] 页面 23 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_023_pipeline.json
+
+[Step3] 页面 23 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 23
+[Step1] 页面 11 获得VLM响应，长度: 750
+[Step1] [OK] 页面 11 分析完成: RMC-6236进展中的临床实验 (1 元素)
+[Step1] [OK] 页面 11 分析完成: RMC-6236进展中的临床实验 (1 元素)
+
+[Step2-Router] 页面 11 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_011_pipeline.json
+[元素Agent] 分析 text 元素: elem_005
+[元素Agent] 分析 text 元素: elem_006
+[元素Agent] 分析 text 元素: elem_007
+[Step1] 页面 22 获得VLM响应，长度: 771
+[Step1] [OK] 页面 22 分析完成: 临床管线关键进程：2023年回顾 (2 元素)
+[Step1] [OK] 页面 22 分析完成: 临床管线关键进程：2023年回顾 (2 元素)
+
+[Step2-Router] 页面 22 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_022_pipeline.json
+
+[Step3] 页面 22 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 22
+[Step1] 页面 9 获得VLM响应，长度: 758
+[Step1] [OK] 页面 9 分析完成: RMC-6236临床数据 (1 元素)
+[Step1] [OK] 页面 9 分析完成: RMC-6236临床数据 (1 元素)
+
+[Step2-Router] 页面 9 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_009_pipeline.json
+[元素Agent] 分析 table 元素(原生优先): elem_005
+[Step3-Supervisor] 校验结果: [ERROR] FAIL
+[Router] 页面 21 校验失败，准备重试 (第 1/2 次)
+
+[Step2-Router] 页面 21 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+
+[LayoutPipeline] 启动复杂页面处理 Pipeline (Page 21) | MinerU=pipeline
+
+[ComplexPipeline] 处理页面 21
+[MinerU] 检测到 mineru.cli.client，将使用 python -m mineru.cli.client 调用
+[TextIn] 客户端初始化 (已配置), app_id: af2d...ec
+
+======================================================================
+  复杂页面处理 Pipeline 启动
+  页面ID: 21
+  图片路径: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/processing_artifacts/ppt_slides_temp/slide_021.png
+  调试模式: 关闭
+======================================================================
+
+============================================================
+[Phase 1] 开始版面检测与类型清洗 (Page 21)
+============================================================
+
+[Phase 1.1] MinerU 版面分析...
+[MinerU] 配置文件已存在: /home/eccom/magic-pdf.json
+[Step1] 页面 3 获得VLM响应，长度: 539
+[Step1] [OK] 页面 3 分析完成: 癌症每年仍在夺走太多患者生命 (0 元素)
+[Step1] [OK] 页面 3 分析完成: 癌症每年仍在夺走太多患者生命 (0 元素)
+
+[Step2-Router] 页面 3 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_003_pipeline.json
+
+[Step3] 页面 3 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 3
+
+[Step3] 页面 9 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 9
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 23 最终输出生成
+
+[Step4] 生成页面 23 的最终输出
+[Step4] [OK] 页面 23 完成
+
+[Step5] 正在润色页面 24 ...
+[MinerU] 执行命令: /home/eccom/miniconda3/envs/ppt_poc/bin/python -m mineru.cli.client -p /home/eccom/projects/PPT_Parsing_last/processing_artifacts/page_021/mineru_work/slide_021.pdf -o /home/eccom/projects/PPT_Parsing_last/processing_artifacts/page_021/mineru_work/mineru_output -b pipeline -f False -t True --source modelscope -d cpu
+[MinerU] 输出目录: /home/eccom/projects/PPT_Parsing_last/processing_artifacts/page_021/mineru_work/mineru_output
+[MinerU] Mode=standard: backend=pipeline, device=cpu
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 22 最终输出生成
+
+[Step4] 生成页面 22 的最终输出
+[Step4] [OK] 页面 22 完成
+
+[Step5] 正在润色页面 23 ...
+[Step1] 页面 10 获得VLM响应，长度: 1036
+[Step1] [OK] 页面 10 分析完成: RMC-6236临床毒性分析 (1 元素)
+[Step1] [OK] 页面 10 分析完成: RMC-6236临床毒性分析 (1 元素)
+
+[Step2-Router] 页面 10 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_010_pipeline.json
+
+[Step3] 页面 10 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 10
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 3 最终输出生成
+
+[Step4] 生成页面 3 的最终输出
+[Step4] [OK] 页面 3 完成
+
+[Step5] 正在润色页面 4 ...
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 9 最终输出生成
+
+[Step4] 生成页面 9 的最终输出
+[Step4] [OK] 页面 9 完成
+
+[Step5] 正在润色页面 10 ...
+[Step1] 页面 5 获得VLM响应，长度: 1090
+[Step1] [OK] 页面 5 分析完成: 2026年摩根大通：未来已至 (4 元素)
+[Step1] [OK] 页面 5 分析完成: 2026年摩根大通：未来已至 (4 元素)
+
+[Step2-Router] 页面 5 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_005_pipeline.json
+
+[Step3] 页面 5 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 5
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 10 最终输出生成
+
+[Step4] 生成页面 10 的最终输出
+[Step4] [OK] 页面 10 完成
+
+[Step5] 正在润色页面 11 ...
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 5 最终输出生成
+
+[Step4] 生成页面 5 的最终输出
+[Step4] [OK] 页面 5 完成
+
+[Step5] 正在润色页面 6 ...
+[Step1] 页面 4 获得VLM响应，长度: 1409
+[Step1] [OK] 页面 4 分析完成: 披露声明 (0 元素)
+[Step1] [OK] 页面 4 分析完成: 披露声明 (0 元素)
+
+[Step2-Router] 页面 4 规划处理策略
+[Step2-Router] 决策: text_only ()
+[TextWorker] 基于 XML 解析页面 4
+❌ [TextWorker] PPTX XML 解析失败: Package not found at 'BeOne-JPM_2026_Presentation_CN.pdf'
+
+[Step3] 页面 4 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 4
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 4 最终输出生成
+
+[Step4] 生成页面 4 的最终输出
+[Step4] [OK] 页面 4 完成
+
+[Step5] 正在润色页面 5 ...
+
+[Dispatch] 准备分发批次: [6, 7, 8]
+
+[Step1] 开始分析页面 6
+
+[Step1] 开始分析页面 7
+
+[Step1] 开始分析页面 8
+[Step1] 全局语义分析页面 6
+[Step1] 全局语义分析页面 8
+[Step1] 页面 8 准备调用VLM API...
+[Step1] 图片大小: 287424 bytes
+[Step1] 全局语义分析页面 7
+[Step1] 页面 6 准备调用VLM API...
+[Step1] 图片大小: 237000 bytes
+[Step1] 页面 7 准备调用VLM API...
+[Step1] 图片大小: 302556 bytes
+[Step1] 页面 8 获得VLM响应，长度: 862
+[Step1] [OK] 页面 8 分析完成: 2025年对公司管线意义非凡 (2 元素)
+[Step1] [OK] 页面 8 分析完成: 2025年对公司管线意义非凡 (2 元素)
+
+[Step2-Router] 页面 8 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_008_pipeline.json
+
+[Step3] 页面 8 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 8
+
+[Step3] 页面 11 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 11
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 8 最终输出生成
+
+[Step4] 生成页面 8 的最终输出
+[Step4] [OK] 页面 8 完成
+
+[Step5] 正在润色页面 9 ...
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 11 最终输出生成
+
+[Step4] 生成页面 11 的最终输出
+[Step4] [OK] 页面 11 完成
+
+[Step5] 正在润色页面 12 ...
+
+[Dispatch] 准备分发批次: [12, 13, 14]
+
+[Step1] 开始分析页面 12
+
+[Step1] 开始分析页面 13
+
+[Step1] 开始分析页面 14
+[Step1] 全局语义分析页面 13
+[Step1] 全局语义分析页面 12
+[Step1] 页面 13 准备调用VLM API...
+[Step1] 图片大小: 372068 bytes
+[Step1] 页面 12 准备调用VLM API...
+[Step1] 图片大小: 153872 bytes
+[Step1] 全局语义分析页面 14
+[Step1] 页面 14 准备调用VLM API...
+[Step1] 图片大小: 271004 bytes
+[Step1] 页面 7 获得VLM响应，长度: 990
+[Step1] [OK] 页面 7 分析完成: 百悦泽®已迅速成为BTK抑制剂全球领导者 (2 元素)
+[Step1] [OK] 页面 7 分析完成: 百悦泽®已迅速成为BTK抑制剂全球领导者 (2 元素)
+
+[Step2-Router] 页面 7 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_007_pipeline.json
+[元素Agent] 分析 chart 元素: elem_004
+[元素Agent] 分析 chart 元素: elem_005
+[元素Agent] 分析 text 元素: elem_001
+[Step1] 页面 6 获得VLM响应，长度: 898
+[Step1] [OK] 页面 6 分析完成: 兑现财务承诺（2025年前三个季度） (3 元素)
+[Step1] [OK] 页面 6 分析完成: 兑现财务承诺（2025年前三个季度） (3 元素)
+
+[Step2-Router] 页面 6 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_006_pipeline.json
+[元素Agent] 分析 text 元素: elem_005
+[元素Agent] 分析 text 元素: elem_004
+[Step1] 页面 12 获得VLM响应，长度: 428
+[Step1] [OK] 页面 12 分析完成: 目录 (0 元素)
+[Step1] [OK] 页面 12 分析完成: 目录 (0 元素)
+
+[Step2-Router] 页面 12 规划处理策略
+[Step2-Router] 决策: text_only ()
+[TextWorker] 基于 XML 解析页面 12
+❌ [TextWorker] PPTX XML 解析失败: Package not found at '20260317-DTC-O-007 Pan-RAS GT1-final-1.pdf'
+
+[Step3] 页面 12 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 12
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 12 最终输出生成
+
+[Step4] 生成页面 12 的最终输出
+[Step4] [OK] 页面 12 完成
+
+[Step5] 正在润色页面 13 ...
+
+[Step3] 页面 7 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 7
+[Step1] 页面 14 获得VLM响应，长度: 559
+[Step1] [OK] 页面 14 分析完成: Pan-RAS (ON) 抑制剂开发策略 (0 元素)
+[Step1] [OK] 页面 14 分析完成: Pan-RAS (ON) 抑制剂开发策略 (0 元素)
+
+[Step2-Router] 页面 14 规划处理策略
+[Step2-Router] 决策: text_only ()
+[TextWorker] 基于 XML 解析页面 14
+❌ [TextWorker] PPTX XML 解析失败: Package not found at '20260317-DTC-O-007 Pan-RAS GT1-final-1.pdf'
+
+[Step3] 页面 14 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 14
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 14 最终输出生成
+
+[Step4] 生成页面 14 的最终输出
+[Step4] [OK] 页面 14 完成
+
+[Step5] 正在润色页面 15 ...
+
+[Step3] 页面 6 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 6
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 7 最终输出生成
+
+[Step4] 生成页面 7 的最终输出
+[Step4] [OK] 页面 7 完成
+
+[Step5] 正在润色页面 8 ...
+[Step1] 页面 13 获得VLM响应，长度: 776
+[Step1] [OK] 页面 13 分析完成: Pan-RAS (ON) 抑制剂的竞争格局 (1 元素)
+[Step1] [OK] 页面 13 分析完成: Pan-RAS (ON) 抑制剂的竞争格局 (1 元素)
+
+[Step2-Router] 页面 13 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_013_pipeline.json
+[元素Agent] 分析 text 元素: elem_005
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 6 最终输出生成
+
+[Step4] 生成页面 6 的最终输出
+[Step4] [OK] 页面 6 完成
+
+[Step5] 正在润色页面 7 ...
+
+[Dispatch] 准备分发批次: [9, 10, 11]
+
+[Step1] 开始分析页面 9
+[Step1] 全局语义分析页面 9
+[Step1] 页面 9 准备调用VLM API...
+[Step1] 图片大小: 224104 bytes
+
+[Step1] 开始分析页面 11
+
+[Step1] 开始分析页面 10
+[Step1] 全局语义分析页面 10
+[Step1] 页面 10 准备调用VLM API...
+[Step1] 图片大小: 262128 bytes
+[Step1] 全局语义分析页面 11
+[Step1] 页面 11 准备调用VLM API...
+[Step1] 图片大小: 527984 bytes
+[Step1] 页面 10 获得VLM响应，长度: 906
+[Step1] [OK] 页面 10 分析完成: 过去十年，在一线CLL治疗中，持续治疗与固定疗程治疗方案均取得重大创新进展 (1 元素)
+[Step1] [OK] 页面 10 分析完成: 过去十年，在一线CLL治疗中，持续治疗与固定疗程治疗方案均取得重大创新进展 (1 元素)
+
+[Step2-Router] 页面 10 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_010_pipeline.json
+
+[Step3] 页面 10 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 10
+[Step1] 页面 9 获得VLM响应，长度: 606
+[Step1] [OK] 页面 9 分析完成: 凭借重要血液肿瘤产品，百济神州正在书写CLL领域新篇章 (1 元素)
+[Step1] [OK] 页面 9 分析完成: 凭借重要血液肿瘤产品，百济神州正在书写CLL领域新篇章 (1 元素)
+
+[Step2-Router] 页面 9 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_009_pipeline.json
+[元素Agent] 分析 table 元素(原生优先): elem_005
+[TextIn] v2 返回非表格区域，跳过 v1 兜底
+[元素Agent] 分析 table 元素: elem_005
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 10 最终输出生成
+
+[Step4] 生成页面 10 的最终输出
+[Step4] [OK] 页面 10 完成
+
+[Step5] 正在润色页面 11 ...
+
+[Step3] 页面 13 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 13
+[Step1] 页面 11 获得VLM响应，长度: 864
+[Step1] [OK] 页面 11 分析完成: 过去十年，在一线CLL治疗中，持续治疗与固定疗程治疗方案均取得重大创新进展 (2 元素)
+[Step1] [OK] 页面 11 分析完成: 过去十年，在一线CLL治疗中，持续治疗与固定疗程治疗方案均取得重大创新进展 (2 元素)
+
+[Step2-Router] 页面 11 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_011_pipeline.json
+[元素Agent] 分析 text 元素: elem_005
+[元素Agent] 分析 text 元素: elem_006
+[元素Agent] 分析 text 元素: elem_007
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 13 最终输出生成
+
+[Step4] 生成页面 13 的最终输出
+[Step4] [OK] 页面 13 完成
+
+[Step5] 正在润色页面 14 ...
+
+[Dispatch] 准备分发批次: [15, 16, 17]
+
+[Step1] 开始分析页面 15
+
+[Step1] 开始分析页面 16
+
+[Step1] 开始分析页面 17
+[Step1] 全局语义分析页面 15
+[Step1] 页面 15 准备调用VLM API...
+[Step1] 图片大小: 152800 bytes
+[Step1] 全局语义分析页面 17
+[Step1] 页面 17 准备调用VLM API...
+[Step1] 图片大小: 1045004 bytes
+[Step1] 全局语义分析页面 16
+[Step1] 页面 16 准备调用VLM API...
+[Step1] 图片大小: 1423520 bytes
+
+[Step3] 页面 9 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 9
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 9 最终输出生成
+
+[Step4] 生成页面 9 的最终输出
+[Step4] [OK] 页面 9 完成
+
+[Step5] 正在润色页面 10 ...
+[Step1] 页面 15 获得VLM响应，长度: 394
+[Step1] [OK] 页面 15 分析完成: 目录 (0 元素)
+[Step1] [OK] 页面 15 分析完成: 目录 (0 元素)
+
+[Step2-Router] 页面 15 规划处理策略
+[Step2-Router] 决策: text_only ()
+[TextWorker] 基于 XML 解析页面 15
+❌ [TextWorker] PPTX XML 解析失败: Package not found at '20260317-DTC-O-007 Pan-RAS GT1-final-1.pdf'
+
+[Step3] 页面 15 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 15
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 15 最终输出生成
+
+[Step4] 生成页面 15 的最终输出
+[Step4] [OK] 页面 15 完成
+
+[Step5] 正在润色页面 16 ...
+
+[Step3] 页面 11 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 11
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 11 最终输出生成
+
+[Step4] 生成页面 11 的最终输出
+[Step4] [OK] 页面 11 完成
+
+[Step5] 正在润色页面 12 ...
+
+[Dispatch] 准备分发批次: [12, 13, 14]
+
+[Step1] 开始分析页面 12
+
+[Step1] 开始分析页面 13
+
+[Step1] 开始分析页面 14
+[Step1] 全局语义分析页面 13
+[Step1] 全局语义分析页面 12
+[Step1] 页面 13 准备调用VLM API...
+[Step1] 图片大小: 530204 bytes
+[Step1] 全局语义分析页面 14
+[Step1] 页面 12 准备调用VLM API...
+[Step1] 图片大小: 443392 bytes
+[Step1] 页面 14 准备调用VLM API...
+[Step1] 图片大小: 677680 bytes
+[Step1] 页面 16 获得VLM响应，长度: 1615
+[Step1] [OK] 页面 16 分析完成: 非共价RAS（ON）抑制剂有望实现广谱抑制及野生型选择性 (5 元素)
+[Step1] [OK] 页面 16 分析完成: 非共价RAS（ON）抑制剂有望实现广谱抑制及野生型选择性 (5 元素)
+
+[Step2-Router] 页面 16 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_016_pipeline.json
+
+[Step3] 页面 16 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 16
+[Step1] 页面 17 获得VLM响应，长度: 1661
+[Step1] [OK] 页面 17 分析完成: 基于pan-RAS (ON)抑制剂SAR及计算建模获得药化改构方向 (5 元素)
+[Step1] [OK] 页面 17 分析完成: 基于pan-RAS (ON)抑制剂SAR及计算建模获得药化改构方向 (5 元素)
+
+[Step2-Router] 页面 17 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_017_pipeline.json
+
+[Step3] 页面 17 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 17
+[Step3-Supervisor] 校验结果: [ERROR] FAIL
+[Router] 页面 16 校验失败，准备重试 (第 1/2 次)
+
+[Step2-Router] 页面 16 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+
+[LayoutPipeline] 启动复杂页面处理 Pipeline (Page 16) | MinerU=pipeline
+
+[ComplexPipeline] 处理页面 16
+[MinerU] 检测到 mineru.cli.client，将使用 python -m mineru.cli.client 调用
+[TextIn] 客户端初始化 (已配置), app_id: af2d...ec
+
+======================================================================
+  复杂页面处理 Pipeline 启动
+  页面ID: 16
+  图片路径: /home/eccom/projects/PPT_Parsing_last/.runs/20260317-DTC-O-007_Pan-RAS_GT1-final-1/20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675/processing_artifacts/ppt_slides_temp/slide_016.png
+  调试模式: 关闭
+======================================================================
+
+============================================================
+[Phase 1] 开始版面检测与类型清洗 (Page 16)
+============================================================
+
+[Phase 1.1] MinerU 版面分析...
+[Phase 1.1] 命中全局预计算布局，跳过本页 MinerU 调用 (Page 16)
+[PDF Debug] 未找到 MediaBox，使用默认推断尺寸
+
+[Phase 1.2] 坐标归一化...
+  [Coords] 检测到输入框已经是 0-1000 归一化坐标，直接继承。
+  检测到 14 个元素
+
+[Phase 1.3] ROI 裁剪...
+[ROICropper] 图片尺寸: 2000x1126
+  裁剪了 3 个 ROI
+
+[Phase 1.4] VLM 类型清洗...
+[TypeRefinement] 开始类型清洗，共 3 个元素
+[TypeRefinement] elem_011: image -> chart
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 17 最终输出生成
+
+[Step4] 生成页面 17 的最终输出
+[Step4] [OK] 页面 17 完成
+
+[Step5] 正在润色页面 18 ...
+[MinerU] ⚠️ 在 stderr 中检测到严重错误关键字: Traceback (most recent call last)
+[MinerU] 找到结果文件: /home/eccom/projects/PPT_Parsing_last/processing_artifacts/page_021/mineru_work/mineru_output/slide_021/auto/slide_021_content_list.json
+[MinerU] 解析得到 5 个元素
+[PDF Debug] 未找到 MediaBox，使用默认推断尺寸
+
+[Phase 1.2] 坐标归一化...
+  [Coords] 检测到输入框已经是 0-1000 归一化坐标，直接继承。
+  检测到 5 个元素
+
+[Phase 1.3] ROI 裁剪...
+[ROICropper] 图片尺寸: 1280x720
+  裁剪了 1 个 ROI
+
+[Phase 1.4] VLM 类型清洗...
+[TypeRefinement] 开始类型清洗，共 1 个元素
+[TypeRefinement] elem_002: image -> image
+[TypeRefinement] elem_012: image -> image
+
+[Phase 1.4.5] 全局 Type Correction 纠偏...
+[VisualMarker] 已绘制 14 个框 -> /home/eccom/projects/PPT_Parsing_last/.runs/20260317-DTC-O-007_Pan-RAS_GT1-final-1/20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675/processing_artifacts/processing_artifacts/debug_layouts/slide_016_layout.png
+[Step1] 页面 14 获得VLM响应，长度: 1060
+[Step1] [OK] 页面 14 分析完成: 过去十年，在一线CLL治疗中，持续治疗与固定疗程治疗方案均取得重大创新进展 (3 元素)
+[Step1] [OK] 页面 14 分析完成: 过去十年，在一线CLL治疗中，持续治疗与固定疗程治疗方案均取得重大创新进展 (3 元素)
+
+[Step2-Router] 页面 14 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_014_pipeline.json
+[元素Agent] 分析 text 元素: elem_001
+[元素Agent] 分析 text 元素: elem_003
+[元素Agent] 分析 text 元素: elem_007
+[TypeRefinement] elem_000: table -> chart
+
+[Phase 1.4.5] 全局 Type Correction 纠偏...
+[VisualMarker] 已绘制 5 个框 -> /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/processing_artifacts/processing_artifacts/debug_layouts/slide_021_layout.png
+[Step1] 页面 13 获得VLM响应，长度: 869
+[Step1] [OK] 页面 13 分析完成: 过去十年，在一线CLL治疗中，持续治疗与固定疗程治疗方案均取得重大创新进展 (2 元素)
+[Step1] [OK] 页面 13 分析完成: 过去十年，在一线CLL治疗中，持续治疗与固定疗程治疗方案均取得重大创新进展 (2 元素)
+
+[Step2-Router] 页面 13 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_013_pipeline.json
+[元素Agent] 分析 text 元素: elem_005
+[Step1] 页面 12 获得VLM响应，长度: 1013
+[Step1] [OK] 页面 12 分析完成: 过去十年，在一线CLL治疗中，持续治疗与固定治疗方案均取得重大创新进展 (3 元素)
+[Step1] [OK] 页面 12 分析完成: 过去十年，在一线CLL治疗中，持续治疗与固定治疗方案均取得重大创新进展 (3 元素)
+
+[Step2-Router] 页面 12 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_012_pipeline.json
+[元素Agent] 分析 text 元素: elem_007
+
+[Step3] 页面 12 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 12
+  全局纠偏修改/确定了 1 个元素的类型
+
+[Phase 1] 完成！耗时 103158ms
+  - 检测元素: 5
+  - ROI图片: 1
+  - 类型分布: {'chart': 1, 'image': 3, 'text': 1}
+
+============================================================
+[Phase 2-1] 开始多模态语义分组 (Page 21)
+============================================================
+
+[Phase 2-1.1] 构建上下文映射...
+  映射了 5 个元素的文本
+
+[Phase 2-1.2] 生成 Set-of-Mark 图片...
+[SoMGenerator] 已生成SoM图片: processing_artifacts/page_021/som_images/page_021_som.png
+
+[Phase 2-1.3] VLM 语义聚类推理...
+[SemanticGrouping] 开始VLM语义聚类推理...
+
+[Step3] 页面 13 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 13
+
+[Step3] 页面 14 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 14
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 12 最终输出生成
+
+[Step4] 生成页面 12 的最终输出
+[Step4] [OK] 页面 12 完成
+
+[Step5] 正在润色页面 13 ...
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 14 最终输出生成
+
+[Step4] 生成页面 14 的最终输出
+[Step4] [OK] 页面 14 完成
+
+[Step5] 正在润色页面 15 ...
+  全局纠偏修改/确定了 1 个元素的类型
+
+[Phase 1] 完成！耗时 19219ms
+  - 检测元素: 14
+  - ROI图片: 3
+  - 类型分布: {'text': 10, 'image': 2, 'chart': 2}
+
+============================================================
+[Phase 2-1] 开始多模态语义分组 (Page 16)
+============================================================
+
+[Phase 2-1.1] 构建上下文映射...
+  映射了 14 个元素的文本
+
+[Phase 2-1.2] 生成 Set-of-Mark 图片...
+[SoMGenerator] 已生成SoM图片: processing_artifacts/page_016/som_images/page_016_som.png
+
+[Phase 2-1.3] VLM 语义聚类推理...
+[SemanticGrouping] 开始VLM语义聚类推理...
+[SemanticGrouping] VLM返回 3 个分组
+
+[Phase 2-1] 完成！
+  - 分组数: 3
+  - 未分组元素: 1
+    [group_1] chart_group: ['elem_000'] (order=0)
+    [group_2] text_group: ['elem_004'] (order=1)
+    [group_3] mixed_group: ['elem_002', 'elem_003'] (order=2)
+
+============================================================
+[Phase 2-2] 监督节点合理性验证 (Page 21, 重试=0)
+============================================================
+[Phase 2-2] ✅ 验证通过！
+
+============================================================
+[Phase 3] 开始并行特征提取 (Page 21)
+============================================================
+[Phase 3] 准备了 2 个提取任务
+[ChartExpert] 处理图表: /home/eccom/projects/PPT_Parsing_last/processing_artifacts/page_021/roi_crops/elem_000_roi.png
+[TextProcessor] 处理文本组: group_2
+  ✓ elem_004: 提取完成
+[Step3-Supervisor] 校验结果: [ERROR] FAIL
+[Router] 页面 13 校验失败，准备重试 (第 1/2 次)
+
+[Step2-Router] 页面 13 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+
+[LayoutPipeline] 启动复杂页面处理 Pipeline (Page 13) | MinerU=pipeline
+
+[ComplexPipeline] 处理页面 13
+[MinerU] 检测到 mineru.cli.client，将使用 python -m mineru.cli.client 调用
+[TextIn] 客户端初始化 (已配置), app_id: af2d...ec
+
+======================================================================
+  复杂页面处理 Pipeline 启动
+  页面ID: 13
+  图片路径: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/processing_artifacts/ppt_slides_temp/slide_013.png
+  调试模式: 关闭
+======================================================================
+
+============================================================
+[Phase 1] 开始版面检测与类型清洗 (Page 13)
+============================================================
+
+[Phase 1.1] MinerU 版面分析...
+[Phase 1.1] 命中全局预计算布局，跳过本页 MinerU 调用 (Page 13)
+[PDF Debug] 未找到 MediaBox，使用默认推断尺寸
+
+[Phase 1.2] 坐标归一化...
+  [Coords] 检测到输入框已经是 0-1000 归一化坐标，直接继承。
+  检测到 6 个元素
+
+[Phase 1.3] ROI 裁剪...
+[ROICropper] 图片尺寸: 2667x1500
+  裁剪了 1 个 ROI
+
+[Phase 1.4] VLM 类型清洗...
+[TypeRefinement] 开始类型清洗，共 1 个元素
+[TypeRefinement] elem_001: image -> chart
+
+[Phase 1.4.5] 全局 Type Correction 纠偏...
+[VisualMarker] 已绘制 6 个框 -> /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/processing_artifacts/processing_artifacts/debug_layouts/slide_013_layout.png
+[SemanticGrouping] VLM返回 5 个分组
+
+[Phase 2-1] 完成！
+  - 分组数: 5
+  - 未分组元素: 0
+    [group_1] standalone_text: ['elem_000'] (order=0)
+    [group_2] mixed_group: ['elem_001', 'elem_002', 'elem_003', 'elem_004', 'elem_005'] (order=1)
+    [group_3] text_group: ['elem_006', 'elem_007', 'elem_008', 'elem_009', 'elem_010'] (order=2)
+    [group_4] chart_group: ['elem_011', 'elem_012'] (order=3)
+    [group_5] standalone_image: ['elem_013'] (order=4)
+
+============================================================
+[Phase 2-2] 监督节点合理性验证 (Page 16, 重试=0)
+============================================================
+[Phase 2-2] ✅ 验证通过！
+
+============================================================
+[Phase 3] 开始并行特征提取 (Page 16)
+============================================================
+[Phase 3] 准备了 5 个提取任务
+[TextProcessor] 处理文本组: group_1
+[MixedExpert] 处理混合元素: /home/eccom/projects/PPT_Parsing_last/processing_artifacts/page_016/roi_crops/elem_002_roi.png
+[TextProcessor] 处理文本组: group_3
+[MixedExpert] 混合提取失败: Invalid format specifier
+[ChartExpert] 处理图表: /home/eccom/projects/PPT_Parsing_last/processing_artifacts/page_016/roi_crops/elem_002_roi.png
+[ChartExpert] 处理图表: /home/eccom/projects/PPT_Parsing_last/processing_artifacts/page_016/roi_crops/elem_011_roi.png
+[ChartExpert] 处理图表: /home/eccom/projects/PPT_Parsing_last/processing_artifacts/page_016/roi_crops/elem_012_roi.png
+  ✓ elem_008: 提取完成
+  ✓ elem_000: 提取完成
+  全局纠偏修改/确定了 2 个元素的类型
+
+[Phase 1] 完成！耗时 10405ms
+  - 检测元素: 6
+  - ROI图片: 1
+  - 类型分布: {'text': 2, 'chart': 2, 'image': 2}
+
+============================================================
+[Phase 2-1] 开始多模态语义分组 (Page 13)
+============================================================
+
+[Phase 2-1.1] 构建上下文映射...
+  映射了 6 个元素的文本
+
+[Phase 2-1.2] 生成 Set-of-Mark 图片...
+[SoMGenerator] 已生成SoM图片: processing_artifacts/page_013/som_images/page_013_som.png
+
+[Phase 2-1.3] VLM 语义聚类推理...
+[SemanticGrouping] 开始VLM语义聚类推理...
+[SemanticGrouping] VLM返回 3 个分组
+
+[Phase 2-1] 完成！
+  - 分组数: 3
+  - 未分组元素: 2
+    [group_1] text_group: ['elem_000'] (order=0)
+    [group_2] chart_group: ['elem_001', 'elem_002'] (order=1)
+    [group_3] text_group: ['elem_003'] (order=2)
+
+============================================================
+[Phase 2-2] 监督节点合理性验证 (Page 13, 重试=0)
+============================================================
+[Phase 2-2] ✅ 验证通过！
+
+============================================================
+[Phase 3] 开始并行特征提取 (Page 13)
+============================================================
+[Phase 3] 准备了 3 个提取任务
+[TextProcessor] 处理文本组: group_1
+[ChartExpert] 处理图表: /home/eccom/projects/PPT_Parsing_last/processing_artifacts/page_013/roi_crops/elem_001_roi.png
+[TextProcessor] 处理文本组: group_3
+  ✓ elem_000: 提取完成
+  ✓ elem_003: 提取完成
+[TableExpert] 处理表格: /home/eccom/projects/PPT_Parsing_last/processing_artifacts/page_016/roi_crops/elem_002_roi.png
+[TextIn] v2 返回非表格区域，跳过 v1 兜底
+  ✓ elem_002: 提取完成
+  ✓ elem_011: 提取完成
+  ✓ elem_012: 提取完成
+
+[Phase 3] 完成！耗时 22579ms
+  - 成功: 5
+  - 失败: 0
+
+============================================================
+[Phase 4] 开始统一组装与输出 (Page 16)
+============================================================
+
+[Phase 4.1] 构建语义块...
+
+[Phase 4.2] 生成结构化 JSON...
+
+[Phase 4.3] 生成 Markdown 输出...
+
+[Phase 4.4] Schema 校验...
+
+[Phase 4] 完成！耗时 5ms
+  - 语义块数: 5
+  - Markdown长度: 3968 字符
+  - 表格数: 0
+  - 图表数: 3
+
+======================================================================
+  复杂页面处理 Pipeline 完成
+  状态: completed
+  总耗时: 54944ms
+  各阶段耗时: {'phase1': 19219, 'phase2_grouping': 13140, 'phase2_validation': 0, 'phase3': 22579, 'phase4': 5, 'total': 54944}
+======================================================================
+[Pipeline] 已保存结构化JSON: processing_artifacts/page_016/page_016_structured.json
+[Pipeline] 已保存Markdown: processing_artifacts/page_016/page_016_output.md
+[Pipeline] 已保存完整状态: processing_artifacts/page_016/page_016_state.json
+[LayoutPipeline] 复杂Pipeline处理完成
+
+[Step3] 页面 16 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 16
+  ✓ elem_001: 提取完成
+
+[Phase 3] 完成！耗时 13043ms
+  - 成功: 3
+  - 失败: 0
+
+============================================================
+[Phase 4] 开始统一组装与输出 (Page 13)
+============================================================
+
+[Phase 4.1] 构建语义块...
+
+[Phase 4.2] 生成结构化 JSON...
+
+[Phase 4.3] 生成 Markdown 输出...
+
+[Phase 4.4] Schema 校验...
+
+[Phase 4] 完成！耗时 0ms
+  - 语义块数: 3
+  - Markdown长度: 915 字符
+  - 表格数: 0
+  - 图表数: 1
+
+======================================================================
+  复杂页面处理 Pipeline 完成
+  状态: completed
+  总耗时: 33986ms
+  各阶段耗时: {'phase1': 10405, 'phase2_grouping': 10537, 'phase2_validation': 0, 'phase3': 13043, 'phase4': 0, 'total': 33986}
+======================================================================
+[Pipeline] 已保存结构化JSON: processing_artifacts/page_013/page_013_structured.json
+[Pipeline] 已保存Markdown: processing_artifacts/page_013/page_013_output.md
+[Pipeline] 已保存完整状态: processing_artifacts/page_013/page_013_state.json
+[LayoutPipeline] 复杂Pipeline处理完成
+
+[Step3] 页面 13 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 13
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 16 最终输出生成
+
+[Step4] 生成页面 16 的最终输出
+[Step4] [OK] 页面 16 完成
+
+[Step5] 正在润色页面 17 ...
+
+[Dispatch] 准备分发批次: [18, 19, 20]
+
+[Step1] 开始分析页面 18
+
+[Step1] 开始分析页面 19
+
+[Step1] 开始分析页面 20
+[Step1] 全局语义分析页面 18
+[Step1] 页面 18 准备调用VLM API...
+[Step1] 图片大小: 415600 bytes
+[Step1] 全局语义分析页面 19
+[Step1] 全局语义分析页面 20
+[Step1] 页面 19 准备调用VLM API...
+[Step1] 图片大小: 249144 bytes
+[Step1] 页面 20 准备调用VLM API...
+[Step1] 图片大小: 162056 bytes
+[Step3-Supervisor] 校验结果: [ERROR] FAIL
+
+[Step4] 页面 13 最终输出生成
+
+[Step4] 生成页面 13 的最终输出
+[Step4] [OK] 页面 13 完成
+
+[Step5] 正在润色页面 14 ...
+
+[Dispatch] 准备分发批次: [15, 16, 17]
+
+[Step1] 开始分析页面 15
+[Step1] 全局语义分析页面 15
+[Step1] 页面 15 准备调用VLM API...
+[Step1] 图片大小: 505584 bytes
+
+[Step1] 开始分析页面 17
+
+[Step1] 开始分析页面 16
+[Step1] 全局语义分析页面 17
+[Step1] 全局语义分析页面 16
+[Step1] 页面 17 准备调用VLM API...
+[Step1] 图片大小: 258588 bytes
+[Step1] 页面 16 准备调用VLM API...
+[Step1] 图片大小: 1350844 bytes
+[Step1] 页面 20 获得VLM响应，长度: 612
+[Step1] [OK] 页面 20 分析完成: GT1阶段筛选流程 (1 元素)
+[Step1] [OK] 页面 20 分析完成: GT1阶段筛选流程 (1 元素)
+
+[Step2-Router] 页面 20 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_020_pipeline.json
+
+[Step3] 页面 20 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 20
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 20 最终输出生成
+
+[Step4] 生成页面 20 的最终输出
+[Step4] [OK] 页面 20 完成
+
+[Step5] 正在润色页面 21 ...
+[Step1] 页面 18 获得VLM响应，长度: 824
+[Step1] [OK] 页面 18 分析完成: 已获得具有IP且体外活性及选择性较好的hit分子 (1 元素)
+[Step1] [OK] 页面 18 分析完成: 已获得具有IP且体外活性及选择性较好的hit分子 (1 元素)
+
+[Step2-Router] 页面 18 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_018_pipeline.json
+
+[Step3] 页面 18 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 18
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 18 最终输出生成
+
+[Step4] 生成页面 18 的最终输出
+[Step4] [OK] 页面 18 完成
+
+[Step5] 正在润色页面 19 ...
+[Step1] 页面 19 获得VLM响应，长度: 916
+[Step1] [OK] 页面 19 分析完成: 知识产权保护 (2 元素)
+[Step1] [OK] 页面 19 分析完成: 知识产权保护 (2 元素)
+
+[Step2-Router] 页面 19 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_019_pipeline.json
+
+[Step3] 页面 19 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 19
+[Step1] 页面 16 获得VLM响应，长度: 606
+[Step1] [OK] 页面 16 分析完成: 每一个数据背后都是一位患者的故事 (1 元素)
+[Step1] [OK] 页面 16 分析完成: 每一个数据背后都是一位患者的故事 (1 元素)
+
+[Step2-Router] 页面 16 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_016_pipeline.json
+
+[Step3] 页面 16 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 16
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 19 最终输出生成
+
+[Step4] 生成页面 19 的最终输出
+[Step4] [OK] 页面 19 完成
+
+[Step5] 正在润色页面 20 ...
+
+[Dispatch] 准备分发批次: [21, 22, 23]
+
+[Step1] 开始分析页面 21
+[Step1] 全局语义分析页面 21
+[Step1] 页面 21 准备调用VLM API...
+[Step1] 图片大小: 340336 bytes
+
+[Step1] 开始分析页面 22
+
+[Step1] 开始分析页面 23
+[Step1] 全局语义分析页面 22
+[Step1] 全局语义分析页面 23
+[Step1] 页面 22 准备调用VLM API...
+[Step1] 图片大小: 551324 bytes
+[Step1] 页面 23 准备调用VLM API...
+[Step1] 图片大小: 409264 bytes
+[Step1] 页面 15 获得VLM响应，长度: 851
+[Step1] [OK] 页面 15 分析完成: 过去十年，在一线CLL治疗中，持续治疗与固定疗程治疗方案均取得重大创新进展 (2 元素)
+[Step1] [OK] 页面 15 分析完成: 过去十年，在一线CLL治疗中，持续治疗与固定疗程治疗方案均取得重大创新进展 (2 元素)
+
+[Step2-Router] 页面 15 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_015_pipeline.json
+[元素Agent] 分析 text 元素: elem_005
+[Step1] 页面 17 获得VLM响应，长度: 623
+[Step1] [OK] 页面 17 分析完成: 仅百悦泽®展现出相比伊布替尼的PFS优效性 (1 元素)
+[Step1] [OK] 页面 17 分析完成: 仅百悦泽®展现出相比伊布替尼的PFS优效性 (1 元素)
+
+[Step2-Router] 页面 17 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_017_pipeline.json
+
+[Step3] 页面 17 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 17
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 16 最终输出生成
+
+[Step4] 生成页面 16 的最终输出
+[Step4] [OK] 页面 16 完成
+
+[Step5] 正在润色页面 17 ...
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 17 最终输出生成
+
+[Step4] 生成页面 17 的最终输出
+[Step4] [OK] 页面 17 完成
+
+[Step5] 正在润色页面 18 ...
+
+[Step3] 页面 15 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 15
+[Step1] 页面 22 获得VLM响应，长度: 605
+[Step1] [OK] 页面 22 分析完成: PCC确认标准 (1 元素)
+[Step1] [OK] 页面 22 分析完成: PCC确认标准 (1 元素)
+
+[Step2-Router] 页面 22 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_022_pipeline.json
+
+[Step3] 页面 22 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 22
+[Step1] 页面 23 获得VLM响应，长度: 585
+[Step1] [OK] 页面 23 分析完成: 风险控制：临床前开发阶段决策树 (1 元素)
+[Step1] [OK] 页面 23 分析完成: 风险控制：临床前开发阶段决策树 (1 元素)
+
+[Step2-Router] 页面 23 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_023_pipeline.json
+
+[Step3] 页面 23 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 23
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 15 最终输出生成
+
+[Step4] 生成页面 15 的最终输出
+[Step4] [OK] 页面 15 完成
+
+[Step5] 正在润色页面 16 ...
+
+[Dispatch] 准备分发批次: [18, 19, 20]
+
+[Step1] 开始分析页面 18
+
+[Step1] 开始分析页面 19
+
+[Step1] 开始分析页面 20
+[Step1] 全局语义分析页面 19
+[Step1] 页面 19 准备调用VLM API...
+[Step1] 图片大小: 424364 bytes
+[Step1] 全局语义分析页面 18
+[Step1] 全局语义分析页面 20
+[Step1] 页面 18 准备调用VLM API...
+[Step1] 图片大小: 391376 bytes
+[Step1] 页面 20 准备调用VLM API...
+[Step1] 图片大小: 396116 bytes
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 22 最终输出生成
+
+[Step4] 生成页面 22 的最终输出
+[Step4] [OK] 页面 22 完成
+
+[Step5] 正在润色页面 23 ...
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 23 最终输出生成
+
+[Step4] 生成页面 23 的最终输出
+[Step4] [OK] 页面 23 完成
+
+[Step5] 正在润色页面 24 ...
+[Step1] 页面 21 获得VLM响应，长度: 894
+[Step1] [OK] 页面 21 分析完成: GT1-GT2阶段项目预算及时间规划 (2 元素)
+[Step1] [OK] 页面 21 分析完成: GT1-GT2阶段项目预算及时间规划 (2 元素)
+
+[Step2-Router] 页面 21 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_021_pipeline.json
+
+[Step3] 页面 21 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 21
+  ✓ elem_000: 提取完成
+
+[Phase 3] 完成！耗时 68700ms
+  - 成功: 2
+  - 失败: 0
+
+============================================================
+[Phase 4] 开始统一组装与输出 (Page 21)
+============================================================
+
+[Phase 4.1] 构建语义块...
+
+[Phase 4.2] 生成结构化 JSON...
+
+[Phase 4.3] 生成 Markdown 输出...
+
+[Phase 4.4] Schema 校验...
+
+[Phase 4] 完成！耗时 8ms
+  - 语义块数: 3
+  - Markdown长度: 2463 字符
+  - 表格数: 0
+  - 图表数: 1
+
+======================================================================
+  复杂页面处理 Pipeline 完成
+  状态: completed
+  总耗时: 180497ms
+  各阶段耗时: {'phase1': 103158, 'phase2_grouping': 8629, 'phase2_validation': 0, 'phase3': 68700, 'phase4': 8, 'total': 180497}
+======================================================================
+[Pipeline] 已保存结构化JSON: processing_artifacts/page_021/page_021_structured.json
+[Pipeline] 已保存Markdown: processing_artifacts/page_021/page_021_output.md
+[Pipeline] 已保存完整状态: processing_artifacts/page_021/page_021_state.json
+[LayoutPipeline] 复杂Pipeline处理完成
+
+[Step3] 页面 21 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 21
+[Step3-Supervisor] 校验结果: [ERROR] FAIL
+[Router] 页面 21 校验失败，准备重试 (第 1/2 次)
+
+[Step2-Router] 页面 21 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+
+[LayoutPipeline] 启动复杂页面处理 Pipeline (Page 21) | MinerU=pipeline
+
+[ComplexPipeline] 处理页面 21
+[MinerU] 检测到 mineru.cli.client，将使用 python -m mineru.cli.client 调用
+[TextIn] 客户端初始化 (已配置), app_id: af2d...ec
+
+======================================================================
+  复杂页面处理 Pipeline 启动
+  页面ID: 21
+  图片路径: /home/eccom/projects/PPT_Parsing_last/.runs/20260317-DTC-O-007_Pan-RAS_GT1-final-1/20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675/processing_artifacts/ppt_slides_temp/slide_021.png
+  调试模式: 关闭
+======================================================================
+
+============================================================
+[Phase 1] 开始版面检测与类型清洗 (Page 21)
+============================================================
+
+[Phase 1.1] MinerU 版面分析...
+[Phase 1.1] 命中全局预计算布局，跳过本页 MinerU 调用 (Page 21)
+[PDF Debug] 未找到 MediaBox，使用默认推断尺寸
+
+[Phase 1.2] 坐标归一化...
+  [Coords] 检测到输入框已经是 0-1000 归一化坐标，直接继承。
+  检测到 12 个元素
+
+[Phase 1.3] ROI 裁剪...
+[ROICropper] 图片尺寸: 2000x1126
+  裁剪了 0 个 ROI
+
+[Phase 1.4] VLM 类型清洗...
+
+[Phase 1.4.5] 全局 Type Correction 纠偏...
+[VisualMarker] 已绘制 12 个框 -> /home/eccom/projects/PPT_Parsing_last/.runs/20260317-DTC-O-007_Pan-RAS_GT1-final-1/20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675/processing_artifacts/processing_artifacts/debug_layouts/slide_021_layout.png
+[Step1] 页面 20 获得VLM响应，长度: 726
+[Step1] [OK] 页面 20 分析完成: 近期竞品安全性数据和治疗终止率并未显示治疗格局会发生变动 (2 元素)
+[Step1] [OK] 页面 20 分析完成: 近期竞品安全性数据和治疗终止率并未显示治疗格局会发生变动 (2 元素)
+
+[Step2-Router] 页面 20 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_020_pipeline.json
+
+[Step3] 页面 20 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 20
+[Step3-Supervisor] 校验结果: [ERROR] FAIL
+
+[Step4] 页面 21 最终输出生成
+
+[Step4] 生成页面 21 的最终输出
+[Step4] [OK] 页面 21 完成
+
+[Step5] 正在润色页面 22 ...
+
+[Dispatch] 准备分发批次: [24, 25, 26]
+
+[Step1] 开始分析页面 24
+
+[Step1] 开始分析页面 25
+
+[Step1] 开始分析页面 26
+[Step1] 全局语义分析页面 24
+[Step1] 全局语义分析页面 25
+[Step1] 页面 24 准备调用VLM API...
+[Step1] 图片大小: 171724 bytes
+[Step1] 全局语义分析页面 26
+[Step1] 页面 25 准备调用VLM API...
+[Step1] 图片大小: 198772 bytes
+[Step1] 页面 26 准备调用VLM API...
+[Step1] 图片大小: 274112 bytes
+[Step1] 页面 19 获得VLM响应，长度: 950
+[Step1] [OK] 页面 19 分析完成: 近期竞品疗效数据并未预示CLL治疗格局会发生变动 (2 元素)
+[Step1] [OK] 页面 19 分析完成: 近期竞品疗效数据并未预示CLL治疗格局会发生变动 (2 元素)
+
+[Step2-Router] 页面 19 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_019_pipeline.json
+
+[Step3] 页面 19 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 19
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 20 最终输出生成
+
+[Step4] 生成页面 20 的最终输出
+[Step4] [OK] 页面 20 完成
+
+[Step5] 正在润色页面 21 ...
+[Step1] 页面 18 获得VLM响应，长度: 849
+[Step1] [OK] 页面 18 分析完成: 仅百悦泽®展现出相比伊布替尼的PFS优效性 (2 元素)
+[Step1] [OK] 页面 18 分析完成: 仅百悦泽®展现出相比伊布替尼的PFS优效性 (2 元素)
+
+[Step2-Router] 页面 18 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_018_pipeline.json
+
+[Step3] 页面 18 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 18
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 19 最终输出生成
+
+[Step4] 生成页面 19 的最终输出
+[Step4] [OK] 页面 19 完成
+
+[Step5] 正在润色页面 20 ...
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 18 最终输出生成
+
+[Step4] 生成页面 18 的最终输出
+[Step4] [OK] 页面 18 完成
+
+[Step5] 正在润色页面 19 ...
+
+[Dispatch] 准备分发批次: [21, 22, 23]
+
+[Step1] 开始分析页面 21
+
+[Step1] 开始分析页面 22
+
+[Step1] 开始分析页面 23
+[Step1] 全局语义分析页面 22
+[Step1] 全局语义分析页面 21
+[Step1] 页面 22 准备调用VLM API...
+[Step1] 图片大小: 291884 bytes
+[Step1] 页面 21 准备调用VLM API...
+[Step1] 图片大小: 258432 bytes
+[Step1] 全局语义分析页面 23
+[Step1] 页面 23 准备调用VLM API...
+[Step1] 图片大小: 371692 bytes
+  全局纠偏修改/确定了 2 个元素的类型
+  发现 1 个由 Text 修正为视觉容器的元素，补充裁剪 ROI...
+[ROICropper] 图片尺寸: 2000x1126
+  成功补充裁剪 1 个 ROI
+
+[Phase 1] 完成！耗时 13445ms
+  - 检测元素: 12
+  - ROI图片: 1
+  - 类型分布: {'text': 10, 'chart': 1, 'image': 1}
+
+============================================================
+[Phase 2-1] 开始多模态语义分组 (Page 21)
+============================================================
+
+[Phase 2-1.1] 构建上下文映射...
+  映射了 12 个元素的文本
+
+[Phase 2-1.2] 生成 Set-of-Mark 图片...
+[SoMGenerator] 已生成SoM图片: processing_artifacts/page_021/som_images/page_021_som.png
+
+[Phase 2-1.3] VLM 语义聚类推理...
+[SemanticGrouping] 开始VLM语义聚类推理...
+[Step1] 页面 25 获得VLM响应，长度: 1074
+[Step1] [OK] 页面 25 分析完成: 斯鲁利单抗：布局差异化适应症 (4 元素)
+[Step1] [OK] 页面 25 分析完成: 斯鲁利单抗：布局差异化适应症 (4 元素)
+
+[Step2-Router] 页面 25 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_025_pipeline.json
+[元素Agent] 分析 text 元素: elem_003
+[元素Agent] 分析 text 元素: elem_002
+[元素Agent] 分析 text 元素: elem_006
+[元素Agent] 分析 text 元素: elem_005
+[Step1] 页面 22 获得VLM响应，长度: 936
+[Step1] [OK] 页面 22 分析完成: 维奈克拉-BTK抑制剂固定疗程治疗方案存在诸多局限 (3 元素)
+[Step1] [OK] 页面 22 分析完成: 维奈克拉-BTK抑制剂固定疗程治疗方案存在诸多局限 (3 元素)
+
+[Step2-Router] 页面 22 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_022_pipeline.json
+
+[Step3] 页面 22 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 22
+[Step1] 页面 23 获得VLM响应，长度: 844
+[Step1] [OK] 页面 23 分析完成: 当前各奥妥珠单抗的治疗方案在有效性和安全性方面存在挑战 (2 元素)
+[Step1] [OK] 页面 23 分析完成: 当前各奥妥珠单抗的治疗方案在有效性和安全性方面存在挑战 (2 元素)
+
+[Step2-Router] 页面 23 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_023_pipeline.json
+
+[Step3] 页面 23 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 23
+[Step1] 页面 21 获得VLM响应，长度: 621
+[Step1] [OK] 页面 21 分析完成: 为达到与百悦泽®同等程度的长期获益，固定疗程必须符合以下标准 (1 元素)
+[Step1] [OK] 页面 21 分析完成: 为达到与百悦泽®同等程度的长期获益，固定疗程必须符合以下标准 (1 元素)
+
+[Step2-Router] 页面 21 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_021_pipeline.json
+
+[Step3] 页面 21 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 21
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 22 最终输出生成
+
+[Step4] 生成页面 22 的最终输出
+[Step4] [OK] 页面 22 完成
+
+[Step5] 正在润色页面 23 ...
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 23 最终输出生成
+
+[Step4] 生成页面 23 的最终输出
+[Step4] [OK] 页面 23 完成
+
+[Step5] 正在润色页面 24 ...
+[Step3-Supervisor] 校验结果: [ERROR] FAIL
+[Router] 页面 21 校验失败，准备重试 (第 1/2 次)
+
+[Step2-Router] 页面 21 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+
+[LayoutPipeline] 启动复杂页面处理 Pipeline (Page 21) | MinerU=pipeline
+
+[ComplexPipeline] 处理页面 21
+[MinerU] 检测到 mineru.cli.client，将使用 python -m mineru.cli.client 调用
+[TextIn] 客户端初始化 (已配置), app_id: af2d...ec
+
+======================================================================
+  复杂页面处理 Pipeline 启动
+  页面ID: 21
+  图片路径: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/processing_artifacts/ppt_slides_temp/slide_021.png
+  调试模式: 关闭
+======================================================================
+
+============================================================
+[Phase 1] 开始版面检测与类型清洗 (Page 21)
+============================================================
+
+[Phase 1.1] MinerU 版面分析...
+[Phase 1.1] 命中全局预计算布局，跳过本页 MinerU 调用 (Page 21)
+[PDF Debug] 未找到 MediaBox，使用默认推断尺寸
+
+[Phase 1.2] 坐标归一化...
+  [Coords] 检测到输入框已经是 0-1000 归一化坐标，直接继承。
+  检测到 3 个元素
+
+[Phase 1.3] ROI 裁剪...
+[ROICropper] 图片尺寸: 2667x1500
+  裁剪了 1 个 ROI
+
+[Phase 1.4] VLM 类型清洗...
+[TypeRefinement] 开始类型清洗，共 1 个元素
+[Step1] 页面 24 获得VLM响应，长度: 923
+[Step1] [OK] 页面 24 分析完成: HLX10-015-CRC301临床试验结果 (1 元素)
+[Step1] [OK] 页面 24 分析完成: HLX10-015-CRC301临床试验结果 (1 元素)
+
+[Step2-Router] 页面 24 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_024_pipeline.json
+
+[Step3] 页面 24 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 24
+[TypeRefinement] elem_001: image -> table
+
+[Phase 1.4.5] 全局 Type Correction 纠偏...
+[VisualMarker] 已绘制 3 个框 -> /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/processing_artifacts/processing_artifacts/debug_layouts/slide_021_layout.png
+[SemanticGrouping] VLM返回 6 个分组
+
+[Phase 2-1] 完成！
+  - 分组数: 6
+  - 未分组元素: 1
+    [group_1] standalone_text: ['elem_000'] (order=0)
+    [group_2] mixed_group: ['elem_001', 'elem_002', 'elem_003'] (order=1)
+    [group_3] mixed_group: ['elem_004', 'elem_005', 'elem_006'] (order=2)
+    [group_4] mixed_group: ['elem_007', 'elem_008'] (order=3)
+    [group_5] standalone_text: ['elem_009'] (order=4)
+    [group_6] standalone_text: ['elem_011'] (order=5)
+
+============================================================
+[Phase 2-2] 监督节点合理性验证 (Page 21, 重试=0)
+============================================================
+[Phase 2-2] ✅ 验证通过！
+
+============================================================
+[Phase 3] 开始并行特征提取 (Page 21)
+============================================================
+[Phase 3] 准备了 6 个提取任务
+[TextProcessor] 处理文本组: group_1
+[TextProcessor] 处理文本组: group_2
+[TextProcessor] 处理文本组: group_3
+[TextProcessor] 处理文本组: group_4
+  ✓ elem_000: 提取完成
+  ✓ elem_005: 提取完成
+  ✓ elem_002: 提取完成
+  ✓ elem_008: 提取完成
+[ChartExpert] 处理图表: /home/eccom/projects/PPT_Parsing_last/processing_artifacts/page_021/roi_crops/elem_009_roi.png
+[TextProcessor] 处理文本组: group_6
+  ✓ elem_011: 提取完成
+[Step1] 页面 26 获得VLM响应，长度: 1137
+[Step1] [OK] 页面 26 分析完成: HLX22: 具有改变目前一线胃癌SOC的潜力 (2 元素)
+[Step1] [OK] 页面 26 分析完成: HLX22: 具有改变目前一线胃癌SOC的潜力 (2 元素)
+
+[Step2-Router] 页面 26 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_026_pipeline.json
+[元素Agent] 分析 text 元素: elem_003
+[Step3-Supervisor] 校验结果: [ERROR] FAIL
+[Router] 页面 24 校验失败，准备重试 (第 1/2 次)
+
+[Step2-Router] 页面 24 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+
+[LayoutPipeline] 启动复杂页面处理 Pipeline (Page 24) | MinerU=pipeline
+
+[ComplexPipeline] 处理页面 24
+[MinerU] 检测到 mineru.cli.client，将使用 python -m mineru.cli.client 调用
+[TextIn] 客户端初始化 (已配置), app_id: af2d...ec
+
+======================================================================
+  复杂页面处理 Pipeline 启动
+  页面ID: 24
+  图片路径: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/processing_artifacts/ppt_slides_temp/slide_024.png
+  调试模式: 关闭
+======================================================================
+
+============================================================
+[Phase 1] 开始版面检测与类型清洗 (Page 24)
+============================================================
+
+[Phase 1.1] MinerU 版面分析...
+[MinerU] 配置文件已存在: /home/eccom/magic-pdf.json
+[MinerU] 执行命令: /home/eccom/miniconda3/envs/ppt_poc/bin/python -m mineru.cli.client -p /home/eccom/projects/PPT_Parsing_last/processing_artifacts/page_024/mineru_work/slide_024.pdf -o /home/eccom/projects/PPT_Parsing_last/processing_artifacts/page_024/mineru_work/mineru_output -b pipeline -f False -t True --source modelscope -d cpu
+[MinerU] 输出目录: /home/eccom/projects/PPT_Parsing_last/processing_artifacts/page_024/mineru_work/mineru_output
+[MinerU] Mode=standard: backend=pipeline, device=cpu
+  全局纠偏修改/确定了 1 个元素的类型
+
+[Phase 1] 完成！耗时 6369ms
+  - 检测元素: 3
+  - ROI图片: 1
+  - 类型分布: {'text': 1, 'chart': 1, 'image': 1}
+
+============================================================
+[Phase 2-1] 开始多模态语义分组 (Page 21)
+============================================================
+
+[Phase 2-1.1] 构建上下文映射...
+  映射了 3 个元素的文本
+
+[Phase 2-1.2] 生成 Set-of-Mark 图片...
+[SoMGenerator] 已生成SoM图片: processing_artifacts/page_021/som_images/page_021_som.png
+
+[Phase 2-1.3] VLM 语义聚类推理...
+[SemanticGrouping] 开始VLM语义聚类推理...
+
+[Step3] 页面 25 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 25
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 25 最终输出生成
+
+[Step4] 生成页面 25 的最终输出
+[Step4] [OK] 页面 25 完成
+
+[Step5] 正在润色页面 26 ...
+  ✓ elem_009: 提取完成
+
+[Phase 3] 完成！耗时 7370ms
+  - 成功: 6
+  - 失败: 0
+
+============================================================
+[Phase 4] 开始统一组装与输出 (Page 21)
+============================================================
+
+[Phase 4.1] 构建语义块...
+
+[Phase 4.2] 生成结构化 JSON...
+
+[Phase 4.3] 生成 Markdown 输出...
+
+[Phase 4.4] Schema 校验...
+
+[Phase 4] 完成！耗时 0ms
+  - 语义块数: 6
+  - Markdown长度: 776 字符
+  - 表格数: 0
+  - 图表数: 1
+
+======================================================================
+  复杂页面处理 Pipeline 完成
+  状态: completed
+  总耗时: 37227ms
+  各阶段耗时: {'phase1': 13445, 'phase2_grouping': 16411, 'phase2_validation': 0, 'phase3': 7370, 'phase4': 0, 'total': 37227}
+======================================================================
+[Pipeline] 已保存结构化JSON: processing_artifacts/page_021/page_021_structured.json
+[Pipeline] 已保存Markdown: processing_artifacts/page_021/page_021_output.md
+[Pipeline] 已保存完整状态: processing_artifacts/page_021/page_021_state.json
+[LayoutPipeline] 复杂Pipeline处理完成
+
+[Step3] 页面 21 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 21
+[SemanticGrouping] VLM返回 2 个分组
+
+[Phase 2-1] 完成！
+  - 分组数: 2
+  - 未分组元素: 0
+    [group_1] text_and_chart: ['elem_000', 'elem_001'] (order=0)
+    [group_2] standalone_image: ['elem_002'] (order=1)
+
+============================================================
+[Phase 2-2] 监督节点合理性验证 (Page 21, 重试=0)
+============================================================
+[Phase 2-2] ✅ 验证通过！
+
+============================================================
+[Phase 3] 开始并行特征提取 (Page 21)
+============================================================
+[Phase 3] 准备了 1 个提取任务
+[ChartExpert] 处理图表: /home/eccom/projects/PPT_Parsing_last/processing_artifacts/page_021/roi_crops/elem_001_roi.png
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 21 最终输出生成
+
+[Step4] 生成页面 21 的最终输出
+[Step4] [OK] 页面 21 完成
+
+[Step5] 正在润色页面 22 ...
+
+[Dispatch] 准备分发批次: [24, 25, 26]
+
+[Step1] 开始分析页面 24
+
+[Step1] 开始分析页面 25
+
+[Step1] 开始分析页面 26
+[Step1] 全局语义分析页面 24
+[Step1] 全局语义分析页面 25
+[Step1] 页面 24 准备调用VLM API...
+[Step1] 图片大小: 151292 bytes
+[Step1] 全局语义分析页面 26
+[Step1] 页面 25 准备调用VLM API...
+[Step1] 图片大小: 123528 bytes
+[Step1] 页面 26 准备调用VLM API...
+[Step1] 图片大小: 935712 bytes
+
+[Step3] 页面 26 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 26
+[Step1] 页面 24 获得VLM响应，长度: 393
+[Step1] [OK] 页面 24 分析完成: 目录 (0 元素)
+[Step1] [OK] 页面 24 分析完成: 目录 (0 元素)
+
+[Step2-Router] 页面 24 规划处理策略
+[Step2-Router] 决策: text_only ()
+[TextWorker] 基于 XML 解析页面 24
+❌ [TextWorker] PPTX XML 解析失败: Package not found at '20260317-DTC-O-007 Pan-RAS GT1-final-1.pdf'
+
+[Step3] 页面 24 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 24
+[Step1] 页面 26 获得VLM响应，长度: 387
+[Step1] [OK] 页面 26 分析完成: FOSUN PHARMA 复星医药 (0 元素)
+[Step1] [OK] 页面 26 分析完成: FOSUN PHARMA 复星医药 (0 元素)
+
+[Step2-Router] 页面 26 规划处理策略
+[Step2-Router] 决策: text_only ()
+[TextWorker] 基于 XML 解析页面 26
+❌ [TextWorker] PPTX XML 解析失败: Package not found at '20260317-DTC-O-007 Pan-RAS GT1-final-1.pdf'
+
+[Step3] 页面 26 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 26
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 24 最终输出生成
+
+[Step4] 生成页面 24 的最终输出
+[Step4] [OK] 页面 24 完成
+
+[Step5] 正在润色页面 25 ...
+[Step1] 页面 25 获得VLM响应，长度: 386
+[Step1] [OK] 页面 25 分析完成: GT1会议 关键决策事项 (0 元素)
+[Step1] [OK] 页面 25 分析完成: GT1会议 关键决策事项 (0 元素)
+
+[Step2-Router] 页面 25 规划处理策略
+[Step2-Router] 决策: text_only ()
+[TextWorker] 基于 XML 解析页面 25
+❌ [TextWorker] PPTX XML 解析失败: Package not found at '20260317-DTC-O-007 Pan-RAS GT1-final-1.pdf'
+
+[Step3] 页面 25 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 25
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 26 最终输出生成
+
+[Step4] 生成页面 26 的最终输出
+[Step4] [OK] 页面 26 完成
+
+[Step5] 正在润色页面 27 ...
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 25 最终输出生成
+
+[Step4] 生成页面 25 的最终输出
+[Step4] [OK] 页面 25 完成
+
+[Step5] 正在润色页面 26 ...
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 26 最终输出生成
+
+[Step4] 生成页面 26 的最终输出
+[Step4] [OK] 页面 26 完成
+
+[Step5] 正在润色页面 27 ...
+
+[CollectResults] 已完成 27 页
+[CollectResults] 已收集 27 页的输出
+
+======================================================================
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675] [OK] 工作流完成！处理 27 页
+======================================================================
+
+✅ [20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675] 调试日志已保存:
+   Markdown: /home/eccom/projects/PPT_Parsing_last/.runs/20260317-DTC-O-007_Pan-RAS_GT1-final-1/20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675/debug_logs/workflow_debug_20260407_095415_328510.md
+   JSON: /home/eccom/projects/PPT_Parsing_last/.runs/20260317-DTC-O-007_Pan-RAS_GT1-final-1/20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675/debug_logs/workflow_debug_20260407_095415_328510.json
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/20260317-DTC-O-007_Pan-RAS_GT1-final-1/20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675/ppt_parsing_output/page_000.json
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/20260317-DTC-O-007_Pan-RAS_GT1-final-1/20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675/ppt_parsing_output/page_001.json
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/20260317-DTC-O-007_Pan-RAS_GT1-final-1/20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675/ppt_parsing_output/page_002.json
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/20260317-DTC-O-007_Pan-RAS_GT1-final-1/20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675/ppt_parsing_output/page_003.json
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/20260317-DTC-O-007_Pan-RAS_GT1-final-1/20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675/ppt_parsing_output/page_004.json
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/20260317-DTC-O-007_Pan-RAS_GT1-final-1/20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675/ppt_parsing_output/page_005.json
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/20260317-DTC-O-007_Pan-RAS_GT1-final-1/20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675/ppt_parsing_output/page_006.json
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/20260317-DTC-O-007_Pan-RAS_GT1-final-1/20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675/ppt_parsing_output/page_007.json
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/20260317-DTC-O-007_Pan-RAS_GT1-final-1/20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675/ppt_parsing_output/page_008.json
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/20260317-DTC-O-007_Pan-RAS_GT1-final-1/20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675/ppt_parsing_output/page_009.json
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/20260317-DTC-O-007_Pan-RAS_GT1-final-1/20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675/ppt_parsing_output/page_010.json
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/20260317-DTC-O-007_Pan-RAS_GT1-final-1/20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675/ppt_parsing_output/page_011.json
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/20260317-DTC-O-007_Pan-RAS_GT1-final-1/20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675/ppt_parsing_output/page_012.json
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/20260317-DTC-O-007_Pan-RAS_GT1-final-1/20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675/ppt_parsing_output/page_013.json
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/20260317-DTC-O-007_Pan-RAS_GT1-final-1/20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675/ppt_parsing_output/page_014.json
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/20260317-DTC-O-007_Pan-RAS_GT1-final-1/20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675/ppt_parsing_output/page_015.json
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/20260317-DTC-O-007_Pan-RAS_GT1-final-1/20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675/ppt_parsing_output/page_016.json
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/20260317-DTC-O-007_Pan-RAS_GT1-final-1/20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675/ppt_parsing_output/page_017.json
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/20260317-DTC-O-007_Pan-RAS_GT1-final-1/20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675/ppt_parsing_output/page_018.json
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/20260317-DTC-O-007_Pan-RAS_GT1-final-1/20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675/ppt_parsing_output/page_019.json
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/20260317-DTC-O-007_Pan-RAS_GT1-final-1/20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675/ppt_parsing_output/page_020.json
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/20260317-DTC-O-007_Pan-RAS_GT1-final-1/20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675/ppt_parsing_output/page_021.json
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/20260317-DTC-O-007_Pan-RAS_GT1-final-1/20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675/ppt_parsing_output/page_022.json
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/20260317-DTC-O-007_Pan-RAS_GT1-final-1/20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675/ppt_parsing_output/page_023.json
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/20260317-DTC-O-007_Pan-RAS_GT1-final-1/20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675/ppt_parsing_output/page_024.json
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/20260317-DTC-O-007_Pan-RAS_GT1-final-1/20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675/ppt_parsing_output/page_025.json
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/20260317-DTC-O-007_Pan-RAS_GT1-final-1/20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675/ppt_parsing_output/page_026.json
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675] [OK] 总结报告: /home/eccom/projects/PPT_Parsing_last/.runs/20260317-DTC-O-007_Pan-RAS_GT1-final-1/20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675/ppt_parsing_output/summary.json
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675] [OK] Markdown导出: /home/eccom/projects/PPT_Parsing_last/.runs/20260317-DTC-O-007_Pan-RAS_GT1-final-1/20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675/output.md
+[20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675] 完成: status=success duration=551.168s
+  ✓ elem_001: 提取完成
+
+[Phase 3] 完成！耗时 13305ms
+  - 成功: 1
+  - 失败: 0
+
+============================================================
+[Phase 4] 开始统一组装与输出 (Page 21)
+============================================================
+
+[Phase 4.1] 构建语义块...
+
+[Phase 4.2] 生成结构化 JSON...
+
+[Phase 4.3] 生成 Markdown 输出...
+
+[Phase 4.4] Schema 校验...
+
+[Phase 4] 完成！耗时 0ms
+  - 语义块数: 2
+  - Markdown长度: 535 字符
+  - 表格数: 0
+  - 图表数: 1
+
+======================================================================
+  复杂页面处理 Pipeline 完成
+  状态: completed
+  总耗时: 26057ms
+  各阶段耗时: {'phase1': 6369, 'phase2_grouping': 6381, 'phase2_validation': 0, 'phase3': 13305, 'phase4': 0, 'total': 26057}
+======================================================================
+[Pipeline] 已保存结构化JSON: processing_artifacts/page_021/page_021_structured.json
+[Pipeline] 已保存Markdown: processing_artifacts/page_021/page_021_output.md
+[Pipeline] 已保存完整状态: processing_artifacts/page_021/page_021_state.json
+[LayoutPipeline] 复杂Pipeline处理完成
+
+[Step3] 页面 21 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 21
+[Step3-Supervisor] 校验结果: [ERROR] FAIL
+
+[Step4] 页面 21 最终输出生成
+
+[Step4] 生成页面 21 的最终输出
+[Step4] [OK] 页面 21 完成
+
+[Step5] 正在润色页面 22 ...
+
+[Dispatch] 准备分发批次: [24, 25, 26]
+
+[Step1] 开始分析页面 24
+
+[Step1] 开始分析页面 25
+
+[Step1] 开始分析页面 26
+[Step1] 全局语义分析页面 25
+[Step1] 全局语义分析页面 26
+[Step1] 页面 25 准备调用VLM API...
+[Step1] 图片大小: 337132 bytes
+[Step1] 全局语义分析页面 24
+[Step1] 页面 24 准备调用VLM API...
+[Step1] 图片大小: 360416 bytes
+[Step1] 页面 26 准备调用VLM API...
+[Step1] 图片大小: 443836 bytes
+[Step1] 页面 25 获得VLM响应，长度: 929
+[Step1] [OK] 页面 25 分析完成: 泽布替尼联合索托克拉（ZS）在最短时间内展示了同类最佳uMRD率 (2 元素)
+[Step1] [OK] 页面 25 分析完成: 泽布替尼联合索托克拉（ZS）在最短时间内展示了同类最佳uMRD率 (2 元素)
+
+[Step2-Router] 页面 25 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_025_pipeline.json
+[元素Agent] 分析 text 元素: elem_002
+[元素Agent] 分析 text 元素: elem_005
+[元素Agent] 分析 text 元素: elem_003
+[元素Agent] 分析 text 元素: elem_006
+[Step1] 页面 24 获得VLM响应，长度: 1255
+[Step1] [OK] 页面 24 分析完成: 泽布替尼联合索托克拉（ZS）有望成为首个兼具有效性、安全性和便捷性的固定疗程方案 (1 元素)
+[Step1] [OK] 页面 24 分析完成: 泽布替尼联合索托克拉（ZS）有望成为首个兼具有效性、安全性和便捷性的固定疗程方案 (1 元素)
+
+[Step2-Router] 页面 24 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_024_pipeline.json
+
+[Step3] 页面 24 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 24
+[Step1] 页面 26 获得VLM响应，长度: 770
+[Step1] [OK] 页面 26 分析完成: 泽布替尼联合索托克拉（ZS）带来巨大市场扩张机遇 (1 元素)
+[Step1] [OK] 页面 26 分析完成: 泽布替尼联合索托克拉（ZS）带来巨大市场扩张机遇 (1 元素)
+
+[Step2-Router] 页面 26 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_026_pipeline.json
+[元素Agent] 分析 text 元素: elem_003
+[Step3-Supervisor] 校验结果: [ERROR] FAIL
+[Router] 页面 24 校验失败，准备重试 (第 1/2 次)
+
+[Step2-Router] 页面 24 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+
+[LayoutPipeline] 启动复杂页面处理 Pipeline (Page 24) | MinerU=pipeline
+
+[ComplexPipeline] 处理页面 24
+[MinerU] 检测到 mineru.cli.client，将使用 python -m mineru.cli.client 调用
+[TextIn] 客户端初始化 (已配置), app_id: af2d...ec
+
+======================================================================
+  复杂页面处理 Pipeline 启动
+  页面ID: 24
+  图片路径: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/processing_artifacts/ppt_slides_temp/slide_024.png
+  调试模式: 关闭
+======================================================================
+
+============================================================
+[Phase 1] 开始版面检测与类型清洗 (Page 24)
+============================================================
+
+[Phase 1.1] MinerU 版面分析...
+[Phase 1.1] 命中全局预计算布局，跳过本页 MinerU 调用 (Page 24)
+[PDF Debug] 未找到 MediaBox，使用默认推断尺寸
+
+[Phase 1.2] 坐标归一化...
+  [Coords] 检测到输入框已经是 0-1000 归一化坐标，直接继承。
+  检测到 5 个元素
+
+[Phase 1.3] ROI 裁剪...
+[ROICropper] 图片尺寸: 2667x1500
+  裁剪了 1 个 ROI
+
+[Phase 1.4] VLM 类型清洗...
+[TypeRefinement] 开始类型清洗，共 1 个元素
+[TypeRefinement] elem_001: table -> table
+
+[Phase 1.4.5] 全局 Type Correction 纠偏...
+[VisualMarker] 已绘制 5 个框 -> /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/processing_artifacts/processing_artifacts/debug_layouts/slide_024_layout.png
+
+[Step3] 页面 26 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 26
+
+[Step3] 页面 25 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 25
+  全局纠偏修改/确定了 2 个元素的类型
+
+[Phase 1] 完成！耗时 10676ms
+  - 检测元素: 5
+  - ROI图片: 1
+  - 类型分布: {'text': 3, 'table': 1, 'image': 1}
+
+============================================================
+[Phase 2-1] 开始多模态语义分组 (Page 24)
+============================================================
+
+[Phase 2-1.1] 构建上下文映射...
+  映射了 5 个元素的文本
+
+[Phase 2-1.2] 生成 Set-of-Mark 图片...
+[SoMGenerator] 已生成SoM图片: processing_artifacts/page_024/som_images/page_024_som.png
+
+[Phase 2-1.3] VLM 语义聚类推理...
+[SemanticGrouping] 开始VLM语义聚类推理...
+[Step3-Supervisor] 校验结果: [ERROR] FAIL
+[Router] 页面 26 校验失败，准备重试 (第 1/2 次)
+
+[Step2-Router] 页面 26 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+
+[LayoutPipeline] 启动复杂页面处理 Pipeline (Page 26) | MinerU=pipeline
+
+[ComplexPipeline] 处理页面 26
+[MinerU] 检测到 mineru.cli.client，将使用 python -m mineru.cli.client 调用
+[TextIn] 客户端初始化 (已配置), app_id: af2d...ec
+
+======================================================================
+  复杂页面处理 Pipeline 启动
+  页面ID: 26
+  图片路径: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/processing_artifacts/ppt_slides_temp/slide_026.png
+  调试模式: 关闭
+======================================================================
+
+============================================================
+[Phase 1] 开始版面检测与类型清洗 (Page 26)
+============================================================
+
+[Phase 1.1] MinerU 版面分析...
+[Phase 1.1] 命中全局预计算布局，跳过本页 MinerU 调用 (Page 26)
+[PDF Debug] 未找到 MediaBox，使用默认推断尺寸
+
+[Phase 1.2] 坐标归一化...
+  [Coords] 检测到输入框已经是 0-1000 归一化坐标，直接继承。
+  检测到 9 个元素
+
+[Phase 1.3] ROI 裁剪...
+[ROICropper] 图片尺寸: 2667x1500
+  裁剪了 1 个 ROI
+
+[Phase 1.4] VLM 类型清洗...
+[TypeRefinement] 开始类型清洗，共 1 个元素
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 25 最终输出生成
+
+[Step4] 生成页面 25 的最终输出
+[Step4] [OK] 页面 25 完成
+
+[Step5] 正在润色页面 26 ...
+[TypeRefinement] elem_001: image -> chart
+
+[Phase 1.4.5] 全局 Type Correction 纠偏...
+[VisualMarker] 已绘制 9 个框 -> /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/processing_artifacts/processing_artifacts/debug_layouts/slide_026_layout.png
+[SemanticGrouping] VLM返回 2 个分组
+
+[Phase 2-1] 完成！
+  - 分组数: 2
+  - 未分组元素: 1
+    [group_1] table_group: ['elem_000', 'elem_001'] (order=0)
+    [group_2] text_group: ['elem_002', 'elem_003'] (order=1)
+
+============================================================
+[Phase 2-2] 监督节点合理性验证 (Page 24, 重试=0)
+============================================================
+[Phase 2-2] ✅ 验证通过！
+
+============================================================
+[Phase 3] 开始并行特征提取 (Page 24)
+============================================================
+[Phase 3] 准备了 2 个提取任务
+[TableExpert] 处理表格: /home/eccom/projects/PPT_Parsing_last/processing_artifacts/page_024/roi_crops/elem_001_roi.png
+[TextProcessor] 处理文本组: group_2
+  ✓ elem_002: 提取完成
+  全局纠偏修改/确定了 0 个元素的类型
+
+[Phase 1] 完成！耗时 11311ms
+  - 检测元素: 9
+  - ROI图片: 1
+  - 类型分布: {'text': 6, 'chart': 1, 'image': 2}
+
+============================================================
+[Phase 2-1] 开始多模态语义分组 (Page 26)
+============================================================
+
+[Phase 2-1.1] 构建上下文映射...
+  映射了 9 个元素的文本
+
+[Phase 2-1.2] 生成 Set-of-Mark 图片...
+[SoMGenerator] 已生成SoM图片: processing_artifacts/page_026/som_images/page_026_som.png
+
+[Phase 2-1.3] VLM 语义聚类推理...
+[SemanticGrouping] 开始VLM语义聚类推理...
+[MinerU] ⚠️ 在 stderr 中检测到严重错误关键字: Traceback (most recent call last)
+[MinerU] 找到结果文件: /home/eccom/projects/PPT_Parsing_last/processing_artifacts/page_024/mineru_work/mineru_output/slide_024/auto/slide_024_content_list.json
+[MinerU] 解析得到 8 个元素
+[PDF Debug] 未找到 MediaBox，使用默认推断尺寸
+
+[Phase 1.2] 坐标归一化...
+  [Coords] 检测到输入框已经是 0-1000 归一化坐标，直接继承。
+  检测到 8 个元素
+
+[Phase 1.3] ROI 裁剪...
+[ROICropper] 图片尺寸: 1280x720
+  裁剪了 1 个 ROI
+
+[Phase 1.4] VLM 类型清洗...
+[TypeRefinement] 开始类型清洗，共 1 个元素
+[SemanticGrouping] VLM返回 3 个分组
+
+[Phase 2-1] 完成！
+  - 分组数: 3
+  - 未分组元素: 0
+    [group_1] chart_and_title: ['elem_000', 'elem_001'] (order=0)
+    [group_2] text_group: ['elem_002', 'elem_003', 'elem_004', 'elem_005', 'elem_006'] (order=1)
+    [group_3] image_group: ['elem_007', 'elem_008'] (order=2)
+
+============================================================
+[Phase 2-2] 监督节点合理性验证 (Page 26, 重试=0)
+============================================================
+[Phase 2-2] ✅ 验证通过！
+
+============================================================
+[Phase 3] 开始并行特征提取 (Page 26)
+============================================================
+[Phase 3] 准备了 2 个提取任务
+[ChartExpert] 处理图表: /home/eccom/projects/PPT_Parsing_last/processing_artifacts/page_026/roi_crops/elem_001_roi.png
+[TextProcessor] 处理文本组: group_2
+  ✓ elem_002: 提取完成
+[TypeRefinement] elem_003: table -> table
+
+[Phase 1.4.5] 全局 Type Correction 纠偏...
+[VisualMarker] 已绘制 8 个框 -> /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/processing_artifacts/processing_artifacts/debug_layouts/slide_024_layout.png
+  ✓ elem_001: 提取完成
+
+[Phase 3] 完成！耗时 7677ms
+  - 成功: 2
+  - 失败: 0
+
+============================================================
+[Phase 4] 开始统一组装与输出 (Page 26)
+============================================================
+
+[Phase 4.1] 构建语义块...
+
+[Phase 4.2] 生成结构化 JSON...
+
+[Phase 4.3] 生成 Markdown 输出...
+
+[Phase 4.4] Schema 校验...
+
+[Phase 4] 完成！耗时 0ms
+  - 语义块数: 3
+  - Markdown长度: 789 字符
+  - 表格数: 0
+  - 图表数: 1
+
+======================================================================
+  复杂页面处理 Pipeline 完成
+  状态: completed
+  总耗时: 28330ms
+  各阶段耗时: {'phase1': 11311, 'phase2_grouping': 9339, 'phase2_validation': 0, 'phase3': 7677, 'phase4': 0, 'total': 28330}
+======================================================================
+[Pipeline] 已保存结构化JSON: processing_artifacts/page_026/page_026_structured.json
+[Pipeline] 已保存Markdown: processing_artifacts/page_026/page_026_output.md
+[Pipeline] 已保存完整状态: processing_artifacts/page_026/page_026_state.json
+[LayoutPipeline] 复杂Pipeline处理完成
+
+[Step3] 页面 26 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 26
+  全局纠偏修改/确定了 1 个元素的类型
+
+[Phase 1] 完成！耗时 91339ms
+  - 检测元素: 8
+  - ROI图片: 1
+  - 类型分布: {'text': 4, 'table': 1, 'image': 3}
+
+============================================================
+[Phase 2-1] 开始多模态语义分组 (Page 24)
+============================================================
+
+[Phase 2-1.1] 构建上下文映射...
+  映射了 8 个元素的文本
+
+[Phase 2-1.2] 生成 Set-of-Mark 图片...
+[SoMGenerator] 已生成SoM图片: processing_artifacts/page_024/som_images/page_024_som.png
+
+[Phase 2-1.3] VLM 语义聚类推理...
+[SemanticGrouping] 开始VLM语义聚类推理...
+  ✓ elem_001: 提取完成
+
+[Phase 3] 完成！耗时 19799ms
+  - 成功: 2
+  - 失败: 0
+
+============================================================
+[Phase 4] 开始统一组装与输出 (Page 24)
+============================================================
+
+[Phase 4.1] 构建语义块...
+
+[Phase 4.2] 生成结构化 JSON...
+
+[Phase 4.3] 生成 Markdown 输出...
+
+[Phase 4.4] Schema 校验...
+
+[Phase 4] 完成！耗时 0ms
+  - 语义块数: 2
+  - Markdown长度: 1186 字符
+  - 表格数: 1
+  - 图表数: 0
+
+======================================================================
+  复杂页面处理 Pipeline 完成
+  状态: completed
+  总耗时: 41991ms
+  各阶段耗时: {'phase1': 10676, 'phase2_grouping': 11514, 'phase2_validation': 0, 'phase3': 19799, 'phase4': 0, 'total': 41991}
+======================================================================
+[Pipeline] 已保存结构化JSON: processing_artifacts/page_024/page_024_structured.json
+[Pipeline] 已保存Markdown: processing_artifacts/page_024/page_024_output.md
+[Pipeline] 已保存完整状态: processing_artifacts/page_024/page_024_state.json
+[LayoutPipeline] 复杂Pipeline处理完成
+
+[Step3] 页面 24 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 24
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 24 最终输出生成
+
+[Step4] 生成页面 24 的最终输出
+[Step4] [OK] 页面 24 完成
+
+[Step5] 正在润色页面 25 ...
+[Step3-Supervisor] 校验结果: [ERROR] FAIL
+
+[Step4] 页面 26 最终输出生成
+
+[Step4] 生成页面 26 的最终输出
+[Step4] [OK] 页面 26 完成
+
+[Step5] 正在润色页面 27 ...
+
+[Dispatch] 准备分发批次: [27, 28, 29]
+
+[Step1] 开始分析页面 27
+[Step1] 全局语义分析页面 27
+[Step1] 页面 27 准备调用VLM API...
+[Step1] 图片大小: 330928 bytes
+
+[Step1] 开始分析页面 28
+[Step1] 全局语义分析页面 28
+
+[Step1] 开始分析页面 29
+[Step1] 页面 28 准备调用VLM API...
+[Step1] 图片大小: 403672 bytes
+[Step1] 全局语义分析页面 29
+[Step1] 页面 29 准备调用VLM API...
+[Step1] 图片大小: 381232 bytes
+[SemanticGrouping] VLM返回 4 个分组
+
+[Phase 2-1] 完成！
+  - 分组数: 4
+  - 未分组元素: 2
+    [group_1] text_group: ['elem_000', 'elem_001'] (order=0)
+    [group_2] standalone_text: ['elem_002'] (order=1)
+    [group_3] table_group: ['elem_003', 'elem_007'] (order=2)
+    [group_4] standalone_text: ['elem_006'] (order=3)
+
+============================================================
+[Phase 2-2] 监督节点合理性验证 (Page 24, 重试=0)
+============================================================
+[Phase 2-2] ✅ 验证通过！
+
+============================================================
+[Phase 3] 开始并行特征提取 (Page 24)
+============================================================
+[Phase 3] 准备了 3 个提取任务
+[TextProcessor] 处理文本组: group_1
+[TextProcessor] 处理文本组: group_2
+[TableExpert] 处理表格: /home/eccom/projects/PPT_Parsing_last/processing_artifacts/page_024/roi_crops/elem_003_roi.png
+  ✓ elem_002: 提取完成
+  ✓ elem_000: 提取完成
+[Step1] 页面 27 获得VLM响应，长度: 910
+[Step1] [OK] 页面 27 分析完成: 创新药物对于解决后线治疗中未满足的需求至关重要 (2 元素)
+[Step1] [OK] 页面 27 分析完成: 创新药物对于解决后线治疗中未满足的需求至关重要 (2 元素)
+
+[Step2-Router] 页面 27 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_027_pipeline.json
+[元素Agent] 分析 text 元素: elem_001
+[Step1] 页面 29 获得VLM响应，长度: 1144
+[Step1] [OK] 页面 29 分析完成: BTK CDAC持续展现同类首创和同类最佳BTK降解剂的潜力 - R/R CLL (3 元素)
+[Step1] [OK] 页面 29 分析完成: BTK CDAC持续展现同类首创和同类最佳BTK降解剂的潜力 - R/R CLL (3 元素)
+
+[Step2-Router] 页面 29 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_029_pipeline.json
+
+[Step3] 页面 29 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 29
+[Step1] 页面 28 获得VLM响应，长度: 865
+[Step1] [OK] 页面 28 分析完成: 我们的BTK CDAC兼具高活性、高选择性和同类最佳BTK突变类型覆盖 (2 元素)
+[Step1] [OK] 页面 28 分析完成: 我们的BTK CDAC兼具高活性、高选择性和同类最佳BTK突变类型覆盖 (2 元素)
+
+[Step2-Router] 页面 28 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_028_pipeline.json
+
+[Step3] 页面 28 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 28
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 29 最终输出生成
+
+[Step4] 生成页面 29 的最终输出
+[Step4] [OK] 页面 29 完成
+
+[Step5] 正在润色页面 30 ...
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 28 最终输出生成
+
+[Step4] 生成页面 28 的最终输出
+[Step4] [OK] 页面 28 完成
+
+[Step5] 正在润色页面 29 ...
+  ✓ elem_003: 提取完成
+
+[Phase 3] 完成！耗时 14085ms
+  - 成功: 3
+  - 失败: 0
+
+============================================================
+[Phase 4] 开始统一组装与输出 (Page 24)
+============================================================
+
+[Phase 4.1] 构建语义块...
+
+[Phase 4.2] 生成结构化 JSON...
+
+[Phase 4.3] 生成 Markdown 输出...
+
+[Phase 4.4] Schema 校验...
+
+[Phase 4] 完成！耗时 0ms
+  - 语义块数: 4
+  - Markdown长度: 2306 字符
+  - 表格数: 1
+  - 图表数: 0
+
+======================================================================
+  复杂页面处理 Pipeline 完成
+  状态: completed
+  总耗时: 115968ms
+  各阶段耗时: {'phase1': 91339, 'phase2_grouping': 10542, 'phase2_validation': 0, 'phase3': 14085, 'phase4': 0, 'total': 115968}
+======================================================================
+[Pipeline] 已保存结构化JSON: processing_artifacts/page_024/page_024_structured.json
+[Pipeline] 已保存Markdown: processing_artifacts/page_024/page_024_output.md
+[Pipeline] 已保存完整状态: processing_artifacts/page_024/page_024_state.json
+[LayoutPipeline] 复杂Pipeline处理完成
+
+[Step3] 页面 24 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 24
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 24 最终输出生成
+
+[Step4] 生成页面 24 的最终输出
+[Step4] [OK] 页面 24 完成
+
+[Step5] 正在润色页面 25 ...
+
+[Dispatch] 准备分发批次: [27, 28, 29]
+
+[Step1] 开始分析页面 27
+[Step1] 全局语义分析页面 27
+[Step1] 页面 27 准备调用VLM API...
+[Step1] 图片大小: 191788 bytes
+
+[Step1] 开始分析页面 29
+
+[Step1] 开始分析页面 28
+[Step1] 全局语义分析页面 29
+[Step1] 全局语义分析页面 28
+[Step1] 页面 29 准备调用VLM API...
+[Step1] 图片大小: 298160 bytes
+[Step1] 页面 28 准备调用VLM API...
+[Step1] 图片大小: 397548 bytes
+
+[Step3] 页面 27 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 27
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 27 最终输出生成
+
+[Step4] 生成页面 27 的最终输出
+[Step4] [OK] 页面 27 完成
+
+[Step5] 正在润色页面 28 ...
+
+[Dispatch] 准备分发批次: [30, 31, 32]
+
+[Step1] 开始分析页面 30
+
+[Step1] 开始分析页面 31
+
+[Step1] 开始分析页面 32
+[Step1] 全局语义分析页面 32
+[Step1] 全局语义分析页面 31
+[Step1] 页面 32 准备调用VLM API...
+[Step1] 图片大小: 216644 bytes
+[Step1] 页面 31 准备调用VLM API...
+[Step1] 图片大小: 290272 bytes
+[Step1] 全局语义分析页面 30
+[Step1] 页面 30 准备调用VLM API...
+[Step1] 图片大小: 388944 bytes
+[Step1] 页面 28 获得VLM响应，长度: 302
+[Step1] [OK] 页面 28 分析完成: 4.1 早研 (0 元素)
+[Step1] [OK] 页面 28 分析完成: 4.1 早研 (0 元素)
+
+[Step2-Router] 页面 28 规划处理策略
+[Step2-Router] 决策: text_only ()
+[TextWorker] 基于 XML 解析页面 28
+
+[Step3] 页面 28 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 28
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 28 最终输出生成
+
+[Step4] 生成页面 28 的最终输出
+[Step4] [OK] 页面 28 完成
+
+[Step5] 正在润色页面 29 ...
+[Step1] 页面 32 获得VLM响应，长度: 596
+[Step1] [OK] 页面 32 分析完成: 百济神州创新的下一波浪潮已然来临 (1 元素)
+[Step1] [OK] 页面 32 分析完成: 百济神州创新的下一波浪潮已然来临 (1 元素)
+
+[Step2-Router] 页面 32 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_032_pipeline.json
+[元素Agent] 分析 text 元素: elem_001
+[元素Agent] 分析 text 元素: elem_004
+[元素Agent] 分析 text 元素: elem_002
+[Step1] 页面 31 获得VLM响应，长度: 596
+[Step1] [OK] 页面 31 分析完成: 2026年血液肿瘤产品预期里程碑 (1 元素)
+[Step1] [OK] 页面 31 分析完成: 2026年血液肿瘤产品预期里程碑 (1 元素)
+
+[Step2-Router] 页面 31 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_031_pipeline.json
+[元素Agent] 分析 text 元素: elem_004
+[元素Agent] 分析 text 元素: elem_007
+[元素Agent] 分析 text 元素: elem_012
+[元素Agent] 分析 text 元素: elem_008
+[Step1] 页面 27 获得VLM响应，长度: 1009
+[Step1] [OK] 页面 27 分析完成: HLX22-GC-201临床试验结果 (1 元素)
+[Step1] [OK] 页面 27 分析完成: HLX22-GC-201临床试验结果 (1 元素)
+
+[Step2-Router] 页面 27 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_027_pipeline.json
+[元素Agent] 分析 text 元素: elem_001
+[Step1] 页面 30 获得VLM响应，长度: 873
+[Step1] [OK] 页面 30 分析完成: 百济神州是全球唯一在CLL领域拥有三款同类最佳产品的公司 (2 元素)
+[Step1] [OK] 页面 30 分析完成: 百济神州是全球唯一在CLL领域拥有三款同类最佳产品的公司 (2 元素)
+
+[Step2-Router] 页面 30 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_030_pipeline.json
+[元素Agent] 分析 text 元素: elem_003
+[元素Agent] 分析 text 元素: elem_004
+
+[Step3] 页面 31 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 31
+[Step1] 页面 29 获得VLM响应，长度: 1407
+[Step1] [OK] 页面 29 分析完成: HLX43（PD-L1 ADC）在ESMO展示优异临床前药效数据并已进入临床期 (2 元素)
+[Step1] [OK] 页面 29 分析完成: HLX43（PD-L1 ADC）在ESMO展示优异临床前药效数据并已进入临床期 (2 元素)
+
+[Step2-Router] 页面 29 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_029_pipeline.json
+
+[Step3] 页面 29 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 29
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 31 最终输出生成
+
+[Step4] 生成页面 31 的最终输出
+[Step4] [OK] 页面 31 完成
+
+[Step5] 正在润色页面 32 ...
+
+[Step3] 页面 32 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 32
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 32 最终输出生成
+
+[Step4] 生成页面 32 的最终输出
+[Step4] [OK] 页面 32 完成
+
+[Step5] 正在润色页面 33 ...
+[Step3-Supervisor] 校验结果: [ERROR] FAIL
+[Router] 页面 29 校验失败，准备重试 (第 1/2 次)
+
+[Step2-Router] 页面 29 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+
+[LayoutPipeline] 启动复杂页面处理 Pipeline (Page 29) | MinerU=pipeline
+
+[ComplexPipeline] 处理页面 29
+[MinerU] 检测到 mineru.cli.client，将使用 python -m mineru.cli.client 调用
+[TextIn] 客户端初始化 (已配置), app_id: af2d...ec
+
+======================================================================
+  复杂页面处理 Pipeline 启动
+  页面ID: 29
+  图片路径: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/processing_artifacts/ppt_slides_temp/slide_029.png
+  调试模式: 关闭
+======================================================================
+
+============================================================
+[Phase 1] 开始版面检测与类型清洗 (Page 29)
+============================================================
+
+[Phase 1.1] MinerU 版面分析...
+[MinerU] 配置文件已存在: /home/eccom/magic-pdf.json
+
+[Step3] 页面 30 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 30
+[MinerU] 执行命令: /home/eccom/miniconda3/envs/ppt_poc/bin/python -m mineru.cli.client -p /home/eccom/projects/PPT_Parsing_last/processing_artifacts/page_029/mineru_work/slide_029.pdf -o /home/eccom/projects/PPT_Parsing_last/processing_artifacts/page_029/mineru_work/mineru_output -b pipeline -f False -t True --source modelscope -d cpu
+[MinerU] 输出目录: /home/eccom/projects/PPT_Parsing_last/processing_artifacts/page_029/mineru_work/mineru_output
+[MinerU] Mode=standard: backend=pipeline, device=cpu
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 30 最终输出生成
+
+[Step4] 生成页面 30 的最终输出
+[Step4] [OK] 页面 30 完成
+
+[Step5] 正在润色页面 31 ...
+
+[Dispatch] 准备分发批次: [33, 34, 35]
+
+[Step1] 开始分析页面 33
+[Step1] 全局语义分析页面 33
+[Step1] 页面 33 准备调用VLM API...
+[Step1] 图片大小: 445548 bytes
+
+[Step1] 开始分析页面 35
+[Step1] 全局语义分析页面 35
+[Step1] 页面 35 准备调用VLM API...
+[Step1] 图片大小: 503136 bytes
+
+[Step1] 开始分析页面 34
+[Step1] 全局语义分析页面 34
+[Step1] 页面 34 准备调用VLM API...
+[Step1] 图片大小: 279916 bytes
+
+[Step3] 页面 27 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 27
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 27 最终输出生成
+
+[Step4] 生成页面 27 的最终输出
+[Step4] [OK] 页面 27 完成
+
+[Step5] 正在润色页面 28 ...
+[Step1] 页面 33 获得VLM响应，长度: 599
+[Step1] [OK] 页面 33 分析完成: 经验丰富的研究团队正将前所未有的创新成果推进至临床试验阶段 (1 元素)
+[Step1] [OK] 页面 33 分析完成: 经验丰富的研究团队正将前所未有的创新成果推进至临床试验阶段 (1 元素)
+
+[Step2-Router] 页面 33 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_033_pipeline.json
+[元素Agent] 分析 chart 元素: elem_006
+[Step1] 页面 35 获得VLM响应，长度: 829
+[Step1] [OK] 页面 35 分析完成: 经概念验证的产品有望在2026年借助外部数据催化剂进入后期开发 (2 元素)
+[Step1] [OK] 页面 35 分析完成: 经概念验证的产品有望在2026年借助外部数据催化剂进入后期开发 (2 元素)
+
+[Step2-Router] 页面 35 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_035_pipeline.json
+
+[Step3] 页面 35 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 35
+[Step1] 页面 34 获得VLM响应，长度: 711
+[Step1] [OK] 页面 34 分析完成: 百济神州管线是尚未释放的潜在价值来源 (1 元素)
+[Step1] [OK] 页面 34 分析完成: 百济神州管线是尚未释放的潜在价值来源 (1 元素)
+
+[Step2-Router] 页面 34 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_034_pipeline.json
+
+[Step3] 页面 34 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 34
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 34 最终输出生成
+
+[Step4] 生成页面 34 的最终输出
+[Step4] [OK] 页面 34 完成
+
+[Step5] 正在润色页面 35 ...
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 35 最终输出生成
+
+[Step4] 生成页面 35 的最终输出
+[Step4] [OK] 页面 35 完成
+
+[Step5] 正在润色页面 36 ...
+
+[Step3] 页面 33 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 33
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 33 最终输出生成
+
+[Step4] 生成页面 33 的最终输出
+[Step4] [OK] 页面 33 完成
+
+[Step5] 正在润色页面 34 ...
+
+[Dispatch] 准备分发批次: [36, 37, 38]
+
+[Step1] 开始分析页面 36
+[Step1] 全局语义分析页面 36
+[Step1] 页面 36 准备调用VLM API...
+[Step1] 图片大小: 235540 bytes
+
+[Step1] 开始分析页面 37
+
+[Step1] 开始分析页面 38
+[Step1] 全局语义分析页面 37
+[Step1] 全局语义分析页面 38
+[Step1] 页面 38 准备调用VLM API...
+[Step1] 图片大小: 677324 bytes
+[Step1] 页面 37 准备调用VLM API...
+[Step1] 图片大小: 1267976 bytes
+[Step1] 页面 37 获得VLM响应，长度: 328
+[Step1] [OK] 页面 37 分析完成: 全球研发快车道 (0 元素)
+[Step1] [OK] 页面 37 分析完成: 全球研发快车道 (0 元素)
+
+[Step2-Router] 页面 37 规划处理策略
+[Step2-Router] 决策: text_only ()
+[TextWorker] 基于 XML 解析页面 37
+❌ [TextWorker] PPTX XML 解析失败: Package not found at 'BeOne-JPM_2026_Presentation_CN.pdf'
+
+[Step3] 页面 37 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 37
+[Step1] 页面 36 获得VLM响应，长度: 1156
+[Step1] [OK] 页面 36 分析完成: 百济神州：从成立之初就致力于打造可持续竞争优势 (4 元素)
+[Step1] [OK] 页面 36 分析完成: 百济神州：从成立之初就致力于打造可持续竞争优势 (4 元素)
+
+[Step2-Router] 页面 36 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_036_pipeline.json
+
+[Step3] 页面 36 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 36
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 37 最终输出生成
+
+[Step4] 生成页面 37 的最终输出
+[Step4] [OK] 页面 37 完成
+
+[Step5] 正在润色页面 38 ...
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 36 最终输出生成
+
+[Step4] 生成页面 36 的最终输出
+[Step4] [OK] 页面 36 完成
+
+[Step5] 正在润色页面 37 ...
+[Step1] 页面 38 获得VLM响应，长度: 893
+[Step1] [OK] 页面 38 分析完成: 构建全球研发快车道，在研发和注册活动中展现行业领先执行力 (1 元素)
+[Step1] [OK] 页面 38 分析完成: 构建全球研发快车道，在研发和注册活动中展现行业领先执行力 (1 元素)
+
+[Step2-Router] 页面 38 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_038_pipeline.json
+
+[Step3] 页面 38 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 38
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 38 最终输出生成
+
+[Step4] 生成页面 38 的最终输出
+[Step4] [OK] 页面 38 完成
+
+[Step5] 正在润色页面 39 ...
+
+[Dispatch] 准备分发批次: [39, 40, 41]
+
+[Step1] 开始分析页面 39
+[Step1] 全局语义分析页面 39
+[Step1] 页面 39 准备调用VLM API...
+[Step1] 图片大小: 595244 bytes
+
+[Step1] 开始分析页面 40
+
+[Step1] 开始分析页面 41
+[Step1] 全局语义分析页面 41
+[Step1] 全局语义分析页面 40
+[Step1] 页面 40 准备调用VLM API...
+[Step1] 图片大小: 289784 bytes
+[Step1] 页面 41 准备调用VLM API...
+[Step1] 图片大小: 1911204 bytes
+[Step1] 页面 41 获得VLM响应，长度: 352
+[Step1] [OK] 页面 41 分析完成: 未来已至 (0 元素)
+[Step1] [OK] 页面 41 分析完成: 未来已至 (0 元素)
+
+[Step2-Router] 页面 41 规划处理策略
+[Step2-Router] 决策: text_only ()
+[TextWorker] 基于 XML 解析页面 41
+❌ [TextWorker] PPTX XML 解析失败: Package not found at 'BeOne-JPM_2026_Presentation_CN.pdf'
+
+[Step3] 页面 41 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 41
+[Step1] 页面 39 获得VLM响应，长度: 637
+[Step1] [OK] 页面 39 分析完成: 我们真正的全球基础设施和临床试验招募能力实现了更快的速度和更广泛的覆盖 (1 元素)
+[Step1] [OK] 页面 39 分析完成: 我们真正的全球基础设施和临床试验招募能力实现了更快的速度和更广泛的覆盖 (1 元素)
+
+[Step2-Router] 页面 39 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_039_pipeline.json
+
+[Step3] 页面 39 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 39
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 41 最终输出生成
+
+[Step4] 生成页面 41 的最终输出
+[Step4] [OK] 页面 41 完成
+
+[Step5] 正在润色页面 42 ...
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 39 最终输出生成
+
+[Step4] 生成页面 39 的最终输出
+[Step4] [OK] 页面 39 完成
+
+[Step5] 正在润色页面 40 ...
+[Step1] 页面 40 获得VLM响应，长度: 1077
+[Step1] [OK] 页面 40 分析完成: 强大的财务实力为未来增长投资奠定了基础 (2 元素)
+[Step1] [OK] 页面 40 分析完成: 强大的财务实力为未来增长投资奠定了基础 (2 元素)
+
+[Step2-Router] 页面 40 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_040_pipeline.json
+[元素Agent] 分析 text 元素: elem_004
+
+[Step3] 页面 40 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 40
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 40 最终输出生成
+
+[Step4] 生成页面 40 的最终输出
+[Step4] [OK] 页面 40 完成
+
+[Step5] 正在润色页面 41 ...
+
+[Dispatch] 准备分发批次: [42, 43, 44]
+
+[Step1] 开始分析页面 42
+
+[Step1] 开始分析页面 43
+
+[Step1] 开始分析页面 44
+[Step1] 全局语义分析页面 42
+[Step1] 全局语义分析页面 43
+[Step1] 页面 42 准备调用VLM API...
+[Step1] 图片大小: 122872 bytes
+[Step1] 页面 43 准备调用VLM API...
+[Step1] 图片大小: 43896 bytes
+[Step1] 全局语义分析页面 44
+[Step1] 页面 44 准备调用VLM API...
+[Step1] 图片大小: 171728 bytes
+[MinerU] ⚠️ 在 stderr 中检测到严重错误关键字: Traceback (most recent call last)
+[MinerU] 找到结果文件: /home/eccom/projects/PPT_Parsing_last/processing_artifacts/page_029/mineru_work/mineru_output/slide_029/auto/slide_029_content_list.json
+[MinerU] 解析得到 16 个元素
+[PDF Debug] 未找到 MediaBox，使用默认推断尺寸
+
+[Phase 1.2] 坐标归一化...
+  [Coords] 检测到输入框已经是 0-1000 归一化坐标，直接继承。
+  检测到 16 个元素
+
+[Phase 1.3] ROI 裁剪...
+[ROICropper] 图片尺寸: 1280x720
+  裁剪了 2 个 ROI
+
+[Phase 1.4] VLM 类型清洗...
+[TypeRefinement] 开始类型清洗，共 2 个元素
+[TypeRefinement] elem_008: image -> chart
+[TypeRefinement] elem_012: image -> chart
+
+[Phase 1.4.5] 全局 Type Correction 纠偏...
+[VisualMarker] 已绘制 16 个框 -> /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/processing_artifacts/processing_artifacts/debug_layouts/slide_029_layout.png
+[Step1] 页面 43 获得VLM响应，长度: 313
+[Step1] [OK] 页面 43 分析完成: 附录 (0 元素)
+[Step1] [OK] 页面 43 分析完成: 附录 (0 元素)
+
+[Step2-Router] 页面 43 规划处理策略
+[Step2-Router] 决策: text_only ()
+[TextWorker] 基于 XML 解析页面 43
+❌ [TextWorker] PPTX XML 解析失败: Package not found at 'BeOne-JPM_2026_Presentation_CN.pdf'
+
+[Step3] 页面 43 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 43
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 43 最终输出生成
+
+[Step4] 生成页面 43 的最终输出
+[Step4] [OK] 页面 43 完成
+
+[Step5] 正在润色页面 44 ...
+[Step1] 页面 42 获得VLM响应，长度: 379
+[Step1] [OK] 页面 42 分析完成: 谢谢 (0 元素)
+[Step1] [OK] 页面 42 分析完成: 谢谢 (0 元素)
+
+[Step2-Router] 页面 42 规划处理策略
+[Step2-Router] 决策: text_only ()
+[TextWorker] 基于 XML 解析页面 42
+❌ [TextWorker] PPTX XML 解析失败: Package not found at 'BeOne-JPM_2026_Presentation_CN.pdf'
+
+[Step3] 页面 42 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 42
+[Step1] 页面 44 获得VLM响应，长度: 615
+[Step1] [OK] 页面 44 分析完成: 非GAAP财务指标的调节与计算（调整至自由现金流） (1 元素)
+[Step1] [OK] 页面 44 分析完成: 非GAAP财务指标的调节与计算（调整至自由现金流） (1 元素)
+
+[Step2-Router] 页面 44 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_044_pipeline.json
+
+[Step3] 页面 44 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 44
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 42 最终输出生成
+
+[Step4] 生成页面 42 的最终输出
+[Step4] [OK] 页面 42 完成
+
+[Step5] 正在润色页面 43 ...
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 44 最终输出生成
+
+[Step4] 生成页面 44 的最终输出
+[Step4] [OK] 页面 44 完成
+
+[Step5] 正在润色页面 45 ...
+
+[Dispatch] 准备分发批次: [45, 46]
+
+[Step1] 开始分析页面 45
+[Step1] 全局语义分析页面 45
+[Step1] 页面 45 准备调用VLM API...
+[Step1] 图片大小: 354284 bytes
+
+[Step1] 开始分析页面 46
+[Step1] 全局语义分析页面 46
+[Step1] 页面 46 准备调用VLM API...
+[Step1] 图片大小: 357060 bytes
+  全局纠偏修改/确定了 0 个元素的类型
+
+[Phase 1] 完成！耗时 98020ms
+  - 检测元素: 16
+  - ROI图片: 2
+  - 类型分布: {'text': 12, 'chart': 2, 'image': 2}
+
+============================================================
+[Phase 2-1] 开始多模态语义分组 (Page 29)
+============================================================
+
+[Phase 2-1.1] 构建上下文映射...
+  映射了 16 个元素的文本
+
+[Phase 2-1.2] 生成 Set-of-Mark 图片...
+[SoMGenerator] 已生成SoM图片: processing_artifacts/page_029/som_images/page_029_som.png
+
+[Phase 2-1.3] VLM 语义聚类推理...
+[SemanticGrouping] 开始VLM语义聚类推理...
+[Step1] 页面 46 获得VLM响应，长度: 843
+[Step1] [OK] 页面 46 分析完成: 缩略词：M-Z (0 元素)
+[Step1] [OK] 页面 46 分析完成: 缩略词：M-Z (0 元素)
+
+[Step2-Router] 页面 46 规划处理策略
+[Step2-Router] 决策: text_only ()
+[TextWorker] 基于 XML 解析页面 46
+❌ [TextWorker] PPTX XML 解析失败: Package not found at 'BeOne-JPM_2026_Presentation_CN.pdf'
+
+[Step3] 页面 46 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 46
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 46 最终输出生成
+
+[Step4] 生成页面 46 的最终输出
+[Step4] [OK] 页面 46 完成
+
+[Step5] 正在润色页面 47 ...
+[Step1] 页面 45 获得VLM响应，长度: 890
+[Step1] [OK] 页面 45 分析完成: 缩略词：A-L (0 元素)
+[Step1] [OK] 页面 45 分析完成: 缩略词：A-L (0 元素)
+
+[Step2-Router] 页面 45 规划处理策略
+[Step2-Router] 决策: text_only ()
+[TextWorker] 基于 XML 解析页面 45
+❌ [TextWorker] PPTX XML 解析失败: Package not found at 'BeOne-JPM_2026_Presentation_CN.pdf'
+
+[Step3] 页面 45 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 45
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 45 最终输出生成
+
+[Step4] 生成页面 45 的最终输出
+[Step4] [OK] 页面 45 完成
+
+[Step5] 正在润色页面 46 ...
+
+[CollectResults] 已完成 47 页
+[CollectResults] 已收集 47 页的输出
+
+======================================================================
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 工作流完成！处理 47 页
+======================================================================
+
+✅ [BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] 调试日志已保存:
+   Markdown: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/debug_logs/workflow_debug_20260407_095415_347182.md
+   JSON: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/debug_logs/workflow_debug_20260407_095415_347182.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_000.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_001.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_002.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_003.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_004.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_005.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_006.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_007.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_008.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_009.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_010.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_011.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_012.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_013.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_014.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_015.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_016.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_017.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_018.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_019.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_020.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_021.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_022.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_023.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_024.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_025.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_026.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_027.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_028.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_029.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_030.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_031.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_032.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_033.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_034.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_035.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_036.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_037.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_038.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_039.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_040.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_041.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_042.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_043.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_044.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_045.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/page_046.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] 总结报告: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output/summary.json
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] [OK] Markdown导出: /home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/output.md
+[BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9] 完成: status=success duration=798.506s
+[SemanticGrouping] VLM返回 7 个分组
+
+[Phase 2-1] 完成！
+  - 分组数: 7
+  - 未分组元素: 0
+    [group_1] text_group: ['elem_000', 'elem_001'] (order=0)
+    [group_2] text_group: ['elem_002', 'elem_003'] (order=1)
+    [group_3] text_group: ['elem_004', 'elem_005', 'elem_006', 'elem_007', 'elem_009', 'elem_010'] (order=2)
+    [group_4] chart_group: ['elem_008'] (order=3)
+    [group_5] chart_group: ['elem_012'] (order=4)
+    [group_6] text_group: ['elem_011', 'elem_013'] (order=5)
+    [group_7] image_group: ['elem_014', 'elem_015'] (order=6)
+
+============================================================
+[Phase 2-2] 监督节点合理性验证 (Page 29, 重试=0)
+============================================================
+[Phase 2-2] ⚠️ 发现 2 个潜在问题
+    - [orphan_chart] Group group_4 是孤立图表，缺少标题
+    - [orphan_chart] Group group_5 是孤立图表，缺少标题
+[Phase 2-2] 尝试自动修复 (剩余重试: 2)
+
+[Pipeline] Phase 2 重试 (第 1 次)...
+[Phase 2-2] 正在执行基于规则的自动修复...
+
+============================================================
+[Phase 2-2] 监督节点合理性验证 (Page 29, 重试=1)
+============================================================
+[Phase 2-2] ⚠️ 发现 2 个潜在问题
+    - [orphan_chart] Group group_4 是孤立图表，缺少标题
+    - [orphan_chart] Group group_5 是孤立图表，缺少标题
+[Phase 2-2] 尝试自动修复 (剩余重试: 1)
+
+[Pipeline] Phase 2 重试 (第 2 次)...
+[Phase 2-2] 正在执行基于规则的自动修复...
+
+============================================================
+[Phase 2-2] 监督节点合理性验证 (Page 29, 重试=2)
+============================================================
+[Phase 2-2] ⚠️ 发现 2 个潜在问题
+    - [orphan_chart] Group group_4 是孤立图表，缺少标题
+    - [orphan_chart] Group group_5 是孤立图表，缺少标题
+[Phase 2-2] 🛑 重试次数耗尽，保留当前最佳修正结果（不回退到几何线性分组）
+
+============================================================
+[Phase 3] 开始并行特征提取 (Page 29)
+============================================================
+[Phase 3] 准备了 6 个提取任务
+[TextProcessor] 处理文本组: group_1
+[TextProcessor] 处理文本组: group_2
+[ChartExpert] 处理图表: /home/eccom/projects/PPT_Parsing_last/processing_artifacts/page_029/roi_crops/elem_008_roi.png
+[ChartExpert] 处理图表: /home/eccom/projects/PPT_Parsing_last/processing_artifacts/page_029/roi_crops/elem_012_roi.png
+[TextProcessor] 处理文本组: group_3
+  ✓ elem_000: 提取完成
+  ✓ elem_004: 提取完成
+  ✓ elem_002: 提取完成
+[TextProcessor] 处理文本组: group_6
+  ✓ elem_011: 提取完成
+  ✓ elem_012: 提取完成
+  ✓ elem_008: 提取完成
+
+[Phase 3] 完成！耗时 19968ms
+  - 成功: 6
+  - 失败: 0
+
+============================================================
+[Phase 4] 开始统一组装与输出 (Page 29)
+============================================================
+
+[Phase 4.1] 构建语义块...
+
+[Phase 4.2] 生成结构化 JSON...
+
+[Phase 4.3] 生成 Markdown 输出...
+
+[Phase 4.4] Schema 校验...
+
+[Phase 4] 完成！耗时 2ms
+  - 语义块数: 7
+  - Markdown长度: 2982 字符
+  - 表格数: 0
+  - 图表数: 2
+
+======================================================================
+  复杂页面处理 Pipeline 完成
+  状态: completed
+  总耗时: 136619ms
+  各阶段耗时: {'phase1': 98020, 'phase2_grouping': 18626, 'phase2_validation': 0, 'phase3': 19968, 'phase4': 2, 'total': 136619}
+======================================================================
+[Pipeline] 已保存结构化JSON: processing_artifacts/page_029/page_029_structured.json
+[Pipeline] 已保存Markdown: processing_artifacts/page_029/page_029_output.md
+[Pipeline] 已保存完整状态: processing_artifacts/page_029/page_029_state.json
+[LayoutPipeline] 复杂Pipeline处理完成
+[元素Agent] 分析 text 元素: elem_013
+
+[Step3] 页面 29 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 29
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 29 最终输出生成
+
+[Step4] 生成页面 29 的最终输出
+[Step4] [OK] 页面 29 完成
+
+[Step5] 正在润色页面 30 ...
+
+[Dispatch] 准备分发批次: [30, 31, 32]
+
+[Step1] 开始分析页面 30
+
+[Step1] 开始分析页面 31
+
+[Step1] 开始分析页面 32
+[Step1] 全局语义分析页面 31
+[Step1] 全局语义分析页面 32
+[Step1] 页面 31 准备调用VLM API...
+[Step1] 图片大小: 291464 bytes
+[Step1] 全局语义分析页面 30
+[Step1] 页面 32 准备调用VLM API...
+[Step1] 图片大小: 381304 bytes
+[Step1] 页面 30 准备调用VLM API...
+[Step1] 图片大小: 358620 bytes
+[Step1] 页面 31 获得VLM响应，长度: 1261
+[Step1] [OK] 页面 31 分析完成: 三大早研平台能力全面发展，代表分子快速推进 (4 元素)
+[Step1] [OK] 页面 31 分析完成: 三大早研平台能力全面发展，代表分子快速推进 (4 元素)
+
+[Step2-Router] 页面 31 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_031_pipeline.json
+[元素Agent] 分析 text 元素: elem_007
+[元素Agent] 分析 text 元素: elem_008
+[元素Agent] 分析 text 元素: elem_004
+[元素Agent] 分析 text 元素: elem_012
+[Step1] 页面 32 获得VLM响应，长度: 1627
+[Step1] [OK] 页面 32 分析完成: HLX99: 全球首创（First-in-class）肌萎缩侧索硬化症/帕金森症治疗药物 (5 元素)
+[Step1] [OK] 页面 32 分析完成: HLX99: 全球首创（First-in-class）肌萎缩侧索硬化症/帕金森症治疗药物 (5 元素)
+
+[Step2-Router] 页面 32 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_032_pipeline.json
+[元素Agent] 分析 text 元素: elem_001
+[元素Agent] 分析 text 元素: elem_002
+[元素Agent] 分析 text 元素: elem_004
+[Step1] 页面 30 获得VLM响应，长度: 2090
+[Step1] [OK] 页面 30 分析完成: HLX42（EGFR ADC）在ESMO展示优异临床前数据并获FDA快速通道资格 (5 元素)
+[Step1] [OK] 页面 30 分析完成: HLX42（EGFR ADC）在ESMO展示优异临床前数据并获FDA快速通道资格 (5 元素)
+
+[Step2-Router] 页面 30 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_030_pipeline.json
+[元素Agent] 分析 text 元素: elem_003
+[元素Agent] 分析 text 元素: elem_004
+
+[Step3] 页面 31 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 31
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 31 最终输出生成
+
+[Step4] 生成页面 31 的最终输出
+[Step4] [OK] 页面 31 完成
+
+[Step5] 正在润色页面 32 ...
+
+[Step3] 页面 32 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 32
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 32 最终输出生成
+
+[Step4] 生成页面 32 的最终输出
+[Step4] [OK] 页面 32 完成
+
+[Step5] 正在润色页面 33 ...
+
+[Step3] 页面 30 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 30
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 30 最终输出生成
+
+[Step4] 生成页面 30 的最终输出
+[Step4] [OK] 页面 30 完成
+
+[Step5] 正在润色页面 31 ...
+
+[Dispatch] 准备分发批次: [33, 34, 35]
+
+[Step1] 开始分析页面 33
+
+[Step1] 开始分析页面 34
+
+[Step1] 开始分析页面 35
+[Step1] 全局语义分析页面 34
+[Step1] 全局语义分析页面 35
+[Step1] 全局语义分析页面 33
+[Step1] 页面 34 准备调用VLM API...
+[Step1] 图片大小: 718380 bytes
+[Step1] 页面 33 准备调用VLM API...
+[Step1] 图片大小: 401780 bytes
+[Step1] 页面 35 准备调用VLM API...
+[Step1] 图片大小: 365328 bytes
+[Step1] 页面 33 获得VLM响应，长度: 304
+[Step1] [OK] 页面 33 分析完成: 05 生产 (0 元素)
+[Step1] [OK] 页面 33 分析完成: 05 生产 (0 元素)
+
+[Step2-Router] 页面 33 规划处理策略
+[Step2-Router] 决策: text_only ()
+[TextWorker] 基于 XML 解析页面 33
+
+[Step3] 页面 33 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 33
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 33 最终输出生成
+
+[Step4] 生成页面 33 的最终输出
+[Step4] [OK] 页面 33 完成
+
+[Step5] 正在润色页面 34 ...
+[Step1] 页面 34 获得VLM响应，长度: 1438
+[Step1] [OK] 页面 34 分析完成: 国际领先的生产质量能力助力全球商业化布局 (6 元素)
+[Step1] [OK] 页面 34 分析完成: 国际领先的生产质量能力助力全球商业化布局 (6 元素)
+
+[Step2-Router] 页面 34 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_034_pipeline.json
+
+[Step3] 页面 34 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 34
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 34 最终输出生成
+
+[Step4] 生成页面 34 的最终输出
+[Step4] [OK] 页面 34 完成
+
+[Step5] 正在润色页面 35 ...
+[Step1] 页面 35 获得VLM响应，长度: 1352
+[Step1] [OK] 页面 35 分析完成: 卓越运营，持续创新，巩固行业领导者地位 (5 元素)
+[Step1] [OK] 页面 35 分析完成: 卓越运营，持续创新，巩固行业领导者地位 (5 元素)
+
+[Step2-Router] 页面 35 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_035_pipeline.json
+
+[Step3] 页面 35 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 35
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 35 最终输出生成
+
+[Step4] 生成页面 35 的最终输出
+[Step4] [OK] 页面 35 完成
+
+[Step5] 正在润色页面 36 ...
+
+[Dispatch] 准备分发批次: [36, 37, 38]
+
+[Step1] 开始分析页面 36
+
+[Step1] 开始分析页面 37
+
+[Step1] 开始分析页面 38
+[Step1] 全局语义分析页面 37
+[Step1] 全局语义分析页面 36
+[Step1] 全局语义分析页面 38
+[Step1] 页面 37 准备调用VLM API...
+[Step1] 图片大小: 220132 bytes
+[Step1] 页面 36 准备调用VLM API...
+[Step1] 图片大小: 406656 bytes
+[Step1] 页面 38 准备调用VLM API...
+[Step1] 图片大小: 129708 bytes
+[Step1] 页面 36 获得VLM响应，长度: 319
+[Step1] [OK] 页面 36 分析完成: 2023年度财务回顾 (0 元素)
+[Step1] [OK] 页面 36 分析完成: 2023年度财务回顾 (0 元素)
+
+[Step2-Router] 页面 36 规划处理策略
+[Step2-Router] 决策: text_only ()
+[TextWorker] 基于 XML 解析页面 36
+
+[Step3] 页面 36 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 36
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 36 最终输出生成
+
+[Step4] 生成页面 36 的最终输出
+[Step4] [OK] 页面 36 完成
+
+[Step5] 正在润色页面 37 ...
+[Step1] 页面 37 获得VLM响应，长度: 1325
+[Step1] [OK] 页面 37 分析完成: 2023全年收入约53.9亿元，同比增长67.8% (3 元素)
+[Step1] [OK] 页面 37 分析完成: 2023全年收入约53.9亿元，同比增长67.8% (3 元素)
+
+[Step2-Router] 页面 37 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_037_pipeline.json
+
+[Step3] 页面 37 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 37
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 37 最终输出生成
+
+[Step4] 生成页面 37 的最终输出
+[Step4] [OK] 页面 37 完成
+
+[Step5] 正在润色页面 38 ...
+[Step1] 页面 38 获得VLM响应，长度: 1289
+[Step1] [OK] 页面 38 分析完成: 2023年扭亏为盈，经营性现金净流入10.5亿元 (4 元素)
+[Step1] [OK] 页面 38 分析完成: 2023年扭亏为盈，经营性现金净流入10.5亿元 (4 元素)
+
+[Step2-Router] 页面 38 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_038_pipeline.json
+
+[Step3] 页面 38 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 38
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 38 最终输出生成
+
+[Step4] 生成页面 38 的最终输出
+[Step4] [OK] 页面 38 完成
+
+[Step5] 正在润色页面 39 ...
+
+[Dispatch] 准备分发批次: [39, 40, 41]
+
+[Step1] 开始分析页面 39
+[Step1] 全局语义分析页面 39
+[Step1] 页面 39 准备调用VLM API...
+[Step1] 图片大小: 89248 bytes
+
+[Step1] 开始分析页面 40
+[Step1] 全局语义分析页面 40
+
+[Step1] 开始分析页面 41
+[Step1] 页面 40 准备调用VLM API...
+[Step1] 图片大小: 404492 bytes
+[Step1] 全局语义分析页面 41
+[Step1] 页面 41 准备调用VLM API...
+[Step1] 图片大小: 140664 bytes
+[Step1] 页面 40 获得VLM响应，长度: 310
+[Step1] [OK] 页面 40 分析完成: 2024年业绩展望 (0 元素)
+[Step1] [OK] 页面 40 分析完成: 2024年业绩展望 (0 元素)
+
+[Step2-Router] 页面 40 规划处理策略
+[Step2-Router] 决策: text_only ()
+[TextWorker] 基于 XML 解析页面 40
+
+[Step3] 页面 40 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 40
+[Step1] 页面 39 获得VLM响应，长度: 561
+[Step1] [OK] 页面 39 分析完成: 财务数据摘要 (1 元素)
+[Step1] [OK] 页面 39 分析完成: 财务数据摘要 (1 元素)
+
+[Step2-Router] 页面 39 规划处理策略
+[Step2-Router] 决策: layout_pipeline (临时策略：所有非纯文本页面统一走 MinerU-pipeline)
+[LayoutPipeline] 命中缓存: processing_artifacts/layout_cache/page_039_pipeline.json
+
+[Step3] 页面 39 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 39
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 40 最终输出生成
+
+[Step4] 生成页面 40 的最终输出
+[Step4] [OK] 页面 40 完成
+
+[Step5] 正在润色页面 41 ...
+[Step1] 页面 41 获得VLM响应，长度: 579
+[Step1] [OK] 页面 41 分析完成: 2024年目标 (0 元素)
+[Step1] [OK] 页面 41 分析完成: 2024年目标 (0 元素)
+
+[Step2-Router] 页面 41 规划处理策略
+[Step2-Router] 决策: text_only ()
+[TextWorker] 基于 XML 解析页面 41
+
+[Step3] 页面 41 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 41
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 39 最终输出生成
+
+[Step4] 生成页面 39 的最终输出
+[Step4] [OK] 页面 39 完成
+
+[Step5] 正在润色页面 40 ...
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 41 最终输出生成
+
+[Step4] 生成页面 41 的最终输出
+[Step4] [OK] 页面 41 完成
+
+[Step5] 正在润色页面 42 ...
+
+[Dispatch] 准备分发批次: [42, 43]
+
+[Step1] 开始分析页面 42
+
+[Step1] 开始分析页面 43
+[Step1] 全局语义分析页面 43
+[Step1] 页面 43 准备调用VLM API...
+[Step1] 图片大小: 693612 bytes
+[Step1] 全局语义分析页面 42
+[Step1] 页面 42 准备调用VLM API...
+[Step1] 图片大小: 125044 bytes
+[Step1] 页面 43 获得VLM响应，长度: 439
+[Step1] [OK] 页面 43 分析完成: Reliable Quality Affordable Innovation（可靠的质量 可负担的创新） (0 元素)
+[Step1] [OK] 页面 43 分析完成: Reliable Quality Affordable Innovation（可靠的质量 可负担的创新） (0 元素)
+
+[Step2-Router] 页面 43 规划处理策略
+[Step2-Router] 决策: text_only ()
+[TextWorker] 基于 XML 解析页面 43
+
+[Step3] 页面 43 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 43
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 43 最终输出生成
+
+[Step4] 生成页面 43 的最终输出
+[Step4] [OK] 页面 43 完成
+
+[Step5] 正在润色页面 44 ...
+[Step1] 页面 42 获得VLM响应，长度: 1945
+[Step1] [OK] 页面 42 分析完成: 声明 Disclaimer (0 元素)
+[Step1] [OK] 页面 42 分析完成: 声明 Disclaimer (0 元素)
+
+[Step2-Router] 页面 42 规划处理策略
+[Step2-Router] 决策: text_only ()
+[TextWorker] 基于 XML 解析页面 42
+
+[Step3] 页面 42 Supervisor校验
+[Step3-Supervisor] 使用模型: gpt-4-turbo
+
+[Step3-Supervisor] 校验页面 42
+[Step3-Supervisor] 校验结果: [OK] PASS
+
+[Step4] 页面 42 最终输出生成
+
+[Step4] 生成页面 42 的最终输出
+[Step4] [OK] 页面 42 完成
+
+[Step5] 正在润色页面 43 ...
+
+[CollectResults] 已完成 44 页
+[CollectResults] 已收集 44 页的输出
+
+======================================================================
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 工作流完成！处理 44 页
+======================================================================
+
+✅ [复宏汉霖_2696_HK_20260407_095415_e99d0b] 调试日志已保存:
+   Markdown: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/debug_logs/workflow_debug_20260407_095415_314966.md
+   JSON: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/debug_logs/workflow_debug_20260407_095415_314966.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_000.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_001.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_002.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_003.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_004.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_005.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_006.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_007.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_008.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_009.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_010.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_011.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_012.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_013.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_014.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_015.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_016.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_017.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_018.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_019.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_020.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_021.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_022.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_023.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_024.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_025.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_026.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_027.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_028.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_029.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_030.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_031.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_032.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_033.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_034.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_035.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_036.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_037.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_038.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_039.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_040.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_041.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_042.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 保存: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/page_043.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] 总结报告: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output/summary.json
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] [OK] Markdown导出: /home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/output.md
+[复宏汉霖_2696_HK_20260407_095415_e99d0b] 完成: status=success duration=965.947s
+
+==========================================================================================
+Batch Summary (concurrent)
+==========================================================================================
+total_wall_sec=965.949 | avg_file_sec=771.874 | success=3 | failed=0
+------------------------------------------------------------------------------------------
+success |  551.168s | run_id=20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675 | ppt=20260317-DTC-O-007 Pan-RAS GT1-final-1.pdf
+           output=/home/eccom/projects/PPT_Parsing_last/.runs/20260317-DTC-O-007_Pan-RAS_GT1-final-1/20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675/ppt_parsing_output
+           markdown=/home/eccom/projects/PPT_Parsing_last/.runs/20260317-DTC-O-007_Pan-RAS_GT1-final-1/20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675/output.md
+           logs=/home/eccom/projects/PPT_Parsing_last/.runs/20260317-DTC-O-007_Pan-RAS_GT1-final-1/20260317-DTC-O-007_Pan-RAS_GT1-final-1_20260407_095415_983675/debug_logs
+success |  798.506s | run_id=BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9 | ppt=BeOne-JPM_2026_Presentation_CN.pdf
+           output=/home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/ppt_parsing_output
+           markdown=/home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/output.md
+           logs=/home/eccom/projects/PPT_Parsing_last/.runs/BeOne-JPM_2026_Presentation_CN/BeOne-JPM_2026_Presentation_CN_20260407_095415_c7d3c9/debug_logs
+success |  965.947s | run_id=复宏汉霖_2696_HK_20260407_095415_e99d0b | ppt=复宏汉霖（2696.HK）.pptx
+           output=/home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/ppt_parsing_output
+           markdown=/home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/output.md
+           logs=/home/eccom/projects/PPT_Parsing_last/.runs/复宏汉霖_2696_HK/复宏汉霖_2696_HK_20260407_095415_e99d0b/debug_logs
+==========================================================================================
+(ppt_poc) eccom@ubuntu:~/projects/PPT_Parsing_last$

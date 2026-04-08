@@ -143,11 +143,11 @@ class Step4_OutputGenerator:
         
         # 如果该页由复杂 Pipeline 产出 markdown，优先复用它（更贴近 MinerU 的图表/图片展示）
         cfg = get_config()
-        processing_root = str(getattr(cfg, "processing_artifacts_dir", "processing_artifacts") or "processing_artifacts")
-        artifacts_dir = f"{processing_root}/page_{page_index:03d}"
-        pipeline_md_path = os.path.join(artifacts_dir, f"page_{page_index:03d}_output.md")
-        repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        pipeline_md_path_abs = os.path.join(repo_root, pipeline_md_path)
+        processing_root = str(getattr(page_state, "processing_artifacts_dir", "") or "").strip()
+        if not processing_root:
+            processing_root = str(getattr(cfg, "processing_artifacts_dir", "processing_artifacts") or "processing_artifacts")
+        artifacts_dir = os.path.join(processing_root, f"page_{page_index:03d}")
+        pipeline_md_path_abs = os.path.join(artifacts_dir, f"page_{page_index:03d}_output.md")
 
         use_pipeline_md = os.path.exists(pipeline_md_path_abs)
 

@@ -20,16 +20,16 @@ try:
 except ImportError:
     convert_from_path = None
 
-# 1. 补充引入 PPTWorkflowState (修复 ImportError 关键)
+# 引入 PPTWorkflowState 
 from state import GlobalPageAnalysis, PageElement, BBox, PPTWorkflowState, PPTPageState
 
-# 2. 导入 VLM 客户端
+# 导入 VLM 客户端
 from vlm_client import VLMClient
 from tools.ppt_converter import PPTConverter
 from config import get_config
 
 
-# 装饰/噪声元素关键词（用于后处理过滤，双保险）
+# 装饰/噪声元素关键词（用于后处理过滤）
 _DECORATIVE_KWS = (
     "背景", "底纹", "装饰", "边框", "分割线", "页眉", "页脚", "页码", "水印",
     "logo", "LOGO", "Icon", "icon", "ICON", "纹理", "渐变", "花纹", "点阵",
@@ -63,8 +63,10 @@ class PPTIngestionEngine:
         print(f"[PPTIngestion] 开始转换PPT: {ppt_path}")
         
         ppt_abs_path = os.path.abspath(ppt_path)
-        output_dir = Path(ppt_path).parent / "ppt_slides_temp"
-        output_dir.mkdir(exist_ok=True)
+        config = get_config()
+        processing_root = str(getattr(config, "processing_artifacts_dir", "processing_artifacts") or "processing_artifacts")
+        output_dir = Path(processing_root) / "ppt_slides_temp"
+        output_dir.mkdir(parents=True, exist_ok=True)
 
         suffix = Path(ppt_abs_path).suffix.lower()
         if suffix == ".pdf":
@@ -72,9 +74,6 @@ class PPTIngestionEngine:
             return PPTIngestionEngine._convert_pdf_to_images(ppt_abs_path, output_dir)
         if suffix not in (".ppt", ".pptx"):
             raise ValueError(f"不支持的文件类型: {suffix} (仅支持 .ppt/.pptx/.pdf)")
-        
-        # 加载配置
-        config = get_config()
         
         # 初始化转换工具
         converter = PPTConverter(
@@ -137,16 +136,26 @@ class ImageUtils:
             
             cfg = get_config()
             processing_root = str(getattr(cfg, "processing_artifacts_dir", "processing_artifacts") or "processing_artifacts")
-            output_dir = path_obj.parent.parent / processing_root / "crops" / path_obj.stem
+            processing_root_path = Path(processing_root)
+            if not processing_root_path.is_absolute():
+                # 优先从当前 slide 路径推断真实 processing_artifacts 根目录，避免重复拼接。
+                # 典型路径：.../<run>/processing_artifacts/ppt_slides_temp/slide_001.png
+                parts = list(path_obj.parts)
+                if "processing_artifacts" in parts:
+                    idx = parts.index("processing_artifacts")
+                    processing_root_path = Path(*parts[: idx + 1])
+                else:
+                    processing_root_path = path_obj.parent.parent / processing_root_path
+            output_dir = processing_root_path / "crops" / path_obj.stem
             output_dir.mkdir(parents=True, exist_ok=True)
             
             with Image.open(image_path) as img:
                 w, h = img.size
                 
-                # Step 2 Locator 返回的是 [ymin, xmin, ymax, xmax] (0-1000 归一化坐标)
+                #  [ymin, xmin, ymax, xmax] (0-1000 归一化坐标)
                 ymin_n, xmin_n, ymax_n, xmax_n = bbox
                 
-                # --- [改进] 添加 Padding ---
+                # ---  添加 Padding ---
                 pad_w = int(w * padding_ratio)
                 pad_h = int(h * padding_ratio)
                 
@@ -156,7 +165,7 @@ class ImageUtils:
                 right = int((xmax_n / 1000) * w)
                 bottom = int((ymax_n / 1000) * h)
 
-                # 应用 Padding (建议在像素层面加，而不是在归一化层面)
+                # 应用 Padding 
                 pad_w = int(w * padding_ratio)
                 pad_h = int(h * padding_ratio)
                 left, top = max(0, left - pad_w), max(0, top - pad_h)
@@ -347,7 +356,7 @@ class Step1_GlobalAnalysisEngine:
         )
 
 # ============================================================================
-# 2. 节点函数 (修复：补全缺失的 node_ingestion)
+# 2. 节点函数 
 # ============================================================================
 
 def node_step1_global_analysis(state: PPTPageState, vlm_client, debug_logger=None) -> dict:

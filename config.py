@@ -1,6 +1,7 @@
 """PPT解析工作流配置文件"""
 
 import os
+import threading
 from pathlib import Path
 from dataclasses import dataclass, field
 from typing import Literal
@@ -14,6 +15,26 @@ print(f"[Config] 从 {dotenv_path} 加载环境变量")
 
 # 导入 VLM 客户端
 from vlm_client import VLMClient
+
+
+_runtime_overrides = threading.local()
+
+
+def set_runtime_config_overrides(**overrides):
+    """为当前线程设置临时配置覆盖项（并发运行隔离用）。"""
+    clean = {k: v for k, v in overrides.items() if v is not None}
+    setattr(_runtime_overrides, "values", clean)
+
+
+def clear_runtime_config_overrides():
+    """清理当前线程的临时配置覆盖项。"""
+    if hasattr(_runtime_overrides, "values"):
+        delattr(_runtime_overrides, "values")
+
+
+def get_runtime_config_overrides() -> dict:
+    """获取当前线程的临时配置覆盖项。"""
+    return dict(getattr(_runtime_overrides, "values", {}) or {})
 
 
 @dataclass
@@ -165,7 +186,12 @@ class PPTWorkflowConfig:
 
 def get_config() -> PPTWorkflowConfig:
     """获取配置实例"""
-    return PPTWorkflowConfig()
+    cfg = PPTWorkflowConfig()
+    overrides = get_runtime_config_overrides()
+    for key, value in overrides.items():
+        if hasattr(cfg, key):
+            setattr(cfg, key, value)
+    return cfg
 
 
 def init_api_clients():
@@ -175,18 +201,25 @@ def init_api_clients():
     VLM: Qwen 视觉模型 (优先使用原生 Dashscope SDK，降级到 OpenAI 兼容模式)
     """
     config = get_config()
+    run_id = get_runtime_config_overrides().get("run_id", "")
+
+    def _cprint(message: str):
+        if run_id:
+            print(f"[{run_id}] {message}")
+        else:
+            print(message)
     
     # 诊断配置
-    print("\n" + "="*70)
-    print("[Config] API 配置诊断")
-    print("="*70)
+    _cprint("\n" + "="*70)
+    _cprint("[Config] API 配置诊断")
+    _cprint("="*70)
     
     # 1. LLM Client (GPT-4 via Azure OpenAI)
-    print(f"\n[LLM] LLM 配置:")
-    print(f"  - API Key: {'[OK]' if config.llm_api_key else '[MISSING]'}")
-    print(f"  - 端点: {config.llm_azure_endpoint if config.llm_azure_endpoint else '[MISSING]'}")
-    print(f"  - 模型: {config.llm_model_name}")
-    print(f"  - API版本: {config.api_version}")
+    _cprint(f"\n[LLM] LLM 配置:")
+    _cprint(f"  - API Key: {'[OK]' if config.llm_api_key else '[MISSING]'}")
+    _cprint(f"  - 端点: {config.llm_azure_endpoint if config.llm_azure_endpoint else '[MISSING]'}")
+    _cprint(f"  - 模型: {config.llm_model_name}")
+    _cprint(f"  - API版本: {config.api_version}")
     
     if not config.llm_api_key:
         raise ValueError("[ERROR] LLM_API_KEY 未设置，请检查 .env 文件")
@@ -199,21 +232,21 @@ def init_api_clients():
             azure_endpoint=config.llm_azure_endpoint,
             api_version=config.api_version
         )
-        print(f"  [OK] Azure OpenAI 客户端初始化成功")
+        _cprint(f"  [OK] Azure OpenAI 客户端初始化成功")
     except Exception as e:
-        print(f"  [ERROR] Azure OpenAI 客户端初始化失败: {e}")
+        _cprint(f"  [ERROR] Azure OpenAI 客户端初始化失败: {e}")
         raise
 
     # 2. VLM Client (可配置：GPT-4o 或 Qwen3-VL-Plus)
     selected_provider = config.normalized_multimodal_provider
-    print(f"\n[VLM] VLM 配置:")
-    print(f"  - 提供方: {selected_provider}")
-    print(f"  - 运行模型: {config.vlm_runtime_model_name}")
+    _cprint(f"\n[VLM] VLM 配置:")
+    _cprint(f"  - 提供方: {selected_provider}")
+    _cprint(f"  - 运行模型: {config.vlm_runtime_model_name}")
 
     try:
         if selected_provider == "qwen3-vl-plus":
-            print(f"  - Qwen API Key: {'[OK]' if config.vlm_api_key else '[MISSING]'}")
-            print(f"  - Qwen 端点: {config.vlm_base_url if config.vlm_base_url else '[MISSING]'}")
+            _cprint(f"  - Qwen API Key: {'[OK]' if config.vlm_api_key else '[MISSING]'}")
+            _cprint(f"  - Qwen 端点: {config.vlm_base_url if config.vlm_base_url else '[MISSING]'}")
             if not config.vlm_api_key:
                 raise ValueError("[ERROR] VLM_API_KEY 未设置，请检查 .env 文件")
             if not config.vlm_base_url:
@@ -224,11 +257,11 @@ def init_api_clients():
                 base_url=config.vlm_base_url,
                 model_name=config.vlm_runtime_model_name,
             )
-            print(f"  - VLM 调用模式: {getattr(vlm_client, 'client_type', 'unknown')}")
+            _cprint(f"  - VLM 调用模式: {getattr(vlm_client, 'client_type', 'unknown')}")
         else:
-            print(f"  - GPT-4o API Key: {'[OK]' if config.g4o_api_key else '[MISSING]'}")
-            print(f"  - GPT-4o 端点: {config.g4o_azure_endpoint if config.g4o_azure_endpoint else '[MISSING]'}")
-            print(f"  - API版本: {config.g4o_api_version}")
+            _cprint(f"  - GPT-4o API Key: {'[OK]' if config.g4o_api_key else '[MISSING]'}")
+            _cprint(f"  - GPT-4o 端点: {config.g4o_azure_endpoint if config.g4o_azure_endpoint else '[MISSING]'}")
+            _cprint(f"  - API版本: {config.g4o_api_version}")
             if not config.g4o_api_key:
                 raise ValueError("[ERROR] G4O_API_KEY 未设置，请检查 .env 文件")
             if not config.g4o_azure_endpoint:
@@ -239,12 +272,12 @@ def init_api_clients():
                 azure_endpoint=config.g4o_azure_endpoint,
                 api_version=config.g4o_api_version,
             )
-            print("  - VLM 调用模式: azure-openai")
+            _cprint("  - VLM 调用模式: azure-openai")
 
-        print(f"  [OK] VLM 客户端初始化成功")
+        _cprint(f"  [OK] VLM 客户端初始化成功")
     except Exception as e:
-        print(f"  [ERROR] VLM 客户端初始化失败: {e}")
+        _cprint(f"  [ERROR] VLM 客户端初始化失败: {e}")
         raise
     
-    print("\n" + "="*70 + "\n")
+    _cprint("\n" + "="*70 + "\n")
     return llm_client, vlm_client
